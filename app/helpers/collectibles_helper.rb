@@ -1,0 +1,2 @@
+module CollectiblesHelper
+end

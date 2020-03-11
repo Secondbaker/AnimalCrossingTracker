@@ -5,5 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Collectible.destroy_all
 Collection.destroy_all
 
+number_of_collections = rand(2..5)
+number_of_collections.times do 
+   # Collection.create(title: F)
+end
