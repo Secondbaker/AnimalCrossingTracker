@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_013601) do
+ActiveRecord::Schema.define(version: 2020_03_12_160620) do
+
+  create_table "attributes", force: :cascade do |t|
+    t.string "name"
+    t.integer "type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["type_id"], name: "index_attributes_on_type_id"
+  end
+
+  create_table "checkboxes", force: :cascade do |t|
+    t.boolean "checked"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "collectible_attributes", force: :cascade do |t|
     t.string "name"
@@ -25,6 +39,9 @@ ActiveRecord::Schema.define(version: 2020_03_12_013601) do
     t.integer "collection_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "thumbnail"
+    t.string "name"
+    t.boolean "complete"
     t.index ["collection_id"], name: "index_collectibles_on_collection_id"
   end
 
@@ -34,6 +51,19 @@ ActiveRecord::Schema.define(version: 2020_03_12_013601) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "name_types", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "attributes", "types"
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
 end
