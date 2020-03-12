@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_002926) do
+ActiveRecord::Schema.define(version: 2020_03_12_013601) do
 
   create_table "collectible_attributes", force: :cascade do |t|
     t.string "name"
     t.integer "collectible_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "value"
     t.index ["collectible_id"], name: "index_collectible_attributes_on_collectible_id"
   end
 

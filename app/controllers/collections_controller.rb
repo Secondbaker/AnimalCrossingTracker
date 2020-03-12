@@ -10,6 +10,8 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    @collection = Collection.find(params[:id])
+    @collectibles = @collection.collectibles.includes(:collectible_attributes)
   end
 
   # GET /collections/new

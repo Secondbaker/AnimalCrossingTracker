@@ -5,5 +5,22 @@
   <%= @collection.title %>
 </p>
 
+<table>
+  <tbody>
+    <tr>
+      <% @collectibles.first.collectible_attributes.each do |att| %>
+        <td><%= att.name %></td>
+      <% end %>
+    </tr>
+    <% @collectibles.each do |collectible| %>
+      <tr>
+        <% collectible.collectible_attributes.each do |att| %>
+          <td><%= att.value %> </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <%= link_to 'Edit', edit_collection_path(@collection) %> |
 <%= link_to 'Back', collections_path %>
