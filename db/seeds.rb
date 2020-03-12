@@ -5,10 +5,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+CollectibleAttribute.destroy_all
 Collectible.destroy_all
 Collection.destroy_all
 
-number_of_collections = rand(2..5)
-number_of_collections.times do 
-   # Collection.create(title: F)
-end
+Collection.create(title: "Fish")
+Collection.find_by(title: "Fish").collectibles.create().collectible_attributes.create(name: "Size")
+Collection.create(title: "Bugs")
+Collection.find_by(title: "Bugs").collectibles.create().collectible_attributes.create(name: "rarity")
+
