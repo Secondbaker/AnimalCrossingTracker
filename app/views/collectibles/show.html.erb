@@ -1,9 +1,22 @@
 <p id="notice"><%= notice %></p>
 
+<h3><%= @collectible.name %></h3>
+<%= image_tag(@collectible.thumbnail, size: "100") %>
+<%= check_box_tag "Complete", @collectible.complete, @collectible.complete %>
+
+<table>
+  <% @collectible.collectible_attributes.each do |att|%>
+    <tr>
+      <td><%= att.name %></td>
+      <td><%= att.value %></td>
+    </tr>
+  <% end %>
+</table>
+
 <p>
   <strong>Collection:</strong>
   <%= @collectible.collection_id %>
 </p>
 
 <%= link_to 'Edit', edit_collectible_path(@collectible) %> |
-<%= link_to 'Back', collectibles_path %>
+<%= link_to 'Back', @collectible.collection %>

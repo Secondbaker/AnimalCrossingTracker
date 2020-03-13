@@ -8,7 +8,7 @@
 <% @collectibles.each do |collectible| %>
   <%= form_with do |f| %>
     <p><%= link_to collectible.name, collectible %></p>
-    <p><%= collectible.thumbnail %></p>
+    <%= image_tag(collectible.thumbnail, size: "100") %>
     <%= check_box_tag "Complete", collectible.complete, collectible.complete %>
   <% end %>
 <% end %>
