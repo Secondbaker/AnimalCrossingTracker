@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :time_of_years
   resources :collectible_attributes
   resources :collectibles
   resources :collections

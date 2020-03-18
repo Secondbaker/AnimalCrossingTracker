@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_12_160620) do
+ActiveRecord::Schema.define(version: 2020_03_18_191526) do
 
   create_table "collectible_attributes", force: :cascade do |t|
     t.string "name"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 2020_03_12_160620) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "time_of_years", force: :cascade do |t|
+    t.integer "start"
+    t.integer "end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "collectible_id". null: false
+    t.index ["collectible_id"], name: "index_time_of_years_on_collectible_id"
+  end
+
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
+  add_foreign_key "time_of_years", "collectibles"
 end
