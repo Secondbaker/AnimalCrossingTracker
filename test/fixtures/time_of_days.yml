@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  collectible: one
+  start: 2020-03-18 15:28:46
+  end: 2020-03-18 15:28:46
+
+two:
+  collectible: two
+  start: 2020-03-18 15:28:46
+  end: 2020-03-18 15:28:46

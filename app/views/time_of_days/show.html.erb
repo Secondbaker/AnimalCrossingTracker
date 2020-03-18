@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Collectible:</strong>
+  <%= @time_of_day.collectible_id %>
+</p>
+
+<p>
+  <strong>Start:</strong>
+  <%= @time_of_day.start %>
+</p>
+
+<p>
+  <strong>End:</strong>
+  <%= @time_of_day.end %>
+</p>
+
+<%= link_to 'Edit', edit_time_of_day_path(@time_of_day) %> |
+<%= link_to 'Back', time_of_days_path %>

@@ -1,0 +1,32 @@
+<%= form_with(model: time_of_day, local: true) do |form| %>
+  <% if time_of_day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(time_of_day.errors.count, "error") %> prohibited this time_of_day from being saved:</h2>
+
+      <ul>
+        <% time_of_day.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :collectible_id %>
+    <%= form.text_field :collectible_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start %>
+    <%= form.time_select :start %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end %>
+    <%= form.time_select :end %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
