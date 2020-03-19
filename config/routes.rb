@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :bell_values
   resources :rarities
   resources :time_of_days
-  resources :time_of_years
   resources :collectible_attributes
   resources :collectibles
   resources :collections
