@@ -1,0 +1,2 @@
+module RaritiesHelper
+end

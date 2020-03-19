@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @rarity.value %>
+</p>
+
+<p>
+  <strong>Collectible:</strong>
+  <%= @rarity.collectible_id %>
+</p>
+
+<%= link_to 'Edit', edit_rarity_path(@rarity) %> |
+<%= link_to 'Back', rarities_path %>

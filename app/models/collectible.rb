@@ -3,4 +3,5 @@ class Collectible < ApplicationRecord
   has_many :collectible_attributes
   has_many :time_of_years
   has_many :time_of_days
+  has_many :rarities
 end
