@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :months
   resources :bell_values
   resources :rarities
   resources :time_of_days
