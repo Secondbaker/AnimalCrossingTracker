@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @bell_value.value %>
+</p>
+
+<p>
+  <strong>Collectible:</strong>
+  <%= @bell_value.collectible_id %>
+</p>
+
+<%= link_to 'Edit', edit_bell_value_path(@bell_value) %> |
+<%= link_to 'Back', bell_values_path %>

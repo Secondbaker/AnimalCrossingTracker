@@ -1,0 +1,27 @@
+<%= form_with(model: bell_value, local: true) do |form| %>
+  <% if bell_value.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bell_value.errors.count, "error") %> prohibited this bell_value from being saved:</h2>
+
+      <ul>
+        <% bell_value.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.number_field :value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :collectible_id %>
+    <%= form.text_field :collectible_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
