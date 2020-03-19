@@ -5,6 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Rarity.destroy_all
+BellValue.destroy_all
+TimeOfDay.destroy_all
+TimeOfYear.destroy_all
 CollectibleAttribute.destroy_all
 Collectible.destroy_all
 Collection.destroy_all
@@ -30,3 +34,11 @@ fish_two_atts.create(name: "Value", value: "10000000 bells")
 
 Collection.create(title: "Bugs")
 Collection.find_by(title: "Bugs").collectibles.create().collectible_attributes.create(name: "rarity")
+
+Rarity.destroy_all
+BellValue.destroy_all
+TimeOfDay.destroy_all
+TimeOfYear.destroy_all
+CollectibleAttribute.destroy_all
+Collectible.destroy_all
+Collection.destroy_all
