@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_18_192846) do
+ActiveRecord::Schema.define(version: 2020_03_19_141131) do
 
   create_table "collectible_attributes", force: :cascade do |t|
     t.string "name"
@@ -37,6 +37,14 @@ ActiveRecord::Schema.define(version: 2020_03_18_192846) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rarities", force: :cascade do |t|
+    t.integer "value"
+    t.integer "collectible_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collectible_id"], name: "index_rarities_on_collectible_id"
+  end
+
   create_table "time_of_days", force: :cascade do |t|
     t.integer "collectible_id", null: false
     t.time "start"
@@ -57,6 +65,7 @@ ActiveRecord::Schema.define(version: 2020_03_18_192846) do
 
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
+  add_foreign_key "rarities", "collectibles"
   add_foreign_key "time_of_days", "collectibles"
   add_foreign_key "time_of_years", "collectibles"
 end
