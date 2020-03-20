@@ -1,0 +1,2 @@
+class CollectibleAttributeType < ApplicationRecord
+end

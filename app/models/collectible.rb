@@ -1,7 +1,4 @@
 class Collectible < ApplicationRecord
   belongs_to :collection
-  has_many :collectible_attributes
-  has_many :time_of_years
-  has_many :time_of_days
-  has_many :rarities
+  has_many :collectible_attributes, -> { order(position: :asc)}
 end

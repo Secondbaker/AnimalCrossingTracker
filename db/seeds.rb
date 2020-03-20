@@ -5,40 +5,65 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+CollectibleAttribute.destroy_all
+
 Rarity.destroy_all
 BellValue.destroy_all
 TimeOfDay.destroy_all
-TimeOfYear.destroy_all
-CollectibleAttribute.destroy_all
+#TimeOfYear.destroy_all
+
 Collectible.destroy_all
 Collection.destroy_all
+
+Month.destroy_all
+Month.create(name: "January", number: 1)
+Month.create(name: "February", number: 2)
+Month.create(name: "March", number: 3)
+Month.create(name: "April", number: 4)
+Month.create(name: "May", number: 5)
+Month.create(name: "June", number: 6)
+Month.create(name: "July", number: 7)
+Month.create(name: "August", number: 8)
+Month.create(name: "September", number: 9)
+Month.create(name: "October", number: 10)
+Month.create(name: "November", number: 11)
+Month.create(name: "December", number: 12)
+
+CollectibleAttributeType.create(name: "Rarity")
+CollectibleAttributeType.create(name: "Bell Value")
+CollectibleAttributeType.create(name: "Time of Day")
+
+Rarity.create(value: 1)
 
 fish_collection = Collection.create(title: "Fish")
 first_fish = fish_collection.collectibles.create(name: "Shark", thumbnail: "https://m.sharkclean.com/include/images/products/hero-ZU780WBKT.jpg", complete: false)
-fish_one_atts = first_fish.collectible_attributes;
-fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
-fish_one_atts.create(name: "Month Range", value: "August")
-fish_one_atts.create(name: "Location", value: "Mountains for some reason")
-fish_one_atts.create(name: "Size", value: "Shark sized")
-fish_one_atts.create(name: "Rarity", value: "Very rary")
-fish_one_atts.create(name: "Value", value: "10000000 bells")
+first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: CollectibleAttributeType.first)
+#fish_one_atts = first_fish.collectible_attributes;
+#fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
+#fish_one_atts.create(name: "Month Range", value: "August")
+#fish_one_atts.create(name: "Location", value: "Mountains for some reason")
+#fish_one_atts.create(name: "Size", value: "Shark sized")
+#fish_one_atts.create(name: "Rarity", value: "Very rary")
+#fish_one_atts.create(name: "Value", value: "10000000 bells")
 
 second_fish = fish_collection.collectibles.create(name: "Seahorse", thumbnail: "https://horseislove.com/wp-content/uploads/2018/11/can_horses_swim.jpg", complete: true)
-fish_two_atts = second_fish.collectible_attributes;
-fish_two_atts.create(name: "Time", value: "6:00pm - 8:00pm")
-fish_two_atts.create(name: "Month Range", value: "August")
-fish_two_atts.create(name: "Location", value: "Mountains for some reason")
-fish_two_atts.create(name: "Size", value: "Seahorse sized")
-fish_two_atts.create(name: "Rarity", value: "Very rary")
-fish_two_atts.create(name: "Value", value: "10000000 bells")
+#fish_two_atts = second_fish.collectible_attributes;
+#fish_two_atts.create(name: "Time", value: "6:00pm - 8:00pm")
+#fish_two_atts.create(name: "Month Range", value: "August")
+#fish_two_atts.create(name: "Location", value: "Mountains for some reason")
+#fish_two_atts.create(name: "Size", value: "Seahorse sized")
+#fish_two_atts.create(name: "Rarity", value: "Very rary")
+#fish_two_atts.create(name: "Value", value: "10000000 bells")
 
-Collection.create(title: "Bugs")
-Collection.find_by(title: "Bugs").collectibles.create().collectible_attributes.create(name: "rarity")
+#Collection.create(title: "Bugs")
+#Collection.find_by(title: "Bugs").collectibles.create().collectible_attributes.create(name: "rarity")
 
-Rarity.destroy_all
-BellValue.destroy_all
-TimeOfDay.destroy_all
-TimeOfYear.destroy_all
-CollectibleAttribute.destroy_all
-Collectible.destroy_all
-Collection.destroy_all
+
+#CollectibleAttribute.destroy_all
+
+#Rarity.destroy_all
+#BellValue.destroy_all
+#TimeOfDay.destroy_all
+#TimeOfYear.destroy_all
+#Collectible.destroy_all
+#Collection.destroy_all

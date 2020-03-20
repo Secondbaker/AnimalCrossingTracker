@@ -10,22 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_19_150901) do
+ActiveRecord::Schema.define(version: 2020_03_20_211357) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
-    t.integer "collectible_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["collectible_id"], name: "index_bell_values_on_collectible_id"
+  end
+
+  create_table "collectible_attribute_types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "collectible_attributes", force: :cascade do |t|
-    t.string "name"
     t.integer "collectible_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "value"
+    t.string "collectible_attribute_value_type"
+    t.integer "collectible_attribute_value_id"
+    t.integer "collectible_attribute_type_id"
+    t.integer "position"
+    t.index ["collectible_attribute_type_id"], name: "collectible_attribute_type_index"
+    t.index ["collectible_attribute_value_type", "collectible_attribute_value_id"], name: "collectible_attribute_value_index"
     t.index ["collectible_id"], name: "index_collectible_attributes_on_collectible_id"
   end
 
@@ -54,24 +62,17 @@ ActiveRecord::Schema.define(version: 2020_03_19_150901) do
 
   create_table "rarities", force: :cascade do |t|
     t.integer "value"
-    t.integer "collectible_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["collectible_id"], name: "index_rarities_on_collectible_id"
   end
 
   create_table "time_of_days", force: :cascade do |t|
-    t.integer "collectible_id", null: false
     t.time "start"
     t.time "end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["collectible_id"], name: "index_time_of_days_on_collectible_id"
   end
 
-  add_foreign_key "bell_values", "collectibles"
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
-  add_foreign_key "rarities", "collectibles"
-  add_foreign_key "time_of_days", "collectibles"
 end
