@@ -23,6 +23,7 @@ class CollectionsController < ApplicationController
   def edit
     @collection = Collection.find(params[:id])
     @collectibles = @collection.collectibles
+    
   end
 
   # POST /collections
@@ -44,6 +45,13 @@ class CollectionsController < ApplicationController
   # PATCH/PUT /collections/1
   # PATCH/PUT /collections/1.json
   def update
+    @collection = Collection.find(params[:id])
+    @collectibles = @collection.collectibles
+    @collectibles.each do |collectible|
+      collectible.collectible_attributes.each do |collatt|
+        collatt.collectible_attribute_value
+      end
+    end
     respond_to do |format|
       if @collection.update(collection_params)
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
