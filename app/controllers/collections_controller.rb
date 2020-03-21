@@ -21,6 +21,8 @@ class CollectionsController < ApplicationController
 
   # GET /collections/1/edit
   def edit
+    @collection = Collection.find(params[:id])
+    @collectibles = @collection.collectibles
   end
 
   # POST /collections

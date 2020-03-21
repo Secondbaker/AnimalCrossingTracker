@@ -11,17 +11,6 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+  <%= render form.object.collectible_attribute_value %>
 
-  <div class="field">
-    <%= form.label :collectible_id %>
-    <%= form.text_field :collectible_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
 <% end %>

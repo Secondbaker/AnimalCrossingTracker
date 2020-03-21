@@ -2,5 +2,42 @@
 
 <%= render 'form', collection: @collection %>
 
+
+<table>
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Thumbnail url
+        </td>
+        <td>
+            Completed
+        </td>
+        <% @collectibles.first.collectible_attributes.each do |collatt| %>
+            <td>
+                <%= collatt.collectible_attribute_value_type %>
+            </td>
+        <% end %>
+    </tr>
+    <% @collectibles.each do |collectible| %>
+        <tr>
+        <td>
+            <%= collectible.name %>
+        </td>
+        <td>
+            <%= collectible.thumbnail %>
+        </td>
+        <td>
+        <%= check_box_tag "", collectible.complete, collectible.complete %>
+        </td>
+        <% collectible.collectible_attributes.each do |collatt| %>
+            <td>
+                <%= render 'collectible_attributes/form', collectible_attribute: collatt %>
+            </td>
+        <% end %>
+        </tr>
+    <% end %>
+</table>
 <%= link_to 'Show', @collection %> |
 <%= link_to 'Back', collections_path %>
