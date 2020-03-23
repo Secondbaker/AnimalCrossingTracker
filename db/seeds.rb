@@ -29,15 +29,19 @@ Month.create(name: "October", number: 10)
 Month.create(name: "November", number: 11)
 Month.create(name: "December", number: 12)
 
-CollectibleAttributeType.create(name: "Rarity")
-CollectibleAttributeType.create(name: "Bell Value")
-CollectibleAttributeType.create(name: "Time of Day")
+rarity_type = CollectibleAttributeType.create(name: "Rarity")
+bell_value_type = CollectibleAttributeType.create(name: "Bell Value")
+time_of_day_type = CollectibleAttributeType.create(name: "Time of Day")
 
 Rarity.create(value: 1)
+BellValue.create(value: 154)
+TimeOfDay.create(start: "8:00am", end: "8:00pm")
 
 fish_collection = Collection.create(title: "Fish")
 first_fish = fish_collection.collectibles.create(name: "Shark", thumbnail: "https://m.sharkclean.com/include/images/products/hero-ZU780WBKT.jpg", complete: false)
 first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: CollectibleAttributeType.first)
+first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
+first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
 #fish_one_atts = first_fish.collectible_attributes;
 #fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
 #fish_one_atts.create(name: "Month Range", value: "August")

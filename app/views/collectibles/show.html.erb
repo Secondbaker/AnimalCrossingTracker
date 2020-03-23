@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
 <h3><%= @collectible.name %></h3>
-<%= image_tag(@collectible.thumbnail, size: "100") %>
+<%= image_tag(@collectible.thumbnail, size: "45") %>
 <%= check_box_tag "Complete", @collectible.complete, @collectible.complete %>
 
 <table>
   <% @collectible.collectible_attributes.each do |att|%>
     <tr>
-      <td><%= att.name %></td>
-      <td><%= att.value %></td>
+      <td><%= att.collectible_attribute_value_type %></td>
+      <td> <%= render 'collectible_attributes/show', collectible_attribute: att %></td>
     </tr>
   <% end %>
 </table>
