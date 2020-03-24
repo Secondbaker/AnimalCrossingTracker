@@ -29,14 +29,26 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	font-size: 25px;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	font-size: 3rem;
+	color: #7B6C53;
+}
+
 body {
 	background-image: asset-data-url('pattern-leaves-white.jpg');
 	background-repeat: repeat;
 }
 
-a, a:visited, a:focus, a:hover { text-decoration: none; }
+a, a:visited, a:focus, a:hover {
+	text-decoration: none;
+	color: #7B6C53;
+}
 
-header { display: grid; }
+header {
+	display: grid;
+	padding-bottom: 90px;
+	margin-bottom: 100px;
+}
 
 header nav {
 	align-self: center;
