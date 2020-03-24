@@ -42,7 +42,7 @@ TimeOfYear.first.months << [january, february, april, august, december]
 
 
 fish_collection = Collection.create(title: "Fish")
-first_fish = fish_collection.collectibles.create(name: "Shark", thumbnail: "https://m.sharkclean.com/include/images/products/hero-ZU780WBKT.jpg", complete: false)
+first_fish = fish_collection.collectibles.create(name: "Shark", thumbnail: "https://vignette.wikia.nocookie.net/animalcrossing/images/5/5b/Shark_HHD_Icon.png/revision/latest?cb=20161105204315", complete: false)
 first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: CollectibleAttributeType.first)
 first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
@@ -55,7 +55,7 @@ first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear
 #fish_one_atts.create(name: "Rarity", value: "Very rary")
 #fish_one_atts.create(name: "Value", value: "10000000 bells")
 
-second_fish = fish_collection.collectibles.create(name: "Seahorse", thumbnail: "https://horseislove.com/wp-content/uploads/2018/11/can_horses_swim.jpg", complete: true)
+second_fish = fish_collection.collectibles.create(name: "Seahorse", thumbnail: "https://vignette.wikia.nocookie.net/animalcrossing/images/a/aa/Sea_Horse_HHD_Icon.png/revision/latest?cb=20161105204235", complete: true)
 #fish_two_atts = second_fish.collectible_attributes;
 #fish_two_atts.create(name: "Time", value: "6:00pm - 8:00pm")
 #fish_two_atts.create(name: "Month Range", value: "August")
