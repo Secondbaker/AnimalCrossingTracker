@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :locations
+  resources :fishing_locations
   resources :time_of_years
   resources :collectible_attribute_types
   resources :months

@@ -1,0 +1,2 @@
+class FishingLocation < ApplicationRecord
+end
