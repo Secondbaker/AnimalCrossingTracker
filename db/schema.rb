@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_20_211357) do
+ActiveRecord::Schema.define(version: 2020_03_24_150428) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -60,6 +60,11 @@ ActiveRecord::Schema.define(version: 2020_03_20_211357) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "months_time_of_years", id: false, force: :cascade do |t|
+    t.integer "month_id", null: false
+    t.integer "time_of_year_id", null: false
+  end
+
   create_table "rarities", force: :cascade do |t|
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
@@ -73,6 +78,14 @@ ActiveRecord::Schema.define(version: 2020_03_20_211357) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "time_of_years", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "collectible_attribute_id"
+    t.index ["collectible_attribute_id"], name: "index_time_of_years_on_collectible_attribute_id"
+  end
+
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
+  add_foreign_key "time_of_years", "collectible_attributes"
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :time_of_years
   resources :collectible_attribute_types
   resources :months
   resources :bell_values

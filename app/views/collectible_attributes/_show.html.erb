@@ -17,6 +17,8 @@
         <%= render "bell_values/show", bell_value: form.object.collectible_attribute_value %>
     <% elsif (form.object.collectible_attribute_value.class == TimeOfDay) then %>
         <%= render "time_of_days/show", time_of_day: form.object.collectible_attribute_value %>
+    <% elsif (form.object.collectible_attribute_value.class == TimeOfYear) then %>
+        <%= render "time_of_years/show", time_of_year: form.object.collectible_attribute_value %>
     <% end %>
   
   <% end %>
