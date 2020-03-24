@@ -1,15 +1,64 @@
 <!DOCTYPE html>
+<html lang="en">
 <html>
   <head>
-    <title>AnimalCrossingTracker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Crossing Tracker</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://use.typekit.net/kyh4nqi.css">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag('dropdown', 'data-turbolinks-track': 'reload') %>
   </head>
 
   <body>
+  <header>
+  <nav>
+    <ul class="main-menu">
+      <li class="menu"><a href="">My Island</a></li>
+      <li class="logo"><a href=""><%= image_tag "logo.png" %></a></li>
+      <li onclick="navDropdown()" class="menu dropdown">Collections</li>
+    </ul>
+    <ul class="submenu" id="collections-submenu">
+      <p><a href="">Collections</a></p>
+      <li><a href="">
+        <span>Badges</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Gyroids</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Bugs</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Fish</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Diving</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>K.K. Corner</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Crazy Redd</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+      <li><a href="">
+        <span>Fossils</span>
+        <%= image_tag "icon-net.png" %>
+      </a></li>
+    </ul>
+  </nav>
+</header>
     <%= yield %>
   </body>
 </html>
