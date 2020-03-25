@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Fishing Spots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @fishing_spots.each do |fishing_spot| %>
+      <tr>
+        <td><%= fishing_spot.name %></td>
+        <td><%= link_to 'Show', fishing_spot %></td>
+        <td><%= link_to 'Edit', edit_fishing_spot_path(fishing_spot) %></td>
+        <td><%= link_to 'Destroy', fishing_spot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fishing Spot', new_fishing_spot_path %>

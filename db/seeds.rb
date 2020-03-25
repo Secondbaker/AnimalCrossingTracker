@@ -12,8 +12,9 @@ CollectibleAttribute.destroy_all
 Rarity.destroy_all
 BellValue.destroy_all
 TimeOfDay.destroy_all
-# TimeOfYear.destroy_all
-
+TimeOfYear.destroy_all
+FishingLocation.destroy_all
+BugLocation.destroy_all
 Collectible.destroy_all
 Collection.destroy_all
 
@@ -31,11 +32,20 @@ october = Month.create(name: 'October', number: 10)
 november = Month.create(name: 'November', number: 11)
 december = Month.create(name: 'December', number: 12)
 
+FishingSpot.destroy_all
+pier = FishingSpot.create(name: 'Pier')
+pond = FishingSpot.create(name: 'Pond')
+river = FishingSpot.create(name: 'River')
+river_clifftop = FishingSpot.create(name: 'River (Clifftop)')
+river_mouth = FishingSpot.create(name: 'River (Mouth)')
+sea = FishingSpot.create(name: 'Sea')
+sea_raining = FishingSpot.create(name: 'Sea (Raining)')
+
 rarity_type = CollectibleAttributeType.create(name: 'Rarity')
 bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
 time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
 time_of_year_type = CollectibleAttributeType.create(name: 'Time of Year')
-location_type = CollectibleAttributeType.create(name: 'Location')
+fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location')
 
 Rarity.create(value: 1)
 BellValue.create(value: 154)
@@ -43,11 +53,10 @@ TimeOfDay.create(start: '8:00am', end: '8:00pm')
 TimeOfYear.create
 TimeOfYear.first.months << [january, february, april, august, december]
 
-FishingLocation.create(name: 'Pond')
-Location.create(location_value: FishingLocation.first)
+FishingLocation.create
+FishingLocation.first.fishing_spots << [pond, river]
 
 BugLocation.create(name: "On Villagers' heads")
-bug_loc = Location.create(location_value: BugLocation.first)
 
 fish_collection = Collection.create(title: 'Fish')
 first_fish = fish_collection.collectibles.create(name: 'Shark', thumbnail: 'https://vignette.wikia.nocookie.net/animalcrossing/images/5/5b/Shark_HHD_Icon.png/revision/latest?cb=20161105204315', complete: false)
@@ -55,8 +64,7 @@ first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.fir
 first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: time_of_year_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: Location.first, collectible_attribute_type: location_type)
-first_fish.collectible_attribute.create(collectible_attribute_value: bug_loc, collectible_attribute_type: location_type)
+first_fish.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: fishing_location_type)
 # fish_one_atts = first_fish.collectible_attributes;
 # fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
 # fish_one_atts.create(name: "Month Range", value: "August")
