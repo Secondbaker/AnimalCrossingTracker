@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_171707) do
+ActiveRecord::Schema.define(version: 2020_03_25_173912) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -106,8 +106,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_171707) do
   end
 
   create_table "time_of_days", force: :cascade do |t|
-    t.time "start"
-    t.time "end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

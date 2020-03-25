@@ -8,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 CollectibleAttribute.destroy_all
-
+Timespan.destroy_all
 Rarity.destroy_all
 BellValue.destroy_all
 TimeOfDay.destroy_all
@@ -74,7 +74,8 @@ bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
 
 Rarity.create(value: 1)
 BellValue.create(value: 154)
-TimeOfDay.create(start: '8:00am', end: '8:00pm')
+TimeOfDay.create(timespans: [Timespan.create(start: "2:00am", end: "3:00am"), Timespan.create(start: "5:00pm", end: "7:00pm")] )
+
 TimeOfYear.create
 TimeOfYear.first.months << [january, february, april, august, december]
 
