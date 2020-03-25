@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BellValuesController < ApplicationController
-  before_action :set_bell_value, only: [:show, :edit, :update, :destroy]
+  before_action :set_bell_value, only: %i[show edit update destroy]
 
   # GET /bell_values
   # GET /bell_values.json
@@ -9,8 +11,7 @@ class BellValuesController < ApplicationController
 
   # GET /bell_values/1
   # GET /bell_values/1.json
-  def show
-  end
+  def show; end
 
   # GET /bell_values/new
   def new
@@ -18,8 +19,7 @@ class BellValuesController < ApplicationController
   end
 
   # GET /bell_values/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bell_values
   # POST /bell_values.json
@@ -62,13 +62,14 @@ class BellValuesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bell_value
-      @bell_value = BellValue.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def bell_value_params
-      params.require(:bell_value).permit(:value, :collectible_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bell_value
+    @bell_value = BellValue.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def bell_value_params
+    params.require(:bell_value).permit(:value, :collectible_id)
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class FishingLocationsControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class FishingLocationsControllerTest < ActionDispatch::IntegrationTest
     @fishing_location = fishing_locations(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get fishing_locations_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_fishing_location_url
     assert_response :success
   end
 
-  test "should create fishing_location" do
+  test 'should create fishing_location' do
     assert_difference('FishingLocation.count') do
       post fishing_locations_url, params: { fishing_location: { name: @fishing_location.name } }
     end
@@ -23,22 +25,22 @@ class FishingLocationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to fishing_location_url(FishingLocation.last)
   end
 
-  test "should show fishing_location" do
+  test 'should show fishing_location' do
     get fishing_location_url(@fishing_location)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_fishing_location_url(@fishing_location)
     assert_response :success
   end
 
-  test "should update fishing_location" do
+  test 'should update fishing_location' do
     patch fishing_location_url(@fishing_location), params: { fishing_location: { name: @fishing_location.name } }
     assert_redirected_to fishing_location_url(@fishing_location)
   end
 
-  test "should destroy fishing_location" do
+  test 'should destroy fishing_location' do
     assert_difference('FishingLocation.count', -1) do
       delete fishing_location_url(@fishing_location)
     end

@@ -1,43 +1,45 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class CollectionsTest < ApplicationSystemTestCase
   setup do
     @collection = collections(:one)
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit collections_url
-    assert_selector "h1", text: "Collections"
+    assert_selector 'h1', text: 'Collections'
   end
 
-  test "creating a Collection" do
+  test 'creating a Collection' do
     visit collections_url
-    click_on "New Collection"
+    click_on 'New Collection'
 
-    fill_in "Title", with: @collection.title
-    click_on "Create Collection"
+    fill_in 'Title', with: @collection.title
+    click_on 'Create Collection'
 
-    assert_text "Collection was successfully created"
-    click_on "Back"
+    assert_text 'Collection was successfully created'
+    click_on 'Back'
   end
 
-  test "updating a Collection" do
+  test 'updating a Collection' do
     visit collections_url
-    click_on "Edit", match: :first
+    click_on 'Edit', match: :first
 
-    fill_in "Title", with: @collection.title
-    click_on "Update Collection"
+    fill_in 'Title', with: @collection.title
+    click_on 'Update Collection'
 
-    assert_text "Collection was successfully updated"
-    click_on "Back"
+    assert_text 'Collection was successfully updated'
+    click_on 'Back'
   end
 
-  test "destroying a Collection" do
+  test 'destroying a Collection' do
     visit collections_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on 'Destroy', match: :first
     end
 
-    assert_text "Collection was successfully destroyed"
+    assert_text 'Collection was successfully destroyed'
   end
 end

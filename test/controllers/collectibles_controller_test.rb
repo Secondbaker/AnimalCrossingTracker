@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CollectiblesControllerTest < ActionDispatch::IntegrationTest
@@ -5,17 +7,17 @@ class CollectiblesControllerTest < ActionDispatch::IntegrationTest
     @collectible = collectibles(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get collectibles_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_collectible_url
     assert_response :success
   end
 
-  test "should create collectible" do
+  test 'should create collectible' do
     assert_difference('Collectible.count') do
       post collectibles_url, params: { collectible: { collection_id: @collectible.collection_id } }
     end
@@ -23,22 +25,22 @@ class CollectiblesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to collectible_url(Collectible.last)
   end
 
-  test "should show collectible" do
+  test 'should show collectible' do
     get collectible_url(@collectible)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_collectible_url(@collectible)
     assert_response :success
   end
 
-  test "should update collectible" do
+  test 'should update collectible' do
     patch collectible_url(@collectible), params: { collectible: { collection_id: @collectible.collection_id } }
     assert_redirected_to collectible_url(@collectible)
   end
 
-  test "should destroy collectible" do
+  test 'should destroy collectible' do
     assert_difference('Collectible.count', -1) do
       delete collectible_url(@collectible)
     end

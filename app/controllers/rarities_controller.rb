@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RaritiesController < ApplicationController
-  before_action :set_rarity, only: [:show, :edit, :update, :destroy]
+  before_action :set_rarity, only: %i[show edit update destroy]
 
   # GET /rarities
   # GET /rarities.json
@@ -9,8 +11,7 @@ class RaritiesController < ApplicationController
 
   # GET /rarities/1
   # GET /rarities/1.json
-  def show
-  end
+  def show; end
 
   # GET /rarities/new
   def new
@@ -18,8 +19,7 @@ class RaritiesController < ApplicationController
   end
 
   # GET /rarities/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /rarities
   # POST /rarities.json
@@ -62,13 +62,14 @@ class RaritiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_rarity
-      @rarity = Rarity.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def rarity_params
-      params.require(:rarity).permit(:value, :collectible_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_rarity
+    @rarity = Rarity.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def rarity_params
+    params.require(:rarity).permit(:value, :collectible_id)
+  end
 end

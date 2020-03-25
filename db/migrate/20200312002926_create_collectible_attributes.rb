@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCollectibleAttributes < ActiveRecord::Migration[6.0]
   def change
     create_table :collectible_attributes do |t|

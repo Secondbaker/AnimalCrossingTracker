@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FishingLocationsController < ApplicationController
-  before_action :set_fishing_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_fishing_location, only: %i[show edit update destroy]
 
   # GET /fishing_locations
   # GET /fishing_locations.json
@@ -9,8 +11,7 @@ class FishingLocationsController < ApplicationController
 
   # GET /fishing_locations/1
   # GET /fishing_locations/1.json
-  def show
-  end
+  def show; end
 
   # GET /fishing_locations/new
   def new
@@ -18,8 +19,7 @@ class FishingLocationsController < ApplicationController
   end
 
   # GET /fishing_locations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /fishing_locations
   # POST /fishing_locations.json
@@ -62,13 +62,14 @@ class FishingLocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fishing_location
-      @fishing_location = FishingLocation.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def fishing_location_params
-      params.require(:fishing_location).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fishing_location
+    @fishing_location = FishingLocation.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def fishing_location_params
+    params.require(:fishing_location).permit(:name)
+  end
 end

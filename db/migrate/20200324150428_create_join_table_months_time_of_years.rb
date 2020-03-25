@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateJoinTableMonthsTimeOfYears < ActiveRecord::Migration[6.0]
   def change
     create_join_table :months, :time_of_years do |t|

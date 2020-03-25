@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TimeOfDaysController < ApplicationController
-  before_action :set_time_of_day, only: [:show, :edit, :update, :destroy]
+  before_action :set_time_of_day, only: %i[show edit update destroy]
 
   # GET /time_of_days
   # GET /time_of_days.json
@@ -9,8 +11,7 @@ class TimeOfDaysController < ApplicationController
 
   # GET /time_of_days/1
   # GET /time_of_days/1.json
-  def show
-  end
+  def show; end
 
   # GET /time_of_days/new
   def new
@@ -18,8 +19,7 @@ class TimeOfDaysController < ApplicationController
   end
 
   # GET /time_of_days/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /time_of_days
   # POST /time_of_days.json
@@ -62,13 +62,14 @@ class TimeOfDaysController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_time_of_day
-      @time_of_day = TimeOfDay.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def time_of_day_params
-      params.require(:time_of_day).permit(:collectible_id, :start, :end)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_time_of_day
+    @time_of_day = TimeOfDay.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def time_of_day_params
+    params.require(:time_of_day).permit(:collectible_id, :start, :end)
+  end
 end

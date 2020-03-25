@@ -1,5 +1,7 @@
-class Collection < ApplicationRecord
-    has_many :collectibles
+# frozen_string_literal: true
 
-    accepts_nested_attributes_for :collectibles
+class Collection < ApplicationRecord
+  has_many :collectibles
+
+  accepts_nested_attributes_for :collectibles
 end

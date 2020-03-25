@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class LocationsController < ApplicationController
-  before_action :set_location, only: [:show, :edit, :update, :destroy]
+  before_action :set_location, only: %i[show edit update destroy]
 
   # GET /locations
   # GET /locations.json
@@ -9,8 +11,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1
   # GET /locations/1.json
-  def show
-  end
+  def show; end
 
   # GET /locations/new
   def new
@@ -18,8 +19,7 @@ class LocationsController < ApplicationController
   end
 
   # GET /locations/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /locations
   # POST /locations.json
@@ -62,13 +62,14 @@ class LocationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = Location.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def location_params
-      params.fetch(:location, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = Location.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def location_params
+    params.fetch(:location, {})
+  end
 end

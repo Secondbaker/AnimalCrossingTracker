@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CollectibleAttributeTypesController < ApplicationController
-  before_action :set_collectible_attribute_type, only: [:show, :edit, :update, :destroy]
+  before_action :set_collectible_attribute_type, only: %i[show edit update destroy]
 
   # GET /collectible_attribute_types
   # GET /collectible_attribute_types.json
@@ -9,8 +11,7 @@ class CollectibleAttributeTypesController < ApplicationController
 
   # GET /collectible_attribute_types/1
   # GET /collectible_attribute_types/1.json
-  def show
-  end
+  def show; end
 
   # GET /collectible_attribute_types/new
   def new
@@ -18,8 +19,7 @@ class CollectibleAttributeTypesController < ApplicationController
   end
 
   # GET /collectible_attribute_types/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /collectible_attribute_types
   # POST /collectible_attribute_types.json
@@ -62,13 +62,14 @@ class CollectibleAttributeTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_collectible_attribute_type
-      @collectible_attribute_type = CollectibleAttributeType.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def collectible_attribute_type_params
-      params.require(:collectible_attribute_type).permit(:name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_collectible_attribute_type
+    @collectible_attribute_type = CollectibleAttributeType.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def collectible_attribute_type_params
+    params.require(:collectible_attribute_type).permit(:name)
+  end
 end

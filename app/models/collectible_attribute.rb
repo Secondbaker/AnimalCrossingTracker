@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CollectibleAttribute < ApplicationRecord
   belongs_to :collectible
   acts_as_list scope: :collectible

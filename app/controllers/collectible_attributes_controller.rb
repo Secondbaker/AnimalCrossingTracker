@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class CollectibleAttributesController < ApplicationController
-  before_action :set_collectible_attribute, only: [:show, :edit, :update, :destroy]
+  before_action :set_collectible_attribute, only: %i[show edit update destroy]
 
   # GET /collectible_attributes
   # GET /collectible_attributes.json
@@ -9,8 +11,7 @@ class CollectibleAttributesController < ApplicationController
 
   # GET /collectible_attributes/1
   # GET /collectible_attributes/1.json
-  def show
-  end
+  def show; end
 
   # GET /collectible_attributes/new
   def new
@@ -18,8 +19,7 @@ class CollectibleAttributesController < ApplicationController
   end
 
   # GET /collectible_attributes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /collectible_attributes
   # POST /collectible_attributes.json
@@ -62,13 +62,14 @@ class CollectibleAttributesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_collectible_attribute
-      @collectible_attribute = CollectibleAttribute.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def collectible_attribute_params
-      params.require(:collectible_attribute).permit(:name, :collectible_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_collectible_attribute
+    @collectible_attribute = CollectibleAttribute.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def collectible_attribute_params
+    params.require(:collectible_attribute).permit(:name, :collectible_id)
+  end
 end

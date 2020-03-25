@@ -1,45 +1,47 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class MonthsTest < ApplicationSystemTestCase
   setup do
     @month = months(:one)
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit months_url
-    assert_selector "h1", text: "Months"
+    assert_selector 'h1', text: 'Months'
   end
 
-  test "creating a Month" do
+  test 'creating a Month' do
     visit months_url
-    click_on "New Month"
+    click_on 'New Month'
 
-    fill_in "Name", with: @month.name
-    fill_in "Number", with: @month.number
-    click_on "Create Month"
+    fill_in 'Name', with: @month.name
+    fill_in 'Number', with: @month.number
+    click_on 'Create Month'
 
-    assert_text "Month was successfully created"
-    click_on "Back"
+    assert_text 'Month was successfully created'
+    click_on 'Back'
   end
 
-  test "updating a Month" do
+  test 'updating a Month' do
     visit months_url
-    click_on "Edit", match: :first
+    click_on 'Edit', match: :first
 
-    fill_in "Name", with: @month.name
-    fill_in "Number", with: @month.number
-    click_on "Update Month"
+    fill_in 'Name', with: @month.name
+    fill_in 'Number', with: @month.number
+    click_on 'Update Month'
 
-    assert_text "Month was successfully updated"
-    click_on "Back"
+    assert_text 'Month was successfully updated'
+    click_on 'Back'
   end
 
-  test "destroying a Month" do
+  test 'destroying a Month' do
     visit months_url
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on 'Destroy', match: :first
     end
 
-    assert_text "Month was successfully destroyed"
+    assert_text 'Month was successfully destroyed'
   end
 end

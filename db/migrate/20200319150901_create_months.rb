@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMonths < ActiveRecord::Migration[6.0]
   def change
     create_table :months do |t|

@@ -1,1 +1,3 @@
-json.partial! "months/month", month: @month
+# frozen_string_literal: true
+
+json.partial! 'months/month', month: @month

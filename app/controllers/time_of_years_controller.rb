@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class TimeOfYearsController < ApplicationController
-  before_action :set_time_of_year, only: [:show, :edit, :update, :destroy]
+  before_action :set_time_of_year, only: %i[show edit update destroy]
 
   # GET /time_of_years
   # GET /time_of_years.json
@@ -9,8 +11,7 @@ class TimeOfYearsController < ApplicationController
 
   # GET /time_of_years/1
   # GET /time_of_years/1.json
-  def show
-  end
+  def show; end
 
   # GET /time_of_years/new
   def new
@@ -18,8 +19,7 @@ class TimeOfYearsController < ApplicationController
   end
 
   # GET /time_of_years/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /time_of_years
   # POST /time_of_years.json
@@ -62,13 +62,14 @@ class TimeOfYearsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_time_of_year
-      @time_of_year = TimeOfYear.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def time_of_year_params
-      params.require(:time_of_year).permit(:months_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_time_of_year
+    @time_of_year = TimeOfYear.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def time_of_year_params
+    params.require(:time_of_year).permit(:months_id)
+  end
 end

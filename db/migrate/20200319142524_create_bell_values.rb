@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateBellValues < ActiveRecord::Migration[6.0]
   def change
     create_table :bell_values do |t|

@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class MonthsController < ApplicationController
-  before_action :set_month, only: [:show, :edit, :update, :destroy]
+  before_action :set_month, only: %i[show edit update destroy]
 
   # GET /months
   # GET /months.json
@@ -9,8 +11,7 @@ class MonthsController < ApplicationController
 
   # GET /months/1
   # GET /months/1.json
-  def show
-  end
+  def show; end
 
   # GET /months/new
   def new
@@ -18,8 +19,7 @@ class MonthsController < ApplicationController
   end
 
   # GET /months/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /months
   # POST /months.json
@@ -62,13 +62,14 @@ class MonthsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_month
-      @month = Month.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def month_params
-      params.require(:month).permit(:name, :number)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_month
+    @month = Month.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def month_params
+    params.require(:month).permit(:name, :number)
+  end
 end
