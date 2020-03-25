@@ -12,7 +12,9 @@
   <% end %>
 
    <div class="field">
-    <%= form.label form.object.name %>
+    <% form.object.bug_spots.each do |spot| %>
+      <%= spot.name %>
+    <% end %>
   </div>
 
 <% end %>

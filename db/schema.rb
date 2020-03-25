@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_142904) do
+ActiveRecord::Schema.define(version: 2020_03_25_150104) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(version: 2020_03_25_142904) do
   end
 
   create_table "bug_locations", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+  end
+
+  create_table "bug_locations_spots", id: false, force: :cascade do |t|
+    t.integer "bug_location_id", null: false
+    t.integer "bug_spot_id", null: false
+  end
+
+  create_table "bug_spots", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"

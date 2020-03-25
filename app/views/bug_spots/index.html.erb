@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bug Spots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bug_spots.each do |bug_spot| %>
+      <tr>
+        <td><%= link_to 'Show', bug_spot %></td>
+        <td><%= link_to 'Edit', edit_bug_spot_path(bug_spot) %></td>
+        <td><%= link_to 'Destroy', bug_spot, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bug Spot', new_bug_spot_path %>
