@@ -1,0 +1,2 @@
+class Timespan < ApplicationRecord
+end
