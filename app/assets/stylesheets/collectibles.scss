@@ -2,16 +2,52 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-div.modal div input[type="checkbox"],
-section.collection-items div input[type="checkbox"]:checked {
+div.modal {
+	text-align: center;
+	margin: 0 auto;
+	padding: 100px 200px;
+	background-image: asset-data-url('square-bg-cream.svg');
+	background-size: 100%;
+	background-repeat: no-repeat;
+	filter: drop-shadow(0 10px 10px rgba(0,0,0,0.10));
+	max-width: 800px;
+}
+
+div.modal .modal-close {
+	float: right;
+	margin-top: 30px;
+	opacity: 0.5;
+}
+
+div.modal .modal-close:hover,
+div.modal .modal-close:focus {
+	opacity: 1;
+	transition: all ease-in-out 0.3s;
+}
+
+div.modal input[type="checkbox"],
+div.modal input[type="checkbox"]:checked {
 	visibility: hidden;
 }
 
-section.collection-items div input[type="checkbox"]:checked:before {
+div.modal input[type="checkbox"]:checked:before {
 	visibility: visible;
 	content: asset-data-url('checkmark.svg');
 	position: absolute;
 	width: 60px;
 	top: -10px;
 	right: -15px;
+}
+
+div.modal div.collectible-data {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	row-gap: 30px;
+	text-align: left;
+}
+
+div.modal div.collectible-edit {
+	margin-top: 50px;
+	text-align: right;
+	font-size: 0.5rem;
 }
