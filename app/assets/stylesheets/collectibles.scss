@@ -1,3 +1,17 @@
 // Place all the styles related to the Collectibles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+div.modal div input[type="checkbox"],
+section.collection-items div input[type="checkbox"]:checked {
+	visibility: hidden;
+}
+
+section.collection-items div input[type="checkbox"]:checked:before {
+	visibility: visible;
+	content: asset-data-url('checkmark.svg');
+	position: absolute;
+	width: 60px;
+	top: -10px;
+	right: -15px;
+}

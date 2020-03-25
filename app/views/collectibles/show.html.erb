@@ -1,22 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div class="modal">
 
-<h3><%= @collectible.name %></h3>
-<%= image_tag(@collectible.thumbnail, size: "45") %>
-<%= check_box_tag "Complete", @collectible.complete, @collectible.complete %>
+  <p id="notice"><%= notice %></p>
 
-<table>
-  <% @collectible.collectible_attributes.each do |att|%>
-    <tr>
-      <td><%= att.collectible_attribute_value_type %></td>
-      <td><%= render 'collectible_attributes/show', collectible_attribute: att %></td>
-    </tr>
-  <% end %>
-</table>
+  <h3><%= @collectible.name %></h3>
+  <%= image_tag(@collectible.thumbnail, size: "100") %>
+  <%= check_box_tag "Complete", @collectible.complete, @collectible.complete %>
 
-<p>
-  <strong>Collection:</strong>
-  <%= @collectible.collection_id %>
-</p>
+  <table>
+    <% @collectible.collectible_attributes.each do |att|%>
+      <tr>
+        <td><%= att.collectible_attribute_value_type %></td>
+        <td><%= render 'collectible_attributes/show', collectible_attribute: att %></td>
+      </tr>
+    <% end %>
+  </table>
 
-<%= link_to 'Edit', edit_collectible_path(@collectible) %> |
-<%= link_to 'Back', @collectible.collection %>
+  <p>
+    <strong>Collection:</strong>
+    <%= @collectible.collection_id %>
+  </p>
+
+  <%= link_to 'Edit', edit_collectible_path(@collectible) %> |
+  <%= link_to 'Back', @collectible.collection %>
+  
+</div>
