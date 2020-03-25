@@ -8,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 CollectibleAttribute.destroy_all
-
+Timespan.destroy_all
 Rarity.destroy_all
 BellValue.destroy_all
 TimeOfDay.destroy_all
@@ -74,7 +74,8 @@ bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
 
 Rarity.create(value: 1)
 BellValue.create(value: 154)
-TimeOfDay.create(start: '8:00am', end: '8:00pm')
+TimeOfDay.create(timespans: [Timespan.create(start: "2:00am", end: "3:00am"), Timespan.create(start: "5:00pm", end: "7:00pm")] )
+
 TimeOfYear.create
 TimeOfYear.first.months << [january, february, april, august, december]
 
@@ -86,7 +87,7 @@ BugLocation.first.bug_spots << [villagers_heads, shell_disguise]
 
 fish_collection = Collection.create(title: 'Fish')
 first_fish = fish_collection.collectibles.create(name: 'Shark', thumbnail: 'https://vignette.wikia.nocookie.net/animalcrossing/images/5/5b/Shark_HHD_Icon.png/revision/latest?cb=20161105204315', complete: false)
-first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: CollectibleAttributeType.first)
+first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: rarity_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: time_of_year_type)

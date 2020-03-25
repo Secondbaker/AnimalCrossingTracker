@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_150104) do
+ActiveRecord::Schema.define(version: 2020_03_25_173912) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -106,8 +106,6 @@ ActiveRecord::Schema.define(version: 2020_03_25_150104) do
   end
 
   create_table "time_of_days", force: :cascade do |t|
-    t.time "start"
-    t.time "end"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -119,7 +117,17 @@ ActiveRecord::Schema.define(version: 2020_03_25_150104) do
     t.index ["collectible_attribute_id"], name: "index_time_of_years_on_collectible_attribute_id"
   end
 
+  create_table "timespans", force: :cascade do |t|
+    t.time "start"
+    t.time "end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "time_of_day_id"
+    t.index ["time_of_day_id"], name: "index_timespans_on_time_of_day_id"
+  end
+
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "collectibles", "collections"
   add_foreign_key "time_of_years", "collectible_attributes"
+  add_foreign_key "timespans", "time_of_days"
 end

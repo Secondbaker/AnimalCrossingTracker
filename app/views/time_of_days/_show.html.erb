@@ -12,6 +12,8 @@
   <% end %>
 
   <div class="field">
-    <%= form.label  "%s - %s" %[form.object.start.to_formatted_s, form.object.end.to_s] %>
+    <% form.object.timespans.each do |timespan| %>
+      <%= form.label  "%s - %s" %[timespan.start.to_s, timespan.end.to_s] %>
+    <% end %>
   </div>
 <% end %>
