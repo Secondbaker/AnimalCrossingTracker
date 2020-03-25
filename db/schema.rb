@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_24_170737) do
+ActiveRecord::Schema.define(version: 2020_03_24_181426) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -62,6 +62,9 @@ ActiveRecord::Schema.define(version: 2020_03_24_170737) do
   create_table "locations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "location_value_type"
+    t.integer "location_value_id"
+    t.index ["location_value_type", "location_value_id"], name: "location_value_index"
   end
 
   create_table "months", force: :cascade do |t|

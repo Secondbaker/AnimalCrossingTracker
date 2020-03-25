@@ -19,6 +19,8 @@
         <%= render "time_of_days/show", time_of_day: form.object.collectible_attribute_value %>
     <% elsif (form.object.collectible_attribute_value.class == TimeOfYear) then %>
         <%= render "time_of_years/show", time_of_year: form.object.collectible_attribute_value %>
+    <% elsif (form.object.collectible_attribute_value.class == FishingLocation) then %>
+      <%= render "fishing_locations/show", fishing_location: form.object.collectible_attribute_value %>
     <% end %>
   
   <% end %>

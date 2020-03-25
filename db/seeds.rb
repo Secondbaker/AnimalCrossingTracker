@@ -33,12 +33,15 @@ rarity_type = CollectibleAttributeType.create(name: "Rarity")
 bell_value_type = CollectibleAttributeType.create(name: "Bell Value")
 time_of_day_type = CollectibleAttributeType.create(name: "Time of Day")
 time_of_year_type = CollectibleAttributeType.create(name: "Time of Year")
+location_type = CollectibleAttributeType.create(name: "Location")
 
 Rarity.create(value: 1)
 BellValue.create(value: 154)
 TimeOfDay.create(start: "8:00am", end: "8:00pm")
 TimeOfYear.create()
 TimeOfYear.first.months << [january, february, april, august, december]
+
+FishingLocation.create(name: "Pond")
 
 
 fish_collection = Collection.create(title: "Fish")
@@ -47,6 +50,7 @@ first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.fir
 first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: time_of_year_type)
+first_fish.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: location_type)
 #fish_one_atts = first_fish.collectible_attributes;
 #fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
 #fish_one_atts.create(name: "Month Range", value: "August")
