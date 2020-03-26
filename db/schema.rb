@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_173912) do
+ActiveRecord::Schema.define(version: 2020_03_26_144132) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 2020_03_25_173912) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "fish_sizes", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fish_sizes_shadow_sizes", id: false, force: :cascade do |t|
+    t.integer "fish_size_id", null: false
+    t.integer "shadow_size_id", null: false
+  end
+
   create_table "fishing_locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -101,6 +112,11 @@ ActiveRecord::Schema.define(version: 2020_03_25_173912) do
 
   create_table "rarities", force: :cascade do |t|
     t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shadow_sizes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
