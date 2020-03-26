@@ -24,7 +24,7 @@
     <% elsif form.object.collectible_attribute_value.class == BugLocation %>
       <%= render "bug_locations/show", bug_location: form.object.collectible_attribute_value %>
     <% elsif form.object.collectible_attribute_value.class == ShadowSize %>
-      <%= render "shadow_sizes/show", shadow_size: form.object.collectible_attribute_value %>
+      <%= render partial: "shadow_sizes/show", locals: { shadow_size: form.object.collectible_attribute_value } %>
     <% end %>
   
   <% end %>
