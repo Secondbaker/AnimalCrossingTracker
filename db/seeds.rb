@@ -7,6 +7,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+ShadowSize.destroy_all
 CollectibleAttribute.destroy_all
 Timespan.destroy_all
 Rarity.destroy_all
@@ -42,7 +43,7 @@ sea = FishingSpot.create(name: 'Sea')
 sea_raining = FishingSpot.create(name: 'Sea (Raining)')
 
 BugSpot.destroy_all
-question = BugSpot.create(name: '?')
+question_bug = BugSpot.create(name: '?')
 shell_disguise = BugSpot.create(name: 'On beach disguised as shells')
 flying = BugSpot.create(name: 'Flying')
 flying_by_light = BugSpot.create(name: 'Flying by light')
@@ -64,6 +65,16 @@ leaf_disguise = BugSpot.create(name: 'Under trees disguised as leaves')
 underground = BugSpot.create(name: 'Underground')
 villagers_heads = BugSpot.create(name: 'Villagers\' heads')
 
+FishSize.destroy_all
+narrow = FishSize.create(name: 'Narrow')
+question_fish = FishSize.create(name: '? (Fin)')
+one = FishSize.create(name: '1')
+two = FishSize.create(name: '2')
+three = FishSize.create(name: '3')
+four = FishSize.create(name: '4')
+five = FishSize.create(name: '5')
+six = FishSize.create(name: '6')
+six_fin = FishSize.create(name: '6 (Fin)')
 
 rarity_type = CollectibleAttributeType.create(name: 'Rarity')
 bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
@@ -71,6 +82,7 @@ time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
 time_of_year_type = CollectibleAttributeType.create(name: 'Time of Year')
 fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location')
 bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
+shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
 
 Rarity.create(value: 1)
 BellValue.create(value: 154)
@@ -85,6 +97,9 @@ FishingLocation.first.fishing_spots << [pond, river]
 BugLocation.create
 BugLocation.first.bug_spots << [villagers_heads, shell_disguise]
 
+ShadowSize.create
+ShadowSize.first.fish_sizes << six_fin
+
 fish_collection = Collection.create(title: 'Fish')
 first_fish = fish_collection.collectibles.create(name: 'Shark', thumbnail: 'https://vignette.wikia.nocookie.net/animalcrossing/images/5/5b/Shark_HHD_Icon.png/revision/latest?cb=20161105204315', complete: false)
 first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: rarity_type)
@@ -93,6 +108,7 @@ first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.
 first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: time_of_year_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: fishing_location_type)
 first_fish.collectible_attributes.create(collectible_attribute_value: BugLocation.first, collectible_attribute_type: bug_location_type)
+first_fish.collectible_attributes.create(collectible_attribute_value: ShadowSize.first, collectible_attribute_type: shadow_size_type)
 # fish_one_atts = first_fish.collectible_attributes;
 # fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
 # fish_one_atts.create(name: "Month Range", value: "August")
