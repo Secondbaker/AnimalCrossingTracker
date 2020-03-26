@@ -1,31 +1,15 @@
-<%= form_with(model: collectible_attribute, local: true) do |form| %>
-    <% if collectible_attribute.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(collectible_attribute.errors.count, "error") %> prohibited this collectible_attribute from being saved:</h2>
-  
-        <ul>
-          <% collectible_attribute.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-  
-    <% if (form.object.collectible_attribute_value.class == Rarity) then %>
-        <%= render "rarities/show", rarity: form.object.collectible_attribute_value %>
-    <% elsif (form.object.collectible_attribute_value.class == BellValue) then %>
-        <%= render "bell_values/show", bell_value: form.object.collectible_attribute_value %>
-    <% elsif (form.object.collectible_attribute_value.class == TimeOfDay) then %>
-        <%= render "time_of_days/show", time_of_day: form.object.collectible_attribute_value %>
-    <% elsif (form.object.collectible_attribute_value.class == TimeOfYear) then %>
-        <%= render "time_of_years/show", time_of_year: form.object.collectible_attribute_value %>
-    <% elsif form.object.collectible_attribute_value.class == FishingLocation %>
-      <%= render "fishing_locations/show", fishing_location: form.object.collectible_attribute_value %>
-    <% elsif form.object.collectible_attribute_value.class == BugLocation %>
-      <%= render "bug_locations/show", bug_location: form.object.collectible_attribute_value %>
-    <% elsif form.object.collectible_attribute_value.class == ShadowSize %>
-      <%= render partial: "shadow_sizes/show", locals: { shadow_size: form.object.collectible_attribute_value } %>
-    <% end %>
-  
-  <% end %>
-  
+<% if (collectible_attribute.collectible_attribute_value.class == Rarity) then %>
+  <%= render partial: "rarities/show", locals: { rarity: collectible_attribute.collectible_attribute_value } %>
+<% elsif (collectible_attribute.collectible_attribute_value.class == BellValue) then %>
+  <%= render partial: "bell_values/show", locals: { bell_value: collectible_attribute.collectible_attribute_value } %>
+<% elsif (collectible_attribute.collectible_attribute_value.class == TimeOfDay) then %>
+  <%= render partial: "time_of_days/show", locals: { time_of_day: collectible_attribute.collectible_attribute_value } %>
+<% elsif (collectible_attribute.collectible_attribute_value.class == TimeOfYear) then %>
+  <%= render partial: "time_of_years/show", locals: { time_of_year: collectible_attribute.collectible_attribute_value } %>
+<% elsif collectible_attribute.collectible_attribute_value.class == FishingLocation %>
+  <%= render partial: "fishing_locations/show", locals: { fishing_location: collectible_attribute.collectible_attribute_value } %>
+<% elsif collectible_attribute.collectible_attribute_value.class == BugLocation %>
+  <%= render partial: "bug_locations/show", locals: { bug_location: collectible_attribute.collectible_attribute_value } %>
+<% elsif collectible_attribute.collectible_attribute_value.class == ShadowSize %>
+  <%= render partial: "shadow_sizes/show", locals: { shadow_size: collectible_attribute.collectible_attribute_value } %>
+<% end %>

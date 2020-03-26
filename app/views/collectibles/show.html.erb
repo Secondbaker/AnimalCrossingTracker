@@ -11,7 +11,7 @@
   <div class="collectible-data">
     <% @collectible.collectible_attributes.each do |att|%>
       <p><%= att.collectible_attribute_value_type %></p>
-      <%= render 'collectible_attributes/show', collectible_attribute: att %>
+      <%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
     <% end %>
   </div>
   
