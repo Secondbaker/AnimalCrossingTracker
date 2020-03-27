@@ -81,6 +81,9 @@ five = FishSize.create(name: '5')
 six = FishSize.create(name: '6')
 six_fin = FishSize.create(name: '6 (Fin)')
 
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'test.txt'))
+puts csv_text
+
 rarity_type = CollectibleAttributeType.create(name: 'Rarity')
 bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
 time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')

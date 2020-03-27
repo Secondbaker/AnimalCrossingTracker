@@ -1,17 +1,20 @@
-<% if (collectible_attribute.collectible_attribute_value.class == Rarity) then %>
-  <%= render partial: "rarities/show", locals: { rarity: collectible_attribute.collectible_attribute_value } %>
-<% elsif (collectible_attribute.collectible_attribute_value.class == BellValue) then %>
-  <%= render partial: "bell_values/show", locals: { bell_value: collectible_attribute.collectible_attribute_value } %>
-<% elsif (collectible_attribute.collectible_attribute_value.class == TimeOfDay) then %>
-  <%= render partial: "time_of_days/show", locals: { time_of_day: collectible_attribute.collectible_attribute_value } %>
-<% elsif (collectible_attribute.collectible_attribute_value.class == TimeOfYear) then %>
-  <%= render partial: "time_of_years/show", locals: { time_of_year: collectible_attribute.collectible_attribute_value } %>
-<% elsif collectible_attribute.collectible_attribute_value.class == FishingLocation %>
-  <%= render partial: "fishing_locations/show", locals: { fishing_location: collectible_attribute.collectible_attribute_value } %>
-<% elsif collectible_attribute.collectible_attribute_value.class == BugLocation %>
-  <%= render partial: "bug_locations/show", locals: { bug_location: collectible_attribute.collectible_attribute_value } %>
-<% elsif collectible_attribute.collectible_attribute_value.class == ShadowSize %>
-  <%= render partial: "shadow_sizes/show", locals: { shadow_size: collectible_attribute.collectible_attribute_value } %>
-<% elsif collectible_attribute.collectible_attribute_value.class == Mood %>
-  <%= render partial: "moods/show", locals: { mood: collectible_attribute.collectible_attribute_value } %>
+<% value = collectible_attribute.collectible_attribute_value%>
+<% value_class = value.class %>
+
+<% if (value_class == Rarity) then %>
+  <%= render partial: "rarities/show", locals: { rarity: value } %>
+<% elsif (value_class == BellValue) then %>
+  <%= render partial: "bell_values/show", locals: { bell_value: value } %>
+<% elsif (value_class == TimeOfDay) then %>
+  <%= render partial: "time_of_days/show", locals: { time_of_day: value } %>
+<% elsif (value_class == TimeOfYear) then %>
+  <%= render partial: "time_of_years/show", locals: { time_of_year: value } %>
+<% elsif value_class == FishingLocation %>
+  <%= render partial: "fishing_locations/show", locals: { fishing_location: value } %>
+<% elsif value_class == BugLocation %>
+  <%= render partial: "bug_locations/show", locals: { bug_location: value } %>
+<% elsif value_class == ShadowSize %>
+  <%= render partial: "shadow_sizes/show", locals: { shadow_size: value } %>
+<% elsif value_class == Mood %>
+  <%= render partial: "moods/show", locals: { mood: value } %>
 <% end %>
