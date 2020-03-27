@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Mood Names</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>String</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @mood_names.each do |mood_name| %>
+      <tr>
+        <td><%= mood_name.string %></td>
+        <td><%= link_to 'Show', mood_name %></td>
+        <td><%= link_to 'Edit', edit_mood_name_path(mood_name) %></td>
+        <td><%= link_to 'Destroy', mood_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Mood Name', new_mood_name_path %>

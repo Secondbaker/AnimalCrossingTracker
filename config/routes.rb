@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :mood_names
+  resources :moods
   resources :shadow_sizes
   resources :fish_sizes
   resources :timespans

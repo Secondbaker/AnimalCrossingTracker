@@ -12,4 +12,6 @@
   <%= render partial: "bug_locations/show", locals: { bug_location: collectible_attribute.collectible_attribute_value } %>
 <% elsif collectible_attribute.collectible_attribute_value.class == ShadowSize %>
   <%= render partial: "shadow_sizes/show", locals: { shadow_size: collectible_attribute.collectible_attribute_value } %>
+<% elsif collectible_attribute.collectible_attribute_value.class == Mood %>
+  <%= render partial: "moods/show", locals: { mood: collectible_attribute.collectible_attribute_value } %>
 <% end %>

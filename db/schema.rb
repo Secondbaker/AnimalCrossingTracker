@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_144132) do
+ActiveRecord::Schema.define(version: 2020_03_27_144952) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -108,6 +108,22 @@ ActiveRecord::Schema.define(version: 2020_03_26_144132) do
   create_table "months_time_of_years", id: false, force: :cascade do |t|
     t.integer "month_id", null: false
     t.integer "time_of_year_id", null: false
+  end
+
+  create_table "mood_names", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "mood_names_moods", id: false, force: :cascade do |t|
+    t.integer "mood_id", null: false
+    t.integer "mood_name_id", null: false
+  end
+
+  create_table "moods", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "rarities", force: :cascade do |t|
