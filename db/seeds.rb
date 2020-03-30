@@ -11,10 +11,12 @@
 
 #takes a string of format '[(#)# [am/pm] - (#)# [am/pm](; (#)# [am/pm] - (#)# [am/pm](;...))/All day]'
 #returns a TimeOfDay
-def parseTimeOfDay(time_of_day:string)
+def parseTimeOfDay(time_of_day:String)
     creation = TimeOfDay.create
     if time_of_day =~ /[aA]ll [dD]ay/
-        
+        creation.timespans << Timespan.create(start: "12:00am", end: "12:00am")
+    else
+        creation.timespans << Timespan.create(start: "4:00pm", end: "6:00pm")
     end
     return creation
 end
@@ -33,9 +35,9 @@ def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_va
     fish_shadow = ShadowSize.create
     fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
     creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow Size'))
-
     #time_of_day
-    #creation.collectible_attributes.create(collectible_attribute_value: , collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
+    fish_t_d = parseTimeOfDay(time_of_day:time_of_day)
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
     #creation.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
     #creation.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
@@ -114,15 +116,15 @@ underground = BugSpot.create(name: 'Underground')
 villagers_heads = BugSpot.create(name: 'Villagers\' heads')
 
 FishSize.destroy_all
-narrow = FishSize.create(name: 'Narrow')
-question_fish = FishSize.create(name: '? (Fin)')
-one = FishSize.create(name: '1')
-two = FishSize.create(name: '2')
-three = FishSize.create(name: '3')
-four = FishSize.create(name: '4')
-five = FishSize.create(name: '5')
-six = FishSize.create(name: '6')
-six_fin = FishSize.create(name: '6 (Fin)')
+#narrow = FishSize.create(name: 'Narrow')
+#question_fish = FishSize.create(name: '? (Fin)')
+#one = FishSize.create(name: '1')
+#two = FishSize.create(name: '2')
+#three = FishSize.create(name: '3')
+#four = FishSize.create(name: '4')
+#five = FishSize.create(name: '5')
+#six = FishSize.create(name: '6')
+#six_fin = FishSize.create(name: '6 (Fin)')
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 #puts csv_text
@@ -154,7 +156,7 @@ BugLocation.create
 BugLocation.first.bug_spots << [villagers_heads, shell_disguise]
 
 ShadowSize.create
-ShadowSize.first.fish_sizes << six_fin
+ShadowSize.first.fish_sizes << FishSize.first
 
 Mood.create
 Mood.first.mood_names << hard_to_say
