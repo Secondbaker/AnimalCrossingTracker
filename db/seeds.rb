@@ -8,6 +8,21 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+#takes a string which is a list of month names with spaces between them
+#returns a TimeOfYear
+def parseTimeOfYear(time_of_year:String)
+    creation = TimeOfYear.create
+    puts "-\t" + time_of_year
+    months = time_of_year.split(' ')
+    months.each do |month|
+        if !Month.find_by(name: month)
+            puts "Error:  Could not find month: " + month
+        else
+            creation.months << Month.find_by(name: month)
+        end
+    end
+    return creation
+end
 
 #takes a string of format '[(#)# [am/pm] - (#)# [am/pm](; (#)# [am/pm] - (#)# [am/pm](;...))/All day]'
 #returns a TimeOfDay
@@ -15,6 +30,7 @@ def parseTimeOfDay(time_of_day:String)
     creation = TimeOfDay.create
     if time_of_day =~ /[aA]ll [dD]ay/
         creation.timespans << Timespan.create(start: "12:00am", end: "12:00am")
+        puts "-\tAll day"
     else
 
         times = time_of_day.split(';')
@@ -22,7 +38,7 @@ def parseTimeOfDay(time_of_day:String)
             start_time = time.split('-')[0]
             end_time = time.split('-')[1]
             creation.timespans << Timespan.create(start: start_time, end: end_time)
-            puts "Created span from " + start_time + " to " + end_time
+            puts "-\t" + start_time + " to " + end_time
         end
         
     end
@@ -30,23 +46,32 @@ def parseTimeOfDay(time_of_day:String)
 end
 
 def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String)
+
     #create fish
     creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
+    puts "Creating " + fish_name
+    
     #begin setting attributes
+    
     #bell_value
     creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+   
     #shadow_size
     if !FishSize.find_by(name:shadow_size)
         FishSize.create(name:shadow_size)
-        puts "Created " + shadow_size
+        puts "New FishSize: " + shadow_size
     end
     fish_shadow = ShadowSize.create
     fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
     creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow Size'))
+    
     #time_of_day
     fish_t_d = parseTimeOfDay(time_of_day:time_of_day)
     creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
-    #creation.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
+    
+    #time_of_year
+    fish_t_y = parseTimeOfYear(time_of_year:time_of_year)
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
     #creation.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
 
