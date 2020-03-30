@@ -16,7 +16,15 @@ def parseTimeOfDay(time_of_day:String)
     if time_of_day =~ /[aA]ll [dD]ay/
         creation.timespans << Timespan.create(start: "12:00am", end: "12:00am")
     else
-        creation.timespans << Timespan.create(start: "4:00pm", end: "6:00pm")
+
+        times = time_of_day.split(';')
+        times.each do |time|
+            start_time = time.split('-')[0]
+            end_time = time.split('-')[1]
+            creation.timespans << Timespan.create(start: start_time, end: end_time)
+            puts "Created span from " + start_time + " to " + end_time
+        end
+        
     end
     return creation
 end
