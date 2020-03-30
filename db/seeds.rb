@@ -7,6 +7,49 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+#takes a string of format '[(#)# [am/pm] - (#)# [am/pm](; (#)# [am/pm] - (#)# [am/pm](;...))/All day]'
+#returns a TimeOfDay
+def parseTimeOfDay(time_of_day:string)
+    creation = TimeOfDay.create
+    if time_of_day =~ /[aA]ll [dD]ay/
+        
+    end
+    return creation
+end
+
+def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String)
+    #create fish
+    creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
+    #begin setting attributes
+    #bell_value
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+    #shadow_size
+    if !FishSize.find_by(name:shadow_size)
+        FishSize.create(name:shadow_size)
+        puts "Created " + shadow_size
+    end
+    fish_shadow = ShadowSize.create
+    fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
+    creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow Size'))
+
+    #time_of_day
+    #creation.collectible_attributes.create(collectible_attribute_value: , collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
+    #creation.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
+    #creation.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
+end
+
+def getFish(csv:CSV::Table)
+    fish = Collection.create(title: "Fish")
+    puts csv[0][4]
+    csv.each do |fish_data|
+        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6])
+    end
+end
+
+
+
 ShadowSize.destroy_all
 CollectibleAttribute.destroy_all
 Timespan.destroy_all
@@ -81,8 +124,12 @@ five = FishSize.create(name: '5')
 six = FishSize.create(name: '6')
 six_fin = FishSize.create(name: '6 (Fin)')
 
-csv_text = File.read(Rails.root.join('lib', 'seeds', 'test.txt'))
-puts csv_text
+csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
+#puts csv_text
+
+getFish(csv: csv_text)
+
+#csv_text.close
 
 rarity_type = CollectibleAttributeType.create(name: 'Rarity')
 bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
@@ -150,3 +197,4 @@ second_fish = fish_collection.collectibles.create(name: 'Seahorse', thumbnail: '
 # TimeOfYear.destroy_all
 # Collectible.destroy_all
 # Collection.destroy_all
+
