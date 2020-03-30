@@ -10,13 +10,17 @@
 
 #takes a string which is a list of month names with spaces between them
 #returns a TimeOfYear
-def parseTimeOfYear(time_of_year:String)
+def parseTimeOfYear(time_of_year:String, verbose:boolean = false)
     creation = TimeOfYear.create
-    puts "-\t" + time_of_year
+    if verbose
+        puts "-\t" + time_of_year
+    end
     months = time_of_year.split(' ')
     months.each do |month|
         if !Month.find_by(name: month)
-            puts "Error:  Could not find month: " + month
+            if verbose
+                puts "Error:  Probably misspelled month: " + month
+            end
         else
             creation.months << Month.find_by(name: month)
         end
@@ -26,11 +30,13 @@ end
 
 #takes a string of format '[(#)# [am/pm] - (#)# [am/pm](; (#)# [am/pm] - (#)# [am/pm](;...))/All day]'
 #returns a TimeOfDay
-def parseTimeOfDay(time_of_day:String)
+def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     creation = TimeOfDay.create
     if time_of_day =~ /[aA]ll [dD]ay/
         creation.timespans << Timespan.create(start: "12:00am", end: "12:00am")
-        puts "-\tAll day"
+        if verbose
+            puts "-\tAll day"
+        end
     else
 
         times = time_of_day.split(';')
@@ -38,14 +44,16 @@ def parseTimeOfDay(time_of_day:String)
             start_time = time.split('-')[0]
             end_time = time.split('-')[1]
             creation.timespans << Timespan.create(start: start_time, end: end_time)
-            puts "-\t" + start_time + " to " + end_time
+            if verbose
+                puts "-\t" + start_time + " to " + end_time
+            end
         end
         
     end
     return creation
 end
 
-def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String)
+def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String, verbose:boolean = false)
 
     #create fish
     creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
@@ -57,29 +65,69 @@ def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_va
     creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
    
     #shadow_size
+    #we need to add new sizes to the list of possible sizes while we seed
     if !FishSize.find_by(name:shadow_size)
         FishSize.create(name:shadow_size)
-        puts "New FishSize: " + shadow_size
+        if verbose
+            puts "New FishSize:\t" + shadow_size
+        end
     end
     fish_shadow = ShadowSize.create
+    if verbose
+        puts "-\t" + shadow_size
+    end
     fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
     creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow Size'))
     
     #time_of_day
-    fish_t_d = parseTimeOfDay(time_of_day:time_of_day)
+    fish_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
     creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
     
     #time_of_year
-    fish_t_y = parseTimeOfYear(time_of_year:time_of_year)
+    fish_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
     creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
-    #creation.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
+    
+    #fishing_location
+
+    #multiple fishing_locations can be passed in through one string
+    #if a location is in parenthesis, it means it's actually part of the previous location
+    #otherwise, it is a separate location
+    fish_locations = fishing_location.split(" ")
+    corrected_fish_locations = []
+    previous = ""
+    fish_locations.each do |location|
+        if location.include?('(')
+            corrected_fish_locations.pop
+            corrected_fish_locations.push(previous + " " + location)
+        else
+            corrected_fish_locations.push(location)
+        end
+        previous = location
+    end
+
+    fish_spot = FishingLocation.create
+    corrected_fish_locations.each do |location|
+        if !FishingSpot.find_by(name:location)
+            FishingSpot.create(name:location)
+            if verbose
+                puts "New FishingSpot:\t" + location
+            end
+        end
+        if verbose
+            puts "-\t" + location
+        end
+        fish_spot.fishing_spots << FishingSpot.find_by(name:location)
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
 
-def getFish(csv:CSV::Table)
+def getFish(csv:CSV::Table, verbose:boolean = false)
     fish = Collection.create(title: "Fish")
-    puts csv[0][4]
+    if verbose
+        puts "Creating Collection:\tFish"
+    end
     csv.each do |fish_data|
-        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6])
+        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6], verbose:true)
     end
 end
 
@@ -117,13 +165,13 @@ november = Month.create(name: 'November', number: 11)
 december = Month.create(name: 'December', number: 12)
 
 FishingSpot.destroy_all
-pier = FishingSpot.create(name: 'Pier')
-pond = FishingSpot.create(name: 'Pond')
-river = FishingSpot.create(name: 'River')
-river_clifftop = FishingSpot.create(name: 'River (Clifftop)')
-river_mouth = FishingSpot.create(name: 'River (Mouth)')
-sea = FishingSpot.create(name: 'Sea')
-sea_raining = FishingSpot.create(name: 'Sea (Raining)')
+#pier = FishingSpot.create(name: 'Pier')
+#pond = FishingSpot.create(name: 'Pond')
+#river = FishingSpot.create(name: 'River')
+#river_clifftop = FishingSpot.create(name: 'River (Clifftop)')
+#river_mouth = FishingSpot.create(name: 'River (Mouth)')
+#sea = FishingSpot.create(name: 'Sea')
+#sea_raining = FishingSpot.create(name: 'Sea (Raining)')
 
 BugSpot.destroy_all
 question_bug = BugSpot.create(name: '?')
@@ -162,7 +210,7 @@ FishSize.destroy_all
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 #puts csv_text
 
-getFish(csv: csv_text)
+getFish(csv: csv_text, verbose:true)
 
 #csv_text.close
 
@@ -183,7 +231,7 @@ TimeOfYear.create
 TimeOfYear.first.months << [january, february, april, august, december]
 
 FishingLocation.create
-FishingLocation.first.fishing_spots << [pond, river]
+FishingLocation.first.fishing_spots << FishingSpot.all
 
 BugLocation.create
 BugLocation.first.bug_spots << [villagers_heads, shell_disguise]
