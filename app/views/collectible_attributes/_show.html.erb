@@ -23,4 +23,6 @@
   <%= render partial: "villager_personalities/show", locals: { villager_personality: value } %>
 <% elsif value_class == VillagerSpecies %>
   <%= render partial: "villager_species/show", locals: { villager_species: value } %>
+<% elsif value_class == Birthday %>
+  <%= render partial: "birthdays/show", locals: { birthday: value } %>
 <% end %>

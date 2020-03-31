@@ -208,8 +208,8 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
     end
 end
 
-
-
+Birthday.destroy_all
+VillagerSpecies.destroy_all
 VillagerPersonality.destroy_all
 VillagerGender.destroy_all
 ShadowSize.destroy_all
@@ -236,6 +236,7 @@ mood_type = CollectibleAttributeType.create(name: 'Mood')
 villager_gender = CollectibleAttributeType.create(name: 'Villager Gender')
 villager_personality = CollectibleAttributeType.create(name: 'Personality')
 villager_species = CollectibleAttributeType.create(name: 'Species')
+birthday_type = CollectibleAttributeType.create(name: 'Birthday')
 
 MoodName.destroy_all
 hard_to_say = MoodName.create(name: 'Hard to say')
@@ -306,7 +307,7 @@ FishSize.destroy_all
 #six = FishSize.create(name: '6')
 #six_fin = FishSize.create(name: '6 (Fin)')
 
-verbose = true
+verbose = false
 
 #csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
@@ -326,8 +327,10 @@ VillagerPersonality.create
 VillagerPersonality.first.personality_types << PersonalityType.first
 VillagerSpecies.create
 VillagerSpecies.first.species << Species.first
+Birthday.create(value: "May 03")
 Collectible.all.each do |collectible|
-    collectible.collectible_attributes.create(collectible_attribute_value: VillagerSpecies.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
+    collectible.collectible_attributes.create(collectible_attribute_value: Birthday.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
+    puts Birthday.first.value
 end
 csv_text.each do |villager_data|
     #puts villager_data["Personality"]
