@@ -18,7 +18,9 @@
 <% elsif value_class == Mood %>
   <%= render partial: "moods/show", locals: { mood: value } %>
 <% elsif value_class == VillagerGender %>
-  <%= render partial: "villager_genders/show", locals: {villager_gender: value } %>
+  <%= render partial: "villager_genders/show", locals: { villager_gender: value } %>
 <% elsif value_class == VillagerPersonality %>
-  <%= render partial: "villager_personalities/show", locals: {villager_personality: value } %>
+  <%= render partial: "villager_personalities/show", locals: { villager_personality: value } %>
+<% elsif value_class == VillagerSpecies %>
+  <%= render partial: "villager_species/show", locals: { villager_species: value } %>
 <% end %>

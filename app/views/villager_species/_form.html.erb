@@ -1,0 +1,17 @@
+<%= form_with(model: villager_specy, local: true) do |form| %>
+  <% if villager_specy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(villager_specy.errors.count, "error") %> prohibited this villager_specy from being saved:</h2>
+
+      <ul>
+        <% villager_specy.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

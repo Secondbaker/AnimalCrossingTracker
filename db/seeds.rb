@@ -235,6 +235,7 @@ shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
 mood_type = CollectibleAttributeType.create(name: 'Mood')
 villager_gender = CollectibleAttributeType.create(name: 'Villager Gender')
 villager_personality = CollectibleAttributeType.create(name: 'Personality')
+villager_species = CollectibleAttributeType.create(name: 'Species')
 
 MoodName.destroy_all
 hard_to_say = MoodName.create(name: 'Hard to say')
@@ -258,6 +259,9 @@ december = Month.create(name: 'December', number: 12)
 PersonalityType.destroy_all
 p_t_1 = PersonalityType.create(name: 'Jock')
 p_t_2 = PersonalityType.create(name: 'Sleepy')
+
+Species.destroy_all
+s_1 = Species.create(name: 'Bird')
 
 FishingSpot.destroy_all
 #pier = FishingSpot.create(name: 'Pier')
@@ -320,9 +324,11 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 
 VillagerPersonality.create
 VillagerPersonality.first.personality_types << PersonalityType.first
+VillagerSpecies.create
+VillagerSpecies.first.species << Species.first
 Collectible.all.each do |collectible|
-    collectible.collectible_attributes.create(collectible_attribute_value: VillagerPersonality.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Personality'))
+    collectible.collectible_attributes.create(collectible_attribute_value: VillagerSpecies.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
 end
 csv_text.each do |villager_data|
-    puts villager_data["Personality"]
+    #puts villager_data["Personality"]
 end

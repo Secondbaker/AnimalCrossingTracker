@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_160742) do
+ActiveRecord::Schema.define(version: 2020_03_31_172245) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -148,6 +148,17 @@ ActiveRecord::Schema.define(version: 2020_03_31_160742) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "species_villager_species", id: false, force: :cascade do |t|
+    t.integer "species_id", null: false
+    t.integer "villager_species_id", null: false
+  end
+
   create_table "time_of_days", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -176,6 +187,11 @@ ActiveRecord::Schema.define(version: 2020_03_31_160742) do
   end
 
   create_table "villager_personalities", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "villager_species", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

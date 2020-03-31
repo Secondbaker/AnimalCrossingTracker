@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :villager_species
+  resources :species
   resources :personality_types
   resources :villager_personalities
   resources :villager_genders
