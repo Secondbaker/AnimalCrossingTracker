@@ -1,0 +1,2 @@
+class VillagerGender < ApplicationRecord
+end

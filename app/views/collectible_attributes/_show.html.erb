@@ -17,4 +17,6 @@
   <%= render partial: "shadow_sizes/show", locals: { shadow_size: value } %>
 <% elsif value_class == Mood %>
   <%= render partial: "moods/show", locals: { mood: value } %>
+<% elsif value_class == VillagerGender %>
+  <%= render partial: "villager_genders/show", locals: {villager_gender: value } %>
 <% end %>

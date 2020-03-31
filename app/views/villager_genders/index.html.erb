@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Villager Genders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @villager_genders.each do |villager_gender| %>
+      <tr>
+        <td><%= villager_gender.value %></td>
+        <td><%= link_to 'Show', villager_gender %></td>
+        <td><%= link_to 'Edit', edit_villager_gender_path(villager_gender) %></td>
+        <td><%= link_to 'Destroy', villager_gender, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Villager Gender', new_villager_gender_path %>

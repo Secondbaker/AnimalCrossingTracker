@@ -231,6 +231,7 @@ fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location'
 bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
 shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
 mood_type = CollectibleAttributeType.create(name: 'Mood')
+villager_gender = CollectibleAttributeType.create(name: 'Villager Gender')
 
 MoodName.destroy_all
 hard_to_say = MoodName.create(name: 'Hard to say')
@@ -307,3 +308,12 @@ verbose = true
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
 
 getFossils(csv: csv_text, verbose:verbose)
+
+csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
+
+Collectible.all.each do |collectible|
+    collectible.collectible_attributes.create(collectible_attribute_value: VillagerGender.create(value: rand(0..2)), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Villager Gender'))
+end
+csv_text.each do |villager_data|
+    puts villager_data["Gender"]
+end
