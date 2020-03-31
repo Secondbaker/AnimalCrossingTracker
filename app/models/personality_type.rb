@@ -1,0 +1,2 @@
+class PersonalityType < ApplicationRecord
+end

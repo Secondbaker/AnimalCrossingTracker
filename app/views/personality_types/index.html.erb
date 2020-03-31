@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Personality Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @personality_types.each do |personality_type| %>
+      <tr>
+        <td><%= personality_type.value %></td>
+        <td><%= link_to 'Show', personality_type %></td>
+        <td><%= link_to 'Edit', edit_personality_type_path(personality_type) %></td>
+        <td><%= link_to 'Destroy', personality_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Personality Type', new_personality_type_path %>

@@ -311,9 +311,6 @@ getFossils(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-Collectible.all.each do |collectible|
-    collectible.collectible_attributes.create(collectible_attribute_value: VillagerGender.create(value: rand(0..2)), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Villager Gender'))
-end
 csv_text.each do |villager_data|
-    puts villager_data["Gender"]
+    puts villager_data["Personality"]
 end

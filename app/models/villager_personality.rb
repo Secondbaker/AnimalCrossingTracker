@@ -1,0 +1,2 @@
+class VillagerPersonality < ApplicationRecord
+end
