@@ -163,10 +163,19 @@ def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_va
     creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
 
-def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, verbose:boolean = false)
+def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, bell_value:string, verbose:boolean = false)
     if verbose
         puts "Creating " + fossil_name
     end
+    if thumbnail_url =~ /[uU]nknown/
+        thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
+    end
+    creation = fossils.collectibles.create(name:fossil_name, thumbnail:thumbnail_url, complete:false)
+    
+    #begin adding collectible attributes
+
+    #bell_value
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -194,7 +203,9 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
     if verbose
         puts "Creating Collection:\tFossils"
     end
-    
+    csv.each do |fossil_data|
+        createFossil!(fossils:fossils, fossil_name:fossil_data["Fossil"], thumbnail_url:fossil_data["Image"], bell_value:fossil_data["Value"], verbose:verbose)
+    end
 end
 
 
