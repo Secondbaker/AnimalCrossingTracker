@@ -210,6 +210,8 @@ end
 
 
 
+VillagerPersonality.destory_all
+VillagerGender.destroy_all
 ShadowSize.destroy_all
 CollectibleAttribute.destroy_all
 Timespan.destroy_all
@@ -251,6 +253,9 @@ september = Month.create(name: 'September', number: 9)
 october = Month.create(name: 'October', number: 10)
 november = Month.create(name: 'November', number: 11)
 december = Month.create(name: 'December', number: 12)
+
+PersonalityType.destroy_all
+p_t_1 = PersonalityType.create()
 
 FishingSpot.destroy_all
 #pier = FishingSpot.create(name: 'Pier')
@@ -310,6 +315,7 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 getFossils(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
+
 
 csv_text.each do |villager_data|
     puts villager_data["Personality"]
