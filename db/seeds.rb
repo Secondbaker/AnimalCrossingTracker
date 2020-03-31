@@ -53,11 +53,53 @@ def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     return creation
 end
 
+def createBugs!(bugs:Collection, bug_name:String, thumbnail_url:String, bell_value:String, time_of_year:String, time_of_day:String, bug_location:String, verbose:boolean = false)
+    if thumbnail_url =~ /[uU]nknown/
+        thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
+    end
+    #create bug
+    creation = bugs.collectibles.create(name: bug_name, thumbnail: thumbnail_url, complete: false)
+    if verbose
+        puts "Creating " + bug_name
+    end
+
+    #begin setting attributes
+
+    #bell_value
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+
+    #time_of_day
+    bug_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Time of Day'))
+
+    #time_of_year
+    bug_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Time of Year'))
+
+    #bug_location
+    
+    if !BugSpot.find_by(name:bug_location)
+        BugSpot.create(name:bug_location)
+        if verbose
+            puts "New BugSpot:\t" + bug_location
+        end
+    end
+    bug_l = BugLocation.create
+    if verbose
+        puts "-\t" + bug_location
+    end
+    bug_l.bug_spots<< BugSpot.find_by(name:bug_location)
+    creation.collectible_attributes.create(collectible_attribute_value: bug_l, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bug Location'))
+    
+end
+
 def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String, verbose:boolean = false)
 
     #create fish
     creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
-    puts "Creating " + fish_name
+    if verbose
+        puts "Creating " + fish_name
+    end
     
     #begin setting attributes
     
@@ -121,14 +163,38 @@ def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_va
     creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
 
+def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, verbose:boolean = false)
+    if verbose
+        puts "Creating " + fossil_name
+    end
+end
+
 def getFish(csv:CSV::Table, verbose:boolean = false)
     fish = Collection.create(title: "Fish")
     if verbose
         puts "Creating Collection:\tFish"
     end
     csv.each do |fish_data|
-        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6], verbose:true)
+        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6], verbose:verbose)
     end
+end
+
+def getBugs(csv:CSV::Table, verbose:boolean = false)
+    bugs = Collection.create(title: "Bugs")
+    if verbose
+        puts "Creating Collection:\tBugs"
+    end
+    csv.each do |bug_data|
+        createBugs!(bugs:bugs, bug_name:bug_data["Bugs"], thumbnail_url:bug_data["Image"], bell_value:bug_data["Value"], time_of_year:bug_data["Month"], time_of_day:bug_data["Time"], bug_location:bug_data["Location"], verbose:verbose)
+    end
+end
+
+def getFossils(csv:CSV::Table, verbose:boolean = false)
+    fossils = Collection.create(title: "Fossils")
+    if verbose
+        puts "Creating Collection:\tFossils"
+    end
+    
 end
 
 
@@ -144,6 +210,16 @@ FishingLocation.destroy_all
 BugLocation.destroy_all
 Collectible.destroy_all
 Collection.destroy_all
+
+CollectibleAttributeType.destroy_all
+rarity_type = CollectibleAttributeType.create(name: 'Rarity')
+bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
+time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
+time_of_year_type = CollectibleAttributeType.create(name: 'Time of Year')
+fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location')
+bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
+shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
+mood_type = CollectibleAttributeType.create(name: 'Mood')
 
 MoodName.destroy_all
 hard_to_say = MoodName.create(name: 'Hard to say')
@@ -174,27 +250,27 @@ FishingSpot.destroy_all
 #sea_raining = FishingSpot.create(name: 'Sea (Raining)')
 
 BugSpot.destroy_all
-question_bug = BugSpot.create(name: '?')
-shell_disguise = BugSpot.create(name: 'On beach disguised as shells')
-flying = BugSpot.create(name: 'Flying')
-flying_by_light = BugSpot.create(name: 'Flying by light')
-flying_by_rare_flowers = BugSpot.create(name: 'Flying by rare flowers')
-under_rocks = BugSpot.create(name: 'Under rocks (hit the rock)')
-hopping = BugSpot.create(name: 'Hopping')
-tree_stump = BugSpot.create(name: 'On a tree stump')
-beach_rocks = BugSpot.create(name: 'On beach rocks')
-flowers = BugSpot.create(name: 'On flowers')
-white_flowers = BugSpot.create(name: 'On white flowers')
-ground = BugSpot.create(name: 'On ground')
-ponds_rivers = BugSpot.create(name: 'On ponds and rivers')
-rocks_rain = BugSpot.create(name: 'On rocks (raining)')
-trash = BugSpot.create(name: 'On trash items')
-tree = BugSpot.create(name: 'On trees')
-palm_tree = BugSpot.create(name: 'On palm trees')
-shaking_tree = BugSpot.create(name: 'Shaking trees')
-leaf_disguise = BugSpot.create(name: 'Under trees disguised as leaves')
-underground = BugSpot.create(name: 'Underground')
-villagers_heads = BugSpot.create(name: 'Villagers\' heads')
+#question_bug = BugSpot.create(name: '?')
+#shell_disguise = BugSpot.create(name: 'On beach disguised as shells')
+#flying = BugSpot.create(name: 'Flying')
+#flying_by_light = BugSpot.create(name: 'Flying by light')
+#flying_by_rare_flowers = BugSpot.create(name: 'Flying by rare flowers')
+#under_rocks = BugSpot.create(name: 'Under rocks (hit the rock)')
+#hopping = BugSpot.create(name: 'Hopping')
+#tree_stump = BugSpot.create(name: 'On a tree stump')
+#beach_rocks = BugSpot.create(name: 'On beach rocks')
+#flowers = BugSpot.create(name: 'On flowers')
+#white_flowers = BugSpot.create(name: 'On white flowers')
+#ground = BugSpot.create(name: 'On ground')
+#ponds_rivers = BugSpot.create(name: 'On ponds and rivers')
+#rocks_rain = BugSpot.create(name: 'On rocks (raining)')
+#trash = BugSpot.create(name: 'On trash items')
+#tree = BugSpot.create(name: 'On trees')
+#palm_tree = BugSpot.create(name: 'On palm trees')
+#shaking_tree = BugSpot.create(name: 'Shaking trees')
+#leaf_disguise = BugSpot.create(name: 'Under trees disguised as leaves')
+#underground = BugSpot.create(name: 'Underground')
+#villagers_heads = BugSpot.create(name: 'Villagers\' heads')
 
 FishSize.destroy_all
 #narrow = FishSize.create(name: 'Narrow')
@@ -207,77 +283,16 @@ FishSize.destroy_all
 #six = FishSize.create(name: '6')
 #six_fin = FishSize.create(name: '6 (Fin)')
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
-#puts csv_text
+verbose = true
 
-getFish(csv: csv_text, verbose:true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
-#csv_text.close
+#getFish(csv: csv_text, verbose:verbose)
 
-rarity_type = CollectibleAttributeType.create(name: 'Rarity')
-bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
-time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
-time_of_year_type = CollectibleAttributeType.create(name: 'Time of Year')
-fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location')
-bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
-shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
-mood_type = CollectibleAttributeType.create(name: 'Mood')
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
 
-Rarity.create(value: 1)
-BellValue.create(value: 154)
-TimeOfDay.create(timespans: [Timespan.create(start: "2:00am", end: "3:00am"), Timespan.create(start: "5:00pm", end: "7:00pm")] )
+#getBugs(csv: csv_text, verbose:verbose)
 
-TimeOfYear.create
-TimeOfYear.first.months << [january, february, april, august, december]
+csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
 
-FishingLocation.create
-FishingLocation.first.fishing_spots << FishingSpot.all
-
-BugLocation.create
-BugLocation.first.bug_spots << [villagers_heads, shell_disguise]
-
-ShadowSize.create
-ShadowSize.first.fish_sizes << FishSize.first
-
-Mood.create
-Mood.first.mood_names << hard_to_say
-
-fish_collection = Collection.create(title: 'Fish')
-first_fish = fish_collection.collectibles.create(name: 'Shark', thumbnail: 'https://vignette.wikia.nocookie.net/animalcrossing/images/5/5b/Shark_HHD_Icon.png/revision/latest?cb=20161105204315', complete: false)
-first_fish.collectible_attributes.create(collectible_attribute_value: Rarity.first, collectible_attribute_type: rarity_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: BellValue.first, collectible_attribute_type: bell_value_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfDay.first, collectible_attribute_type: time_of_day_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: TimeOfYear.first, collectible_attribute_type: time_of_year_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: FishingLocation.first, collectible_attribute_type: fishing_location_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: BugLocation.first, collectible_attribute_type: bug_location_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: ShadowSize.first, collectible_attribute_type: shadow_size_type)
-first_fish.collectible_attributes.create(collectible_attribute_value: Mood.first, collectible_attribute_type: mood_type)
-# fish_one_atts = first_fish.collectible_attributes;
-# fish_one_atts.create(name: "Time", value: "6:00pm - 8:00pm")
-# fish_one_atts.create(name: "Month Range", value: "August")
-# fish_one_atts.create(name: "Location", value: "Mountains for some reason")
-# fish_one_atts.create(name: "Size", value: "Shark sized")
-# fish_one_atts.create(name: "Rarity", value: "Very rary")
-# fish_one_atts.create(name: "Value", value: "10000000 bells")
-
-second_fish = fish_collection.collectibles.create(name: 'Seahorse', thumbnail: 'https://vignette.wikia.nocookie.net/animalcrossing/images/a/aa/Sea_Horse_HHD_Icon.png/revision/latest?cb=20161105204235', complete: true)
-# fish_two_atts = second_fish.collectible_attributes;
-# fish_two_atts.create(name: "Time", value: "6:00pm - 8:00pm")
-# fish_two_atts.create(name: "Month Range", value: "August")
-# fish_two_atts.create(name: "Location", value: "Mountains for some reason")
-# fish_two_atts.create(name: "Size", value: "Seahorse sized")
-# fish_two_atts.create(name: "Rarity", value: "Very rary")
-# fish_two_atts.create(name: "Value", value: "10000000 bells")
-
-# Collection.create(title: "Bugs")
-# Collection.find_by(title: "Bugs").collectibles.create().collectible_attributes.create(name: "rarity")
-
-# CollectibleAttribute.destroy_all
-
-# Rarity.destroy_all
-# BellValue.destroy_all
-# TimeOfDay.destroy_all
-# TimeOfYear.destroy_all
-# Collectible.destroy_all
-# Collection.destroy_all
-
+getFossils(csv: csv_text, verbose:verbose)
