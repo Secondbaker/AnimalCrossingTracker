@@ -1,3 +1,7 @@
 <p>
-  <%= birthday.value %>
+  <%if birthday.value.year == 2000 %>
+    Unknown
+  <%else%>
+    <%= birthday.value %>
+  <% end %>
 </p>

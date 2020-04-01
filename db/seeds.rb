@@ -226,9 +226,25 @@ def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:St
     end
     creation.collectible_attributes.create(collectible_attribute_value: villager_species_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Species'))
 
+    #villager_birthday
+    #it looks like this is the unknown birthday
+    date_of_birth = Date.new(2000, 1, 1)
+    unless birthday =~ /[uU]nknown/
+        bd_month = birthday.sub(/ \d+[snrt][tdh]/, '')
+        bd_day = birthday.sub(/\w+ /, '').sub(/[snrt][tdh]/, '')
+        date_of_birth = Date.new(2001, Month.find_by(name:bd_month).number, bd_day.to_i)
+    end
+    if verbose
+        puts "-\t" + date_of_birth.to_s
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Birthday'))
+
     creation.collectible_attributes.each do |c_a|
         puts c_a.collectible_attribute_value.class
     end
+
+
+
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -304,8 +320,8 @@ birthday_type = CollectibleAttributeType.create(name: 'Birthday')
 catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
 
 MoodName.destroy_all
-hard_to_say = MoodName.create(name: 'Hard to say')
-lazy = MoodName.create(name: 'Lazy')
+#hard_to_say = MoodName.create(name: 'Hard to say')
+#lazy = MoodName.create(name: 'Lazy')
 
 
 Month.destroy_all
@@ -323,11 +339,11 @@ november = Month.create(name: 'November', number: 11)
 december = Month.create(name: 'December', number: 12)
 
 PersonalityType.destroy_all
-p_t_1 = PersonalityType.create(name: 'Jock')
-p_t_2 = PersonalityType.create(name: 'Sleepy')
+#p_t_1 = PersonalityType.create(name: 'Jock')
+#p_t_2 = PersonalityType.create(name: 'Sleepy')
 
 Species.destroy_all
-s_1 = Species.create(name: 'Bird')
+#s_1 = Species.create(name: 'Bird')
 
 Catchphrase.destroy_all
 c_1 = Catchphrase.create(name: 'aye aye')
