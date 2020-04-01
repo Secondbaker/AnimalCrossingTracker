@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_173721) do
+ActiveRecord::Schema.define(version: 2020_04_01_143531) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -39,6 +39,17 @@ ActiveRecord::Schema.define(version: 2020_03_31_173721) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
+  end
+
+  create_table "catchphrases", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "catchphrases_villager_catchphrases", id: false, force: :cascade do |t|
+    t.integer "catchphrase_id", null: false
+    t.integer "villager_catchphrase_id", null: false
   end
 
   create_table "collectible_attribute_types", force: :cascade do |t|
@@ -184,6 +195,11 @@ ActiveRecord::Schema.define(version: 2020_03_31_173721) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "time_of_day_id"
     t.index ["time_of_day_id"], name: "index_timespans_on_time_of_day_id"
+  end
+
+  create_table "villager_catchphrases", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "villager_genders", force: :cascade do |t|

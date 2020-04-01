@@ -25,4 +25,6 @@
   <%= render partial: "villager_species/show", locals: { villager_species: value } %>
 <% elsif value_class == Birthday %>
   <%= render partial: "birthdays/show", locals: { birthday: value } %>
+<% elsif value_class == VillagerCatchphrase %>
+  <%= render partial: "villager_catchphrases/show", locals: { villager_catchphrase: value } %>
 <% end %>

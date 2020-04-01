@@ -237,6 +237,7 @@ villager_gender = CollectibleAttributeType.create(name: 'Villager Gender')
 villager_personality = CollectibleAttributeType.create(name: 'Personality')
 villager_species = CollectibleAttributeType.create(name: 'Species')
 birthday_type = CollectibleAttributeType.create(name: 'Birthday')
+catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
 
 MoodName.destroy_all
 hard_to_say = MoodName.create(name: 'Hard to say')
@@ -263,6 +264,9 @@ p_t_2 = PersonalityType.create(name: 'Sleepy')
 
 Species.destroy_all
 s_1 = Species.create(name: 'Bird')
+
+Catchphrase.destroy_all
+c_1 = Catchphrase.create(name: 'aye aye')
 
 FishingSpot.destroy_all
 #pier = FishingSpot.create(name: 'Pier')
@@ -334,8 +338,13 @@ puts bd_month
 puts bd_day
 d = Date.new(2001, Month.find_by(name:bd_month).number, bd_day.to_i)
 Birthday.create(value: d)
+
+VillagerCatchphrase.create
+VillagerCatchphrase.first.catchphrases << Catchphrase.first
+
+
 Collectible.all.each do |collectible|
-    #collectible.collectible_attributes.create(collectible_attribute_value: Birthday.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
+    collectible.collectible_attributes.create(collectible_attribute_value: VillagerCatchphrase.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Catchphrase'))
     #puts Birthday.first.value
 end
 csv_text.each do |villager_data|
