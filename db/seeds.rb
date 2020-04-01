@@ -178,6 +178,10 @@ def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, 
     creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
 end
 
+def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
+    puts "Got here"
+end
+
 def getFish(csv:CSV::Table, verbose:boolean = false)
     fish = Collection.create(title: "Fish")
     if verbose
@@ -213,8 +217,8 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
     if verbose
         puts "Creating Collection:\tVillagers"
     end
-    csv.each do |fossil_data|
-        #createFossil!(fossils:fossils, fossil_name:fossil_data["Fossil"], thumbnail_url:fossil_data["Image"], bell_value:fossil_data["Value"], verbose:verbose)
+    csv.each do |villager_data|
+        createVillager!(villagers:villagers, villager_name:villager_data['Villager'], thumbnail_url:villager_data['Image'], villager_gender:villager_data['Gender'], villager_personality:villager_data['Personality'], villager_species:villager_data['Species'], birthday:villager_data['Birthday'], villager_catchphrase:villager_data['Catchphrase'], verbose:verbose)
     end
 end
 
