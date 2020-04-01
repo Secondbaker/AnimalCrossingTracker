@@ -179,7 +179,11 @@ def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, 
 end
 
 def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
-    puts "Got here"
+    creation = villagers.collectibles.create(name:villager_name, thumbnail:thumbnail_url, complete:false)
+    puts "Created " + creation.name
+
+    
+
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
