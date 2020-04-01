@@ -208,6 +208,17 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
     end
 end
 
+def getVillagers(csv:CSV::Table, verbose:boolean = false)
+    villagers = Collection.create(title: "Villagers")
+    if verbose
+        puts "Creating Collection:\tVillagers"
+    end
+    csv.each do |fossil_data|
+        #createFossil!(fossils:fossils, fossil_name:fossil_data["Fossil"], thumbnail_url:fossil_data["Image"], bell_value:fossil_data["Value"], verbose:verbose)
+    end
+end
+
+VillagerCatchphrase.destroy_all
 Birthday.destroy_all
 VillagerSpecies.destroy_all
 VillagerPersonality.destroy_all
@@ -311,7 +322,7 @@ FishSize.destroy_all
 #six = FishSize.create(name: '6')
 #six_fin = FishSize.create(name: '6 (Fin)')
 
-verbose = false
+verbose = true
 
 #csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
@@ -321,12 +332,15 @@ verbose = false
 
 #getBugs(csv: csv_text, verbose:verbose)
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
 
-getFossils(csv: csv_text, verbose:verbose)
+#getFossils(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
+getVillagers(csv: csv_text, verbose:verbose)
+
+=begin
 VillagerPersonality.create
 VillagerPersonality.first.personality_types << PersonalityType.first
 VillagerSpecies.create
@@ -350,3 +364,4 @@ end
 csv_text.each do |villager_data|
     #puts villager_data["Personality"]
 end
+=end
