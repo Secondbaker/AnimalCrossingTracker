@@ -239,11 +239,20 @@ def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:St
     end
     creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Birthday'))
 
-    creation.collectible_attributes.each do |c_a|
-        puts c_a.collectible_attribute_value.class
+    #villager_catchphrase
+    if !Catchphrase.find_by(name:villager_catchphrase)
+        if verbose
+            puts "New Catchphrase:\t" + villager_catchphrase
+        end
+        Catchphrase.create(name: villager_catchphrase)
     end
 
-
+    v_catchphrase = VillagerCatchphrase.create
+    v_catchphrase.catchphrases << Catchphrase.find_by(name:villager_catchphrase)
+    if verbose
+        puts "-\t" +  v_catchphrase.catchphrases.first.name
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: v_catchphrase, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Catchphrase'))
 
 end
 
