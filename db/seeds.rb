@@ -210,6 +210,22 @@ def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:St
         puts "-\t" + villager_personality_type.personality_types.first.name
     end
     creation.collectible_attributes.create(collectible_attribute_value: villager_personality_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Personality'))
+    
+    #villager_species
+    if !Species.find_by(name:villager_species)
+        if verbose
+            puts "New Species:\t" + villager_species
+        end
+        Species.create(name:villager_species)
+    end
+
+    villager_species_type = VillagerSpecies.create
+    villager_species_type.species << Species.find_by(name: villager_species)
+    if verbose
+        puts "\t" + villager_species_type.species.first.name
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: villager_species_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Species'))
+
     creation.collectible_attributes.each do |c_a|
         puts c_a.collectible_attribute_value.class
     end
