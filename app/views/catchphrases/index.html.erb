@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Catchphrases</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @catchphrases.each do |catchphrase| %>
+      <tr>
+        <td><%= catchphrase.name %></td>
+        <td><%= link_to 'Show', catchphrase %></td>
+        <td><%= link_to 'Edit', edit_catchphrase_path(catchphrase) %></td>
+        <td><%= link_to 'Destroy', catchphrase, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Catchphrase', new_catchphrase_path %>

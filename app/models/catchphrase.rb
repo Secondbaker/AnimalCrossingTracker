@@ -1,0 +1,2 @@
+class Catchphrase < ApplicationRecord
+end

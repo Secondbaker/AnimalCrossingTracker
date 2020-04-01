@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :villager_catchphrases
+  resources :catchphrases
   resources :birthdays
   resources :villager_species
   resources :species
