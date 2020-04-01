@@ -327,10 +327,16 @@ VillagerPersonality.create
 VillagerPersonality.first.personality_types << PersonalityType.first
 VillagerSpecies.create
 VillagerSpecies.first.species << Species.first
-Birthday.create(value: "May 03")
+bd1 = "May 3rd"
+bd_month = bd1.sub(/ \d+[snrt][tdh]/, '')
+bd_day = bd1.sub(/\w+ /, '').sub(/[snrt][tdh]/, '')
+puts bd_month
+puts bd_day
+d = Date.new(2001, Month.find_by(name:bd_month).number, bd_day.to_i)
+Birthday.create(value: d)
 Collectible.all.each do |collectible|
-    collectible.collectible_attributes.create(collectible_attribute_value: Birthday.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
-    puts Birthday.first.value
+    #collectible.collectible_attributes.create(collectible_attribute_value: Birthday.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Species'))
+    #puts Birthday.first.value
 end
 csv_text.each do |villager_data|
     #puts villager_data["Personality"]
