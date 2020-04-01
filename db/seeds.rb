@@ -180,10 +180,39 @@ end
 
 def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
     creation = villagers.collectibles.create(name:villager_name, thumbnail:thumbnail_url, complete:false)
-    puts "Created " + creation.name
+    if verbose
+        puts "Created " + creation.name
+    end
 
+    #begin adding collectible attributes
+
+    #villager_gender
+    #the ISO standard says that 0 is unknown, 1 is male, 2 is female, and 9 is not applicable
+    villager_gender_int = 0
+    if villager_gender =~ /[mM]+/
+        villager_gender_int = 1
+    elsif villager_gender =~ /[fF]+/
+        villager_gender_int = 2
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: VillagerGender.create(value: villager_gender_int), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Gender'))
     
 
+    #villager_personality
+    if !PersonalityType.find_by(name:villager_personality)
+        if verbose
+            puts "New PersonalityType:\t" + villager_personality
+        end
+        PersonalityType.create(name:villager_personality)
+    end
+    villager_personality_type = VillagerPersonality.create
+    villager_personality_type.personality_types << PersonalityType.find_by(name: villager_personality)
+    if verbose
+        puts "-\t" + villager_personality_type.personality_types.first.name
+    end
+    creation.collectible_attributes.create(collectible_attribute_value: villager_personality_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Personality'))
+    creation.collectible_attributes.each do |c_a|
+        puts c_a.collectible_attribute_value.class
+    end
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -252,7 +281,7 @@ fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location'
 bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
 shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
 mood_type = CollectibleAttributeType.create(name: 'Mood')
-villager_gender = CollectibleAttributeType.create(name: 'Villager Gender')
+villager_gender = CollectibleAttributeType.create(name: 'Gender')
 villager_personality = CollectibleAttributeType.create(name: 'Personality')
 villager_species = CollectibleAttributeType.create(name: 'Species')
 birthday_type = CollectibleAttributeType.create(name: 'Birthday')
