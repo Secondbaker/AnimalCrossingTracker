@@ -256,6 +256,10 @@ def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:St
 
 end
 
+def createNookMiles!(nook_miles:nook_miles, name:String, description:String, milestones:String, passport_title_1:String, passport_title_2:String, miles:String, verbose:boolean = false)
+    
+end
+
 def getFish(csv:CSV::Table, verbose:boolean = false)
     fish = Collection.create(title: "Fish")
     if verbose
@@ -296,6 +300,16 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
     end
 end
 
+def getNookMiles(csv:CSV::Table, verbose:boolean = false)
+    nook_miles = Collection.create(title: "Nook Miles")
+    if verbose
+        puts "Creating Collection:\tNook Miles"
+    end
+    csv.each do |nook_miles_data|
+        puts nook_miles_data["Name"]
+        createNookMiles!(name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
+    end
+end
 Description.destroy_all
 VillagerCatchphrase.destroy_all
 Birthday.destroy_all
@@ -404,21 +418,25 @@ FishSize.destroy_all
 
 verbose = true
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
-getFish(csv: csv_text, verbose:verbose)
+#getFish(csv: csv_text, verbose:verbose)
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
 
-getBugs(csv: csv_text, verbose:verbose)
+#getBugs(csv: csv_text, verbose:verbose)
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
 
-getFossils(csv: csv_text, verbose:verbose)
+#getFossils(csv: csv_text, verbose:verbose)
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-getVillagers(csv: csv_text, verbose:verbose)
+#getVillagers(csv: csv_text, verbose:verbose)
+
+csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
+
+getNookMiles(csv: csv_text, verbose:verbose)
 
 nook_miles = Collection.create(title: "Nook Miles")
 nook_collectibles = nook_miles.collectibles
