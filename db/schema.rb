@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_143531) do
+ActiveRecord::Schema.define(version: 2020_04_02_141527) do
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -83,6 +83,12 @@ ActiveRecord::Schema.define(version: 2020_04_01_143531) do
 
   create_table "collections", force: :cascade do |t|
     t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "descriptions", force: :cascade do |t|
+    t.text "information"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

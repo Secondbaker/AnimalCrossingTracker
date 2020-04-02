@@ -296,6 +296,7 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
     end
 end
 
+Description.destroy_all
 VillagerCatchphrase.destroy_all
 Birthday.destroy_all
 VillagerSpecies.destroy_all
@@ -327,6 +328,7 @@ villager_personality = CollectibleAttributeType.create(name: 'Personality')
 villager_species = CollectibleAttributeType.create(name: 'Species')
 birthday_type = CollectibleAttributeType.create(name: 'Birthday')
 catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
+description_type = CollectibleAttributeType.create(name: 'Description')
 
 MoodName.destroy_all
 #hard_to_say = MoodName.create(name: 'Hard to say')
@@ -355,7 +357,7 @@ Species.destroy_all
 #s_1 = Species.create(name: 'Bird')
 
 Catchphrase.destroy_all
-c_1 = Catchphrase.create(name: 'aye aye')
+#c_1 = Catchphrase.create(name: 'aye aye')
 
 FishingSpot.destroy_all
 #pier = FishingSpot.create(name: 'Pier')
@@ -414,32 +416,12 @@ verbose = true
 
 #getFossils(csv: csv_text, verbose:verbose)
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-getVillagers(csv: csv_text, verbose:verbose)
+#getVillagers(csv: csv_text, verbose:verbose)
 
-=begin
-VillagerPersonality.create
-VillagerPersonality.first.personality_types << PersonalityType.first
-VillagerSpecies.create
-VillagerSpecies.first.species << Species.first
-bd1 = "May 3rd"
-bd_month = bd1.sub(/ \d+[snrt][tdh]/, '')
-bd_day = bd1.sub(/\w+ /, '').sub(/[snrt][tdh]/, '')
-puts bd_month
-puts bd_day
-d = Date.new(2001, Month.find_by(name:bd_month).number, bd_day.to_i)
-Birthday.create(value: d)
-
-VillagerCatchphrase.create
-VillagerCatchphrase.first.catchphrases << Catchphrase.first
-
-
-Collectible.all.each do |collectible|
-    collectible.collectible_attributes.create(collectible_attribute_value: VillagerCatchphrase.first, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Catchphrase'))
-    #puts Birthday.first.value
-end
-csv_text.each do |villager_data|
-    #puts villager_data["Personality"]
-end
-=end
+nook_miles = Collection.create(title: "Nook Miles")
+nook_collectibles = nook_miles.collectibles
+test_collectible = nook_collectibles.create(name:"Test", thumbnail: "http://google.jpg", complete:true)
+test_information = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+test_description = test_collectible.collectible_attributes.create(collectible_attribute_value: Description.create(information:test_information), collectible_attribute_type:  CollectibleAttributeType.find_by(name:'Description'))
