@@ -53,7 +53,7 @@ def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     return creation
 end
 
-def createBugs!(bugs:Collection, bug_name:String, thumbnail_url:String, bell_value:String, time_of_year:String, time_of_day:String, bug_location:String, verbose:boolean = false)
+def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, bell_value:String, time_of_year:String, time_of_day:String, bug_location:String, verbose:boolean = false)
     if thumbnail_url =~ /[uU]nknown/
         thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
     end
@@ -93,7 +93,7 @@ def createBugs!(bugs:Collection, bug_name:String, thumbnail_url:String, bell_val
     
 end
 
-def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String, verbose:boolean = false)
+def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String, verbose:boolean = false)
 
     #create fish
     creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
@@ -163,7 +163,7 @@ def createFish!(fish:Collection, fish_name:String, thumbnail_url:String, bell_va
     creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
 end
 
-def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, bell_value:string, verbose:boolean = false)
+def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:String, bell_value:string, verbose:boolean = false)
     if verbose
         puts "Creating " + fossil_name
     end
@@ -178,7 +178,7 @@ def createFossil!(fossils:Collection, fossil_name:String, thumbnail_url:String, 
     creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
 end
 
-def createVillager!(villagers:Collection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
+def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
     creation = villagers.collectibles.create(name:villager_name, thumbnail:thumbnail_url, complete:false)
     if verbose
         puts "Created " + creation.name
@@ -261,9 +261,9 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
-    fish = Collection.create(title: "Fish")
+    fish = IslandCollection.create(title: "Fish")
     if verbose
-        puts "Creating Collection:\tFish"
+        puts "Creating IslandCollection:\tFish"
     end
     csv.each do |fish_data|
         createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6], verbose:verbose)
@@ -271,9 +271,9 @@ def getFish(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getBugs(csv:CSV::Table, verbose:boolean = false)
-    bugs = Collection.create(title: "Bugs")
+    bugs = IslandCollection.create(title: "Bugs")
     if verbose
-        puts "Creating Collection:\tBugs"
+        puts "Creating IslandCollection:\tBugs"
     end
     csv.each do |bug_data|
         createBugs!(bugs:bugs, bug_name:bug_data["Bugs"], thumbnail_url:bug_data["Image"], bell_value:bug_data["Value"], time_of_year:bug_data["Month"], time_of_day:bug_data["Time"], bug_location:bug_data["Location"], verbose:verbose)
@@ -281,9 +281,9 @@ def getBugs(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getFossils(csv:CSV::Table, verbose:boolean = false)
-    fossils = Collection.create(title: "Fossils")
+    fossils = IslandCollection.create(title: "Fossils")
     if verbose
-        puts "Creating Collection:\tFossils"
+        puts "Creating IslandCollection:\tFossils"
     end
     csv.each do |fossil_data|
         createFossil!(fossils:fossils, fossil_name:fossil_data["Fossil"], thumbnail_url:fossil_data["Image"], bell_value:fossil_data["Value"], verbose:verbose)
@@ -291,9 +291,9 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getVillagers(csv:CSV::Table, verbose:boolean = false)
-    villagers = Collection.create(title: "Villagers")
+    villagers = IslandCollection.create(title: "Villagers")
     if verbose
-        puts "Creating Collection:\tVillagers"
+        puts "Creating IslandCollection:\tVillagers"
     end
     csv.each do |villager_data|
         createVillager!(villagers:villagers, villager_name:villager_data['Villager'], thumbnail_url:villager_data['Image'], villager_gender:villager_data['Gender'], villager_personality:villager_data['Personality'], villager_species:villager_data['Species'], birthday:villager_data['Birthday'], villager_catchphrase:villager_data['Catchphrase'], verbose:verbose)
@@ -301,9 +301,9 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getNookMiles(csv:CSV::Table, verbose:boolean = false)
-    nook_miles = Collection.create(title: "Nook Miles")
+    nook_miles = IslandCollection.create(title: "Nook Miles")
     if verbose
-        puts "Creating Collection:\tNook Miles"
+        puts "Creating IslandCollection:\tNook Miles"
     end
     csv.each do |nook_miles_data|
         puts nook_miles_data["Name"]
@@ -326,6 +326,7 @@ TimeOfYear.destroy_all
 FishingLocation.destroy_all
 BugLocation.destroy_all
 Collectible.destroy_all
+IslandCollection.destroy_all
 Collection.destroy_all
 
 CollectibleAttributeType.destroy_all
@@ -418,9 +419,9 @@ FishSize.destroy_all
 
 verbose = true
 
-#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
+csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
-#getFish(csv: csv_text, verbose:verbose)
+getFish(csv: csv_text, verbose:verbose)
 
 #csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
 
@@ -438,7 +439,7 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 
 getNookMiles(csv: csv_text, verbose:verbose)
 
-nook_miles = Collection.create(title: "Nook Miles")
+nook_miles = IslandCollection.create(title: "Nook Miles")
 nook_collectibles = nook_miles.collectibles
 test_collectible = nook_collectibles.create(name:"Test", thumbnail: "http://google.jpg", complete:true)
 test_information = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."

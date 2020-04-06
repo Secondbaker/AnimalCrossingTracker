@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_02_141527) do
+ActiveRecord::Schema.define(version: 2020_04_06_205047) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "bell_values", force: :cascade do |t|
     t.integer "value"
@@ -72,13 +75,13 @@ ActiveRecord::Schema.define(version: 2020_04_02_141527) do
   end
 
   create_table "collectibles", force: :cascade do |t|
-    t.integer "collection_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "thumbnail"
     t.string "name"
     t.boolean "complete"
-    t.index ["collection_id"], name: "index_collectibles_on_collection_id"
+    t.bigint "island_collection_id"
+    t.index ["island_collection_id"], name: "index_collectibles_on_island_collection_id"
   end
 
   create_table "collections", force: :cascade do |t|
@@ -117,6 +120,13 @@ ActiveRecord::Schema.define(version: 2020_04_02_141527) do
 
   create_table "fishing_spots", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "island_collections", force: :cascade do |t|
+    t.string "title"
+    t.string "thumbnail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -209,7 +219,7 @@ ActiveRecord::Schema.define(version: 2020_04_02_141527) do
   end
 
   create_table "villager_genders", force: :cascade do |t|
-    t.integer "value", limit: 1
+    t.integer "value", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -225,7 +235,6 @@ ActiveRecord::Schema.define(version: 2020_04_02_141527) do
   end
 
   add_foreign_key "collectible_attributes", "collectibles"
-  add_foreign_key "collectibles", "collections"
   add_foreign_key "time_of_years", "collectible_attributes"
   add_foreign_key "timespans", "time_of_days"
 end

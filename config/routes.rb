@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :island_collections
   resources :descriptions
   resources :villager_catchphrases
   resources :catchphrases
