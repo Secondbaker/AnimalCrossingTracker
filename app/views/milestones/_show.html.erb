@@ -1,0 +1,11 @@
+<p>
+    <% milestone.milestone_values.each do |value| %>
+        <p>
+            <% if value.value == 0%>
+                Unknown
+            <% else %>
+                <%= value.value %>
+            <% end %>
+        </p>
+    <% end %>
+</p>

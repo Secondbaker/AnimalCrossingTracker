@@ -29,4 +29,6 @@
   <%= render partial: "villager_catchphrases/show", locals: { villager_catchphrase: value } %>
 <% elsif value_class == Description %>
   <%= render partial: "descriptions/show", locals: { description: value } %>
+<% elsif value_class == Milestone %>
+  <%= render partial: "milestones/show", locals: { milestone: value } %>
 <% end %>

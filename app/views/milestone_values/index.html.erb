@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Milestone Values</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Milestone</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @milestone_values.each do |milestone_value| %>
+      <tr>
+        <td><%= milestone_value.milestone_id %></td>
+        <td><%= link_to 'Show', milestone_value %></td>
+        <td><%= link_to 'Edit', edit_milestone_value_path(milestone_value) %></td>
+        <td><%= link_to 'Destroy', milestone_value, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Milestone Value', new_milestone_value_path %>

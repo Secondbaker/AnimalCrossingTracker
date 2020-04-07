@@ -13,7 +13,7 @@
   <tbody>
     <% @collectibles.each do |collectible| %>
       <tr>
-        <td><%= collectible.collection_id %></td>
+        <td><%= collectible.island_collection_id %></td>
         <td><%= link_to 'Show', collectible %></td>
         <td><%= link_to 'Edit', edit_collectible_path(collectible) %></td>
         <td><%= link_to 'Destroy', collectible, method: :delete, data: { confirm: 'Are you sure?' } %></td>

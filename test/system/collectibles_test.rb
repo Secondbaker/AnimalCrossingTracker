@@ -16,7 +16,7 @@ class CollectiblesTest < ApplicationSystemTestCase
     visit collectibles_url
     click_on 'New Collectible'
 
-    fill_in 'Collection', with: @collectible.collection_id
+    fill_in 'Collection', with: @collectible.island_collection_id
     click_on 'Create Collectible'
 
     assert_text 'Collectible was successfully created'
@@ -27,7 +27,7 @@ class CollectiblesTest < ApplicationSystemTestCase
     visit collectibles_url
     click_on 'Edit', match: :first
 
-    fill_in 'Collection', with: @collectible.collection_id
+    fill_in 'Collection', with: @collectible.island_collection_id
     click_on 'Update Collectible'
 
     assert_text 'Collectible was successfully updated'

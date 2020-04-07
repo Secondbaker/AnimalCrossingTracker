@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_205047) do
+ActiveRecord::Schema.define(version: 2020_04_07_151614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,19 @@ ActiveRecord::Schema.define(version: 2020_04_06_205047) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "milestone_values", force: :cascade do |t|
+    t.bigint "milestone_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "value"
+    t.index ["milestone_id"], name: "index_milestone_values_on_milestone_id"
+  end
+
+  create_table "milestones", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "months", force: :cascade do |t|
     t.string "name"
     t.integer "number"
@@ -235,6 +248,7 @@ ActiveRecord::Schema.define(version: 2020_04_06_205047) do
   end
 
   add_foreign_key "collectible_attributes", "collectibles"
+  add_foreign_key "milestone_values", "milestones"
   add_foreign_key "time_of_years", "collectible_attributes"
   add_foreign_key "timespans", "time_of_days"
 end

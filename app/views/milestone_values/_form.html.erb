@@ -1,0 +1,22 @@
+<%= form_with(model: milestone_value, local: true) do |form| %>
+  <% if milestone_value.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(milestone_value.errors.count, "error") %> prohibited this milestone_value from being saved:</h2>
+
+      <ul>
+        <% milestone_value.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :milestone_id %>
+    <%= form.text_field :milestone_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -19,7 +19,7 @@ class CollectiblesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create collectible' do
     assert_difference('Collectible.count') do
-      post collectibles_url, params: { collectible: { collection_id: @collectible.collection_id } }
+      post collectibles_url, params: { collectible: { collection_id: @collectible.island_collection_id } }
     end
 
     assert_redirected_to collectible_url(Collectible.last)
@@ -36,7 +36,7 @@ class CollectiblesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update collectible' do
-    patch collectible_url(@collectible), params: { collectible: { collection_id: @collectible.collection_id } }
+    patch collectible_url(@collectible), params: { collectible: { collection_id: @collectible.island_collection_id } }
     assert_redirected_to collectible_url(@collectible)
   end
 

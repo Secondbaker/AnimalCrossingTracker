@@ -257,7 +257,37 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
 end
 
 def createNookMiles!(nook_miles:nook_miles, name:String, description:String, milestones:String, passport_title_1:String, passport_title_2:String, miles:String, verbose:boolean = false)
-    
+    creation = nook_miles.collectibles.create(name:name, thumbnail:"http://google.jpg", complete:false)
+    if verbose
+        puts "Creating " + name
+    end
+
+    #begin adding collectible_attributes
+
+    #description
+    creation.collectible_attributes.create(collectible_attribute_value: Description.create(information:description), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Description'))
+    if verbose
+        short_description = description
+        unless (description.length <= 20)
+            short_description = short_description[0..20] + "..."
+        end
+        puts "-\t" + short_description
+    end
+
+    #milestones
+    milestone_values = milestones.split(";")
+    creation_milestones = Milestone.create
+    milestone_values.each do |value|
+        if value =~ /[uU]nknown/
+            creation_milestones.milestone_values << MilestoneValue.create(value:0)
+        else
+            creation_milestones.milestone_values << MilestoneValue.create(value:value)
+        end
+    end
+    creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
+    if verbose
+       puts "-\t" + milestones 
+    end
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -301,13 +331,12 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getNookMiles(csv:CSV::Table, verbose:boolean = false)
-    nook_miles = IslandCollection.create(title: "Nook Miles")
+    nook_miles = IslandCollection.create(title: "Nook Miles", thumbnail: "http://google.jpg")
     if verbose
         puts "Creating IslandCollection:\tNook Miles"
     end
     csv.each do |nook_miles_data|
-        puts nook_miles_data["Name"]
-        createNookMiles!(name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
+        createNookMiles!(nook_miles:nook_miles, name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
     end
 end
 Description.destroy_all
@@ -344,6 +373,7 @@ villager_species = CollectibleAttributeType.create(name: 'Species')
 birthday_type = CollectibleAttributeType.create(name: 'Birthday')
 catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
 description_type = CollectibleAttributeType.create(name: 'Description')
+milestone_type = CollectibleAttributeType.create(name: 'Milestones')
 
 MoodName.destroy_all
 #hard_to_say = MoodName.create(name: 'Hard to say')
@@ -419,9 +449,9 @@ FishSize.destroy_all
 
 verbose = true
 
-csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
+#csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
-getFish(csv: csv_text, verbose:verbose)
+#getFish(csv: csv_text, verbose:verbose)
 
 #csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
 
@@ -438,9 +468,3 @@ getFish(csv: csv_text, verbose:verbose)
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
 getNookMiles(csv: csv_text, verbose:verbose)
-
-nook_miles = IslandCollection.create(title: "Nook Miles")
-nook_collectibles = nook_miles.collectibles
-test_collectible = nook_collectibles.create(name:"Test", thumbnail: "http://google.jpg", complete:true)
-test_information = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-test_description = test_collectible.collectible_attributes.create(collectible_attribute_value: Description.create(information:test_information), collectible_attribute_type:  CollectibleAttributeType.find_by(name:'Description'))
