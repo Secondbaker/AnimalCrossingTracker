@@ -27,7 +27,7 @@
 			height: 100vh;
 			box-sizing: border-box;
 			text-align: center;
-			background-image: url(img/bg.jpg);
+			background-image: asset-data-url('pattern-leaves-white.jpg');
 			background-repeat: repeat;
 			background-color: #FFFFFF;
 		}
@@ -64,9 +64,9 @@
 		#countup-days span, #countup-hours span,
 		#countup-minutes span, #countup-seconds span {
 			padding: 50px;
-			background-image: url(img/square-bg.svg);
+			background-image: asset-data-url('square-bg-blue.svg');
 			background-size: 100% 100%;
-			background-blend-mode:multiply;
+			background-blend-mode: multiply;
 			color: #FFFFFF;
 		}
 
@@ -94,7 +94,7 @@
 <body>
 
 	<header>
-		<img src="img/logo.png">
+		<%= image_tag "logo.png" %>
 	</header>
 
 	<h1>Time since I started playing Animal Crossing: New Horizons and stopped working on this tracker:</h1>
