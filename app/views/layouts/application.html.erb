@@ -15,6 +15,7 @@
 
   <body>
   <header>
+  <% unless params[:controller] == 'welcome' %>
   <nav>
     <ul class="main-menu">
       <li class="menu"><a href="">My Island</a></li>
@@ -57,6 +58,7 @@
       </a></li>
     </ul>
   </nav>
+<% end %>
 </header>
     <%= yield %>
   </body>
