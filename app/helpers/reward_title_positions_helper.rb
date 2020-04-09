@@ -1,0 +1,2 @@
+module RewardTitlePositionsHelper
+end

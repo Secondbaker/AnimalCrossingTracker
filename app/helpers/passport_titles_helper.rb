@@ -1,0 +1,2 @@
+module PassportTitlesHelper
+end

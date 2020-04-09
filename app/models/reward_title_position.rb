@@ -1,0 +1,2 @@
+class RewardTitlePosition < ApplicationRecord
+end

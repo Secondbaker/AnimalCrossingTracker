@@ -1,0 +1,2 @@
+class PassportTitle < ApplicationRecord
+end

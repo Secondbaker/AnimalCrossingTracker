@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Passport Titles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @passport_titles.each do |passport_title| %>
+      <tr>
+        <td><%= passport_title.value %></td>
+        <td><%= link_to 'Show', passport_title %></td>
+        <td><%= link_to 'Edit', edit_passport_title_path(passport_title) %></td>
+        <td><%= link_to 'Destroy', passport_title, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Passport Title', new_passport_title_path %>
