@@ -53,6 +53,26 @@ def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     return creation
 end
 
+#takes a string of format '\w+;.?\w.?...'
+#returns a RewardTitle
+def parseTitles(titles:String, verbose:boolean = false)
+    title_values = titles.split(";")
+    creation = RewardTitle.create
+    title_values.each do |value|
+        title = PassportTitle.find_by(value: value)
+        if !PassportTitle.find_by(value: value)
+            title = PassportTitle.create(value:value)
+            if verbose
+                puts "Created PassportTitle " + title.value
+            end
+        end
+        position = creation.reward_title_positions.create
+        title.reward_title_positions << position
+        puts "-\t" + position.position.to_s + " - " + title.value 
+    end
+    return creation
+end
+
 def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, bell_value:String, time_of_year:String, time_of_day:String, bug_location:String, verbose:boolean = false)
     if thumbnail_url =~ /[uU]nknown/
         thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
@@ -290,20 +310,13 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     end
 
     #passport_title_1
-    title_values = passport_title_1.split(";")
-    creation_reward_titles = RewardTitle.create
-    title_values.each do |value|
-        title = PassportTitle.find_by(value: value)
-        if !PassportTitle.find_by(value: value)
-            title = PassportTitle.create(value:value)
-            if verbose
-                puts "Created PassportTitle " + title.value
-            end
-        end
-        position = creation_reward_titles.reward_title_positions.create
-        title.reward_title_positions << position
-        puts "-\t" + position.position.to_s + " - " + title.value 
-    end
+    creation_reward_titles = parseTitles(titles: passport_title_1, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value: creation_reward_titles, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
+
+    #passport_title_2
+    creation_reward_titles = parseTitles(titles: passport_title_2, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value: creation_reward_titles, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
+
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -355,6 +368,8 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
         createNookMiles!(nook_miles:nook_miles, name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
     end
 end
+RewardTitlePosition.destroy_all
+RewardTitle.destroy_all
 Description.destroy_all
 VillagerCatchphrase.destroy_all
 Birthday.destroy_all

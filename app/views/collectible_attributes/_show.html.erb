@@ -31,4 +31,6 @@
   <%= render partial: "descriptions/show", locals: { description: value } %>
 <% elsif value_class == Milestone %>
   <%= render partial: "milestones/show", locals: { milestone: value } %>
+<% elsif value_class == RewardTitle %>
+  <%= render partial: "reward_titles/show", locals: { reward_title: value } %>
 <% end %>
