@@ -73,6 +73,24 @@ def parseTitles(titles:String, verbose:boolean = false)
     return creation
 end
 
+#takes a string of format '\d+;.?\d.?...'
+#returns a Milestone for now
+def parseNumberList(numbers:String, verbose:boolean = false)
+    number_values = numbers.split(";")
+    creation = Milestone.create
+    number_values.each do |value|
+        if value =~ /[uU]nknown/
+            creation.milestone_values << MilestoneValue.create(value:0)
+        else
+            creation.milestone_values << MilestoneValue.create(value:value)
+        end
+        if verbose
+            puts "-\t" + creation.milestone_values.last.value.to_s
+        end
+    end
+    return creation
+end
+
 def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, bell_value:String, time_of_year:String, time_of_day:String, bug_location:String, verbose:boolean = false)
     if thumbnail_url =~ /[uU]nknown/
         thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
@@ -295,19 +313,12 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     end
 
     #milestones
-    milestone_values = milestones.split(";")
-    creation_milestones = Milestone.create
-    milestone_values.each do |value|
-        if value =~ /[uU]nknown/
-            creation_milestones.milestone_values << MilestoneValue.create(value:0)
-        else
-            creation_milestones.milestone_values << MilestoneValue.create(value:value)
-        end
-    end
-    creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
     if verbose
-       puts "-\t" + milestones 
-    end
+        puts "-Milestones"
+     end
+    creation_milestones = parseNumberList(numbers: milestones, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
+    
 
     #passport_title_1
     creation_reward_titles = parseTitles(titles: passport_title_1, verbose:verbose)
@@ -317,6 +328,12 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     creation_reward_titles = parseTitles(titles: passport_title_2, verbose:verbose)
     creation.collectible_attributes.create(collectible_attribute_value: creation_reward_titles, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
 
+    #miles
+    if verbose
+        puts "-Miles"
+    end
+    creation_miles = parseNumberList(numbers: miles, verbose:verbose)
+    creation.collectible_attributes.create(collectible_attribute_value:creation_miles, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Miles'))
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -407,6 +424,7 @@ description_type = CollectibleAttributeType.create(name: 'Description')
 milestone_type = CollectibleAttributeType.create(name: 'Milestones')
 title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
 title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
+miles_type = CollectibleAttributeType.create(name: 'Miles')
 
 MoodName.destroy_all
 #hard_to_say = MoodName.create(name: 'Hard to say')
