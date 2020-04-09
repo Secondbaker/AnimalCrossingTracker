@@ -288,6 +288,22 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     if verbose
        puts "-\t" + milestones 
     end
+
+    #passport_title_1
+    title_values = passport_title_1.split(";")
+    creation_reward_titles = RewardTitle.create
+    title_values.each do |value|
+        title = PassportTitle.find_by(value: value)
+        if !PassportTitle.find_by(value: value)
+            title = PassportTitle.create(value:value)
+            if verbose
+                puts "Created PassportTitle " + title.value
+            end
+        end
+        position = creation_reward_titles.reward_title_positions.create
+        title.reward_title_positions << position
+        puts "-\t" + position.position.to_s + " - " + title.value 
+    end
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -374,6 +390,8 @@ birthday_type = CollectibleAttributeType.create(name: 'Birthday')
 catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
 description_type = CollectibleAttributeType.create(name: 'Description')
 milestone_type = CollectibleAttributeType.create(name: 'Milestones')
+title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
+title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
 
 MoodName.destroy_all
 #hard_to_say = MoodName.create(name: 'Hard to say')
@@ -446,6 +464,8 @@ FishSize.destroy_all
 #five = FishSize.create(name: '5')
 #six = FishSize.create(name: '6')
 #six_fin = FishSize.create(name: '6 (Fin)')
+
+PassportTitle.destroy_all
 
 verbose = true
 

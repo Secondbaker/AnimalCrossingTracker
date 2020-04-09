@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_151614) do
+ActiveRecord::Schema.define(version: 2020_04_09_144545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -172,6 +172,12 @@ ActiveRecord::Schema.define(version: 2020_04_07_151614) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "passport_titles", force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "personality_types", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -185,6 +191,21 @@ ActiveRecord::Schema.define(version: 2020_04_07_151614) do
 
   create_table "rarities", force: :cascade do |t|
     t.integer "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "reward_title_positions", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
+    t.bigint "reward_title_id"
+    t.bigint "passport_title_id"
+    t.index ["passport_title_id"], name: "index_reward_title_positions_on_passport_title_id"
+    t.index ["reward_title_id"], name: "index_reward_title_positions_on_reward_title_id"
+  end
+
+  create_table "reward_titles", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -249,6 +270,8 @@ ActiveRecord::Schema.define(version: 2020_04_07_151614) do
 
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "milestone_values", "milestones"
+  add_foreign_key "reward_title_positions", "passport_titles"
+  add_foreign_key "reward_title_positions", "reward_titles"
   add_foreign_key "time_of_years", "collectible_attributes"
   add_foreign_key "timespans", "time_of_days"
 end
