@@ -21,6 +21,8 @@ class IslandCollectionsController < ApplicationController
 
   # GET /island_collections/1/edit
   def edit
+    @island_collection = IslandCollection.find(params[:id])
+    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
   end
 
   # POST /island_collections

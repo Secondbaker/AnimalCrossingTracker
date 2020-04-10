@@ -1,43 +1,18 @@
 <h1>Editing Collection</h1>
-
+<p>
+something
+</p>
 <%= render 'form', collection: @collection %>
-
 
 <table>
     <tr>
-        <td>
-            Name
-        </td>
-        <td>
-            Thumbnail url
-        </td>
-        <td>
-            Completed
-        </td>
-        <% @collectibles.first.collectible_attributes.each do |collatt| %>
-            <td>
-                <%= collatt.collectible_attribute_value_type %>
-            </td>
+        <td>Collectible</td>
+        <td>Collectible thumbnail</td>
+        <td>Completed</td>
+        <% @collectibles.first.collectible_attribute.each do |collectible_attribute| %>
+            <td><%= collectible_attribute.collectible_attribute_value_type.name %></td>
         <% end %>
     </tr>
-    <% @collectibles.each do |collectible| %>
-        <tr>
-            <td>
-                <%= collectible.name %>
-            </td>
-            <td>
-                <%= collectible.thumbnail %>
-            </td>
-            <td>
-                <%= check_box_tag "", collectible.complete, collectible.complete %>
-            </td>
-            <% collectible.collectible_attributes.each do |collatt| %>
-                <td>
-                    <%= render 'collectible_attributes/form', collectible_attribute: collatt %>
-                </td>
-            <% end %>
-        </tr>
-    <% end %>
 </table>
 <%= link_to 'Show', @collection %> |
 <%= link_to 'Back', collections_path %>
