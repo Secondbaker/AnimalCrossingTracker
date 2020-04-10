@@ -1,0 +1,6 @@
+<p>
+    <% time_of_day.timespans.each do |timespan| %>
+        <%= render partial: "timespans/edit", locals: { timespan:timespan }%>
+    <% end %>
+    <%= link_to "Add", :action => "new", :controller => "timespans" %>
+</p>

@@ -6,7 +6,7 @@
 <% elsif (value_class == BellValue) then %>
   <%= render partial: "bell_values/edit", locals: { bell_value: value } %>
 <% elsif (value_class == TimeOfDay) then %>
-  <%= render partial: "time_of_days/show", locals: { time_of_day: value } %>
+  <%= render partial: "time_of_days/edit", locals: { time_of_day: value } %>
 <% elsif (value_class == TimeOfYear) then %>
   <%= render partial: "time_of_years/show", locals: { time_of_year: value } %>
 <% elsif value_class == FishingLocation %>
