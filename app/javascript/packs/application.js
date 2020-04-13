@@ -33,5 +33,12 @@ $(document).ready(function() {
 			}
 		}
 	}
+
+	$('collectible').click(
+		function(){
+			console.log("Hello");
+			
+		}
+	);
 	
 });
