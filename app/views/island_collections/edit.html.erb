@@ -16,7 +16,7 @@
         <tr>
             <td><%= collectible.name %></td>
             <td><%= collectible.thumbnail %></td>
-            <td><%= collectible.complete %></td>
+            <td><%= check_box collectible.id.to_s + "Complete", checked:collectible.complete %></td>
             <% collectible.collectible_attributes.each do |collectible_attribute| %>
                 <td><%= render partial: "collectible_attributes/edit", locals: { collectible_attribute: collectible_attribute } %></td>
             <% end %>
