@@ -7,6 +7,8 @@ ruby '2.6.5'
 
 gem 'acts_as_list'
 
+gem 'jquery-rails'
+
 gem 'csv'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
