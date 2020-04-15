@@ -51,6 +51,17 @@ class CollectiblesController < ApplicationController
     end
   end
 
+  # PATCH/PUT /collectibles/1/toggle/
+  def toggle
+    set_collectible
+    @collectible.complete = !@collectible.complete
+    if @collectible.save
+      redirect_to island_collection_path(@collectible.island_collection, anchor: @collectible.id)
+    else
+      render json: @collectible.errors, status: :unprocessable_entity
+    end
+  end
+
   # DELETE /collectibles/1
   # DELETE /collectibles/1.json
   def destroy
@@ -65,7 +76,7 @@ class CollectiblesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_collectible
-    @collectible = Collectible.find(params[:id])
+    @collectible = Collectible.find(params[:collectible_id])
   end
 
   # Only allow a list of trusted parameters through.

@@ -64,7 +64,6 @@
   </body>
 
   <script>
-  const csrfToken = document.querySelector('[name="csrf-token"]').getAttribute('content');
 
   function navDropdown() {
 		document.getElementById("collections-submenu").classList.toggle("show");
@@ -83,14 +82,13 @@
 		}
   }
   
-  $('.collectible').click(
+  $('.collectibles').click(
 		function(){
       console.log(this.id);
       
       response = $.ajax({
-        url: '/collectibles/' + this.id,
+        url: '/collectibles/' + this.id + '/toggle',
         type: 'PATCH' 
-        data: { 'authenticity-token': scrfToken }
       });
       console.log(response);
 		}

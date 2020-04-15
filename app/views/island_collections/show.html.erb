@@ -8,9 +8,13 @@
 <section class="collection-items">
   <% @collectibles.each do |collectible| %>
     <div class="collectible" id="<%= collectible.id %>">
-      <%= image_tag(collectible.thumbnail, size: "100") %>
+      <%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
+        <%= image_tag (collectible.thumbnail) %>
+      <% end %>
       <p><%= link_to collectible.name, collectible %></p>
-      <p><%= check_box_tag "Complete", collectible.complete, collectible.complete %></p>
+      <p><%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
+      <input type="checkbox" name="task" id="task" value="1" data-url="/tasks/1" data-remote="true" data-method="post">
+</p>
     </div>
   <% end %>
 </section>
