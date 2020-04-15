@@ -82,15 +82,16 @@
 		}
   }
   
-  $('.collectibles').click(
+  $('.collectible').click(
 		function(){
       console.log(this.id);
-      
-      response = $.ajax({
-        url: '/collectibles/' + this.id + '/toggle',
-        type: 'PATCH' 
-      });
-      console.log(response);
+      var checkbox = $(this).find('input[type="checkbox"]');
+      console.log(checkbox[0].value);
+      if (checkbox[0].value == 'false')
+        checkbox[0].value = true;
+      else if (checkbox[0].value == 'true')
+        checkbox[0].value = false;
+      console.log(checkbox[0].value)
 		}
 	);
   </script>
