@@ -1,5 +1,8 @@
 class IslandCollectionsController < ApplicationController
+  include Secured
+
   before_action :set_island_collection, only: [:show, :edit, :update, :destroy]
+
 
   # GET /island_collections
   # GET /island_collections.json

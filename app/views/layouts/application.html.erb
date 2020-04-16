@@ -15,6 +15,12 @@
 
   <body>
   <header>
+
+<% if session[:userinfo] == nil %>
+  <%= button_to 'Login', 'auth/auth0', method: :post %>
+<% else %>
+  <%= button_to 'Logout', '/logout', method: :get %>
+<% end %>
   <% unless params[:controller] == 'welcome' %>
   <nav>
     <ul class="main-menu">
