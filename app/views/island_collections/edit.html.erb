@@ -2,27 +2,5 @@
 
 <%= render 'form', island_collection: @island_collection %>
 
-
-<table>
-    <tr>
-        <td>Collectible</td>
-        <td>Collectible thumbnail</td>
-        <td>Completed</td>
-        <% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
-            <td><%= collectible_attribute.collectible_attribute_type.name %></td>
-        <% end %>
-    </tr>
-    <% @collectibles.each do |collectible| %>
-        <tr>
-            <td><%= collectible.name %></td>
-            <td><%= collectible.thumbnail %></td>
-            <td><%= check_box collectible.id.to_s + "Complete", checked:collectible.complete %></td>
-            <% collectible.collectible_attributes.each do |collectible_attribute| %>
-                <td><%= render partial: "collectible_attributes/edit", locals: { collectible_attribute: collectible_attribute } %></td>
-            <% end %>
-        </tr>
-    <% end %>
-</table>
-
 <%= link_to 'Show', @island_collection %> |
 <%= link_to 'Back', island_collections_path %>

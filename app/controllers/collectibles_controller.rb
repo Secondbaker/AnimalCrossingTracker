@@ -81,6 +81,6 @@ class CollectiblesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def collectible_params
-    params.require(:collectible).permit(:collection_id)
+    params.require(:collectible).permit(:island_collection_id)
   end
 end

@@ -9,7 +9,9 @@
   <% @collectibles.each do |collectible| %>
     <div class="collectible" id="<%= collectible.id %>">
       <%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
-        <%= image_tag collectible.thumbnail, height: '100', width: '100' %>
+        <% unless collectible.thumbnail == nil%>
+          <%= image_tag collectible.thumbnail, height: '100', width: '100' %>
+        <% end %>
       <% end %>
       <p><%= link_to collectible.name, collectible %></p>
       <p><%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>

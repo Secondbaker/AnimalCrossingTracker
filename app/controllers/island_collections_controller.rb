@@ -25,6 +25,7 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1/edit
   def edit
     @island_collection = IslandCollection.find(params[:id])
+
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
   end
 
@@ -76,6 +77,6 @@ class IslandCollectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def island_collection_params
-      params.require(:island_collection).permit(:title, :thumbnail)
+      params.require(:island_collection).permit(:title, :thumbnail, :collectibles_attributes => [:island_collection_id, :name, :thumbnail, :complete, :id])
     end
 end
