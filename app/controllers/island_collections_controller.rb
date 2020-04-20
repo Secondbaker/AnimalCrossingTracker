@@ -27,6 +27,7 @@ class IslandCollectionsController < ApplicationController
     @island_collection = IslandCollection.find(params[:id])
 
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+
   end
 
   # POST /island_collections

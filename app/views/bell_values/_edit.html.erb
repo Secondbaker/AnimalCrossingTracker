@@ -1,3 +1,3 @@
 <div class="bell value">
-  <%= number_field_tag 'bell value', bell_value.value %>
+  <%= form_helper.number_field  :value, { value: bell_value.value } %>
 </div>

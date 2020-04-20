@@ -39,8 +39,9 @@
             <td><%= collectible.text_field :name %></td>
             <td><%= collectible.text_field :thumbnail %></td>
             <td><%= collectible.check_box :complete %></td>
-            <% collectible.fields_for :collectible_attributes do |collectible_attribute| %>
+            <%= collectible.fields_for :collectible_attributes do |collectible_attribute| %>
                 <td>
+                  <%= render partial: '/collectible_attributes/edit', locals: { collectible_attribute: collectible_attribute.object, form_helper: collectible_attribute} %>
                 </td>
             <% end %>
         </tr>
