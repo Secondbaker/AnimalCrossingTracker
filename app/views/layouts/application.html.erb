@@ -1,106 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Crossing Tracker</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Animal Crossing Tracker</title>
+	<%= csrf_meta_tags %>
+	<%= csp_meta_tag %>
 
-    <link rel="stylesheet" href="https://use.typekit.net/kyh4nqi.css">
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+	<link rel="stylesheet" href="https://use.typekit.net/kyh4nqi.css">
+	<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+	<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-  <header>
+<body>
 
-<% if session[:userinfo] == nil %>
-  <%= button_to 'Login', 'auth/auth0', method: :post %>
-<% else %>
-  <%= button_to 'Logout', '/logout', method: :get %>
-<% end %>
-  <% unless params[:controller] == 'welcome' %>
-  <nav>
-    <ul class="main-menu">
-      <li class="menu"><a href="">My Island</a></li>
-      <li class="logo"><a href=""><%= image_tag "logo.png" %></a></li>
-      <li onclick="navDropdown()" class="menu dropdown">Collections</li>
-    </ul>
-    <ul class="submenu" id="collections-submenu">
-      <p><a href="">Collections</a></p>
-      <li><a href="">
-        <span>Badges</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Gyroids</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Bugs</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Fish</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Diving</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>K.K. Corner</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Crazy Redd</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-      <li><a href="">
-        <span>Fossils</span>
-        <%= image_tag "icon-net.png" %>
-      </a></li>
-    </ul>
-  </nav>
-<% end %>
+<header>
+	<% if session[:userinfo] == nil %>
+		<%= button_to 'Login', 'auth/auth0', method: :post %>
+	<% else %>
+		<%= button_to 'Logout', '/logout', method: :get %>
+	<% end %>
+	<% unless params[:controller] == 'welcome' %>
+		<nav>
+			<ul class="main-menu">
+				<li class="logo"><a href=""><%= image_tag "logo.png" %></a></li>
+				<li class="menu"><a href="">Fish</a></li>
+				<li class="menu"><a href="">Bugs</a></li>
+				<li class="menu"><a href="">Fossils</a></li>
+				<li class="login"><a href="">
+					<% if session[:userinfo] == nil %>
+						<%= button_to 'Login', 'auth/auth0', method: :post %>
+					<% else %>
+						<%= button_to 'Logout', '/logout', method: :get %>
+					<% end %>
+				</a></li>
+			</ul>
+		</nav>
+	<% end %>
 </header>
-    <%= yield %>
-  </body>
+<%= yield %>
 
-  <script>
+</body>
 
-  function navDropdown() {
-		document.getElementById("collections-submenu").classList.toggle("show");
-	}
+<script>
+
+function navDropdown() {
+	document.getElementById("collections-submenu").classList.toggle("show");
+}
 	
-	window.onclick = function(event) {
-		if (!event.target.matches(".dropdown")) {
-			var dropdowns = document.getElementsByClassName("submenu");
-			var i;
-			for (i = 0; i < dropdowns.length; i++) {
-				var openDropdown = dropdowns[i];
-				if (openDropdown.classList.contains('show')) {
-					openDropdown.classList.remove('show');
-				}
+window.onclick = function(event) {
+	if (!event.target.matches(".dropdown")) {
+		var dropdowns = document.getElementsByClassName("submenu");
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
 			}
 		}
-  }
-  
-  $('.collectible').click(
-		function(){
-      console.log(this.id);
-      var checkbox = $(this).find('input[type="checkbox"]');
-      if (checkbox[0].checked === false)
-      {
-        checkbox[0].checked = true;
-      }
-      else if (checkbox[0].checked == true)
-      {
-        checkbox[0].checked = false;
-      }
+	}
+}
+		
+$('.collectible').click(
+	function(){
+		console.log(this.id);
+		var checkbox = $(this).find('input[type="checkbox"]');
+		if (checkbox[0].checked === false) {
+			checkbox[0].checked = true;
 		}
-	);
-  </script>
+		else if (checkbox[0].checked == true) {
+			checkbox[0].checked = false;
+		}
+	}
+);
+
+$(document).ready(function(){
+
+    var $checkboxes = $('#collection input[type="checkbox"]');
+        
+    $checkboxes.change(function(){
+		var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
+        $('#count-checked-checkboxes').text(countCheckedCheckboxes);
+
+		//var $countCheckboxes = $checkboxes.length;
+		//$('#count-checkboxes').text(countCheckboxes);
+    });
+
+});
+
+</script>
 </html>

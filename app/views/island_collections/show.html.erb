@@ -2,10 +2,10 @@
 
 <section class="title">
   <h1><%= @island_collection.title %></h1>
-  <p class="collection-count">24 / 72 collected</p>
+  <p class="collection-count"><span id="count-checked-checkboxes">0</span> / <span id="count-checkboxes">0</span> collected</p>
 </section>
 
-<section class="collection-items">
+<section id="collection" class="collection-items">
   <% @collectibles.each do |collectible| %>
     <div class="collectible" id="<%= collectible.id %>">
       <%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
@@ -14,9 +14,10 @@
         <% end %>
       <% end %>
       <p><%= link_to collectible.name, collectible %></p>
-      <p><%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
-      <input type="checkbox" name="task" id="task" value="1" data-url="/tasks/1" data-remote="true" data-method="post">
-</p>
+      <p>
+        <%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
+        <input type="checkbox" name="task" id="task" value="1" data-url="/tasks/1" data-remote="true" data-method="post">
+      </p>
     </div>
   <% end %>
 </section>
