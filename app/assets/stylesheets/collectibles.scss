@@ -28,6 +28,7 @@ div.modal .modal-close:focus {
 div.modal input[type="checkbox"],
 div.modal input[type="checkbox"]:checked {
 	visibility: hidden;
+	position: absolute;
 }
 
 div.modal input[type="checkbox"]:checked:before {
@@ -50,4 +51,17 @@ div.modal div.collectible-edit {
 	margin-top: 50px;
 	text-align: right;
 	font-size: 0.5rem;
+}
+
+div.modal div.collectible-data div.time-of-year td {
+	padding: 10px 20px;
+	border: 2px solid #7B6C53;
+}
+
+div.modal div.collectible-data div.time-of-year td.highlight {
+	background-image: asset-data-url('square-bg-orange.svg');
+	background-size: 90% 80%;
+	background-position: center;
+	background-repeat: no-repeat;
+	color: #FFF9E5;
 }

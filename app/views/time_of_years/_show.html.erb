@@ -1,5 +1,24 @@
 <div class="time-of-year">
-  <% time_of_year.months.each do |month| %>
-    <p><%= month.name %></p>
-  <% end %>
+  <table class="month-grid">
+    <tbody>
+      <tr>
+        <td class="<% if time_of_year.months.find_by(name: 'January') %>highlight<% end %>">Jan</td>
+        <td class="<% if time_of_year.months.find_by(name: 'February') %>highlight<% end %>">Feb</td>
+        <td class="<% if time_of_year.months.find_by(name: 'March') %>highlight<% end %>">Mar</td>
+        <td class="<% if time_of_year.months.find_by(name: 'April') %>highlight<% end %>">Apr</td>
+      </tr>
+      <tr>
+        <td class="<% if time_of_year.months.find_by(name: 'May') %>highlight<% end %>">May</td>
+        <td class="<% if time_of_year.months.find_by(name: 'June') %>highlight<% end %>">Jun</td>
+        <td class="<% if time_of_year.months.find_by(name: 'July') %>highlight<% end %>">Jul</td>
+        <td class="<% if time_of_year.months.find_by(name: 'August') %>highlight<% end %>">Aug</td>
+      </tr>
+      <tr>
+        <td class="<% if time_of_year.months.find_by(name: 'September') %>highlight<% end %>">Sep</td>
+        <td class="<% if time_of_year.months.find_by(name: 'October') %>highlight<% end %>">Oct</td>
+        <td class="<% if time_of_year.months.find_by(name: 'November') %>highlight<% end %>">Nov</td>
+        <td class="<% if time_of_year.months.find_by(name: 'December') %>highlight<% end %>">Dec</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
