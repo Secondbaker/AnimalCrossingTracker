@@ -44,6 +44,7 @@
                   <%= collectible_attribute.fields_for :collectible_attribute_value, collectible_attribute.object.collectible_attribute_value do |collectible_attribute_value| %>
                     <% if collectible_attribute.object.collectible_attribute_value.class == BellValue %>
                       Bell value:  <%= collectible_attribute_value.label collectible_attribute_value.object.value %>
+                      <%= collectible_attribute_value.number_field :value %>
                     <% end %>
                   <% end %>
                 </td>
