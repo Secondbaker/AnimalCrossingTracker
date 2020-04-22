@@ -1,6 +1,6 @@
 <% value = collectible_attribute.collectible_attribute_value%>
 <% value_class = value.class %>
-<%= fields_for :collectible_attribute_value do |collectible_attribute_value| %>
+<%= form_helper.fields_for :collectible_attribute_value do |collectible_attribute_value| %>
 <% if (value_class == Rarity) then %>
   <%= render partial: "rarities/edit", locals: { rarity: value, form_helper: collectible_attribute_value} %>
 <% elsif (value_class == BellValue) then %>

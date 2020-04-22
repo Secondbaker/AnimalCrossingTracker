@@ -44,9 +44,10 @@
                   <%= collectible_attribute.fields_for :collectible_attribute_value, collectible_attribute.object.collectible_attribute_value do |collectible_attribute_value| %>
                     <% if collectible_attribute.object.collectible_attribute_value.class == BellValue %>
                       Bell value:  <%= collectible_attribute_value.label collectible_attribute_value.object.value %>
-                      <%= collectible_attribute_value.number_field :value %>
+                      <% collectible_attribute_value.number_field :value %>
                     <% end %>
                   <% end %>
+                  <%= render partial: "collectible_attributes/edit", locals: { collectible_attribute: collectible_attribute.object, form_helper: collectible_attribute } %>
                 </td>
             <% end %>
         </tr>
