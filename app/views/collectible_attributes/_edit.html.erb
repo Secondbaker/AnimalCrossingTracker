@@ -14,7 +14,7 @@
 <% elsif value_class == BugLocation %>
   <%= render partial: "bug_locations/show", locals: { bug_location: value, form_helper: collectible_attribute_value } %>
 <% elsif value_class == ShadowSize %>
-  <%= render partial: "shadow_sizes/show", locals: { shadow_size: value, form_helper: collectible_attribute_value } %>
+  <%= render partial: "shadow_sizes/edit", locals: { shadow_size: value, form_helper: collectible_attribute_value } %>
 <% elsif value_class == Mood %>
   <%= render partial: "moods/show", locals: { mood: value, form_helper: collectible_attribute_value } %>
 <% elsif value_class == VillagerGender %>

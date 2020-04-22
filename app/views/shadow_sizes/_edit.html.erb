@@ -1,0 +1,4 @@
+<p> 
+    <%= form_helper.select :fish_size_ids, options_from_collection_for_select(@fish_sizes, "id", "name", shadow_size.fish_sizes.first.id) %>
+    <%= shadow_size.fish_size_ids.first%>
+</p>

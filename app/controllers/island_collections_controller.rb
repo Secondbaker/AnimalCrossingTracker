@@ -28,6 +28,7 @@ class IslandCollectionsController < ApplicationController
 
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
 
+    @fish_sizes = FishSize.all
   end
 
   # POST /island_collections
@@ -78,6 +79,6 @@ class IslandCollectionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def island_collection_params
-      params.require(:island_collection).permit(:title, :thumbnail, :collectibles_attributes => [:island_collection_id, :name, :thumbnail, :complete, :id, :collectible_attributes_attributes => [:id, :collectible_attribute_value, :collectible_attribute_type, :collectible_attribute_value_attributes => [:id, :value]]] )
+      params.require(:island_collection).permit(:title, :thumbnail, :collectibles_attributes => [:island_collection_id, :name, :thumbnail, :complete, :id, :collectible_attributes_attributes => [:id, :collectible_attribute_value, :collectible_attribute_type, :collectible_attribute_value_attributes => [:id, :value, :fish_sizes]]] )
     end
 end
