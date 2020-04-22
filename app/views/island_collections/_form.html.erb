@@ -41,8 +41,10 @@
             <td><%= collectible.check_box :complete %></td>
             <%= collectible.fields_for :collectible_attributes, collectible.object.collectible_attributes.each do |collectible_attribute| %>
                 <td>
-                  <% if collectible_attribute.object.collectible_attribute_value.class == BellValue %>
-                    Bell Value
+                  <%= collectible_attribute.fields_for :collectible_attribute_value, collectible_attribute.object.collectible_attribute_value do |collectible_attribute_value| %>
+                    <% if collectible_attribute.object.collectible_attribute_value.class == BellValue %>
+                      Bell value:  <%= collectible_attribute_value.label collectible_attribute_value.object.value %>
+                    <% end %>
                   <% end %>
                 </td>
             <% end %>
