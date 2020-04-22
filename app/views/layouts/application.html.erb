@@ -61,33 +61,33 @@ window.onclick = function(event) {
 		}
 	}
 }
-		
+
+function countCheckbox() {
+	return $('#collection input[type="checkbox"]').length;
+}
+
+function countCheckedCheckbox() {
+	return $('#collection input[type="checkbox"]:checked').length;
+}
+
+document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+document.getElementById("count-checkboxes").innerHTML = countCheckbox();
+
 $('.collectible').click(
 	function(){
-		console.log(this.id);
 		var checkbox = $(this).find('input[type="checkbox"]');
+
 		if (checkbox[0].checked === false) {
 			checkbox[0].checked = true;
 		}
 		else if (checkbox[0].checked == true) {
 			checkbox[0].checked = false;
 		}
+
+		document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+
 	}
 );
-
-$(document).ready(function(){
-
-    var $checkboxes = $('#collection input[type="checkbox"]');
-        
-    $checkboxes.change(function(){
-		var countCheckedCheckboxes = $checkboxes.filter(':checked').length;
-        $('#count-checked-checkboxes').text(countCheckedCheckboxes);
-
-		//var $countCheckboxes = $checkboxes.length;
-		//$('#count-checkboxes').text(countCheckboxes);
-    });
-
-});
 
 </script>
 </html>
