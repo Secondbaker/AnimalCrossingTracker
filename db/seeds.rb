@@ -54,13 +54,11 @@ def parseTitles(titles:String, verbose:boolean = false)
     title_values = titles.split(";")
     creation = RewardTitle.create
     title_values.each do |value|
-        title = PassportTitle.find_by(value: value)
-        if !PassportTitle.find_by(value: value)
-            title = PassportTitle.create(value:value)
-            if verbose
-                puts "Created PassportTitle " + title.value
-            end
+        title = StringCollectibleAttribute.create(value:value)
+        if verbose
+            puts "Created PassportTitle " + title.value
         end
+        
         position = creation.reward_title_positions.create
         title.reward_title_positions << position
         puts "-\t" + position.position.to_s + " - " + title.value 
@@ -574,8 +572,8 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-getVillagers(csv: csv_text, verbose:verbose)
+#getVillagers(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
-#getNookMiles(csv: csv_text, verbose:verbose)
+getNookMiles(csv: csv_text, verbose:verbose)
