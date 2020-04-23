@@ -1,0 +1,2 @@
+class StringCollectibleAttribute < ApplicationRecord
+end

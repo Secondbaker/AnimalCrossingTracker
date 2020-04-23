@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_151643) do
+ActiveRecord::Schema.define(version: 2020_04_23_154908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -218,6 +218,12 @@ ActiveRecord::Schema.define(version: 2020_04_23_151643) do
   create_table "species_villager_species", id: false, force: :cascade do |t|
     t.integer "species_id", null: false
     t.integer "villager_species_id", null: false
+  end
+
+  create_table "string_collectible_attributes", force: :cascade do |t|
+    t.string "value"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "time_of_days", force: :cascade do |t|

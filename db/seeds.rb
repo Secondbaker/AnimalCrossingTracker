@@ -574,8 +574,8 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-getVillagers(csv: csv_text, verbose:verbose)
+#getVillagers(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
-#getNookMiles(csv: csv_text, verbose:verbose)
+getNookMiles(csv: csv_text, verbose:verbose)
