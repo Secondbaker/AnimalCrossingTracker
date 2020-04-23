@@ -1,5 +1,5 @@
 <div class="time-of-day">
-  <% time_of_day.timespans.each do |timespan| %>
-    <p><%= "%s - %s" %[timespan.start.to_s, timespan.end.to_s] %></p>
+  <% time_of_day.hours.each do |hour| %>
+    <p><%= hour.name %></p>
   <% end %>
 </div>
