@@ -14,7 +14,7 @@ div.modal {
 }
 
 div.modal .modal-close {
-	float: right;
+	float: left;
 	margin-top: 30px;
 	opacity: 0.5;
 }
@@ -25,19 +25,28 @@ div.modal .modal-close:focus {
 	transition: all ease-in-out 0.3s;
 }
 
+div.modal img {
+	height: 64px;
+	width: 64px;
+}
+
 div.modal input[type="checkbox"],
 div.modal input[type="checkbox"]:checked {
 	visibility: hidden;
 	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 div.modal input[type="checkbox"]:checked:before {
 	visibility: visible;
-	content: asset-data-url('checkmark.svg');
+	content: asset-data-url('stamp.svg');
+	opacity: 50%;
 	position: absolute;
-	width: 60px;
-	top: -10px;
-	right: -15px;
+	width: 100px;
+	top: 80px;
+	right: 80px;
+	transform: rotate(-15deg);
 }
 
 div.collectible-data {
