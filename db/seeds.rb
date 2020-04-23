@@ -424,10 +424,6 @@ if verbose
 end
 CollectibleAttribute.destroy_all
 if verbose
-    puts "Destroying Timespan"
-end
-Timespan.destroy_all
-if verbose
     puts "Destroying Rarity"
 end
 Rarity.destroy_all
