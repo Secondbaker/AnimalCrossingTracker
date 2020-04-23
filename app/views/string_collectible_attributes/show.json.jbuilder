@@ -1,0 +1,1 @@
+json.partial! "string_collectible_attributes/string_collectible_attribute", string_collectible_attribute: @string_collectible_attribute

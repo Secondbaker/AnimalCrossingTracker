@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>String Collectible Attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @string_collectible_attributes.each do |string_collectible_attribute| %>
+      <tr>
+        <td><%= string_collectible_attribute.value %></td>
+        <td><%= link_to 'Show', string_collectible_attribute %></td>
+        <td><%= link_to 'Edit', edit_string_collectible_attribute_path(string_collectible_attribute) %></td>
+        <td><%= link_to 'Destroy', string_collectible_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New String Collectible Attribute', new_string_collectible_attribute_path %>
