@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Collectible Attribute Lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collectible_attribute_lists.each do |collectible_attribute_list| %>
+      <tr>
+        <td><%= link_to 'Show', collectible_attribute_list %></td>
+        <td><%= link_to 'Edit', edit_collectible_attribute_list_path(collectible_attribute_list) %></td>
+        <td><%= link_to 'Destroy', collectible_attribute_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collectible Attribute List', new_collectible_attribute_list_path %>

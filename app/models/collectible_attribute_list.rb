@@ -1,0 +1,2 @@
+class CollectibleAttributeList < ApplicationRecord
+end
