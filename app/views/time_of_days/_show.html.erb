@@ -1,33 +1,30 @@
 <div class="time-of-day">
 
   <div class="active-hours">
-    <div class="hour-block" id="twelve-am"><div class="highlight"></div></div>
-    <div class="hour-block" id="one-am">   <div class="highlight"></div></div>
-    <div class="hour-block" id="two-am">   <div class="highlight"></div></div>
-    <div class="hour-block" id="three-am"> <div class="highlight"></div></div>
-    <div class="hour-block" id="four-am">  <div class="highlight"></div></div>
-    <div class="hour-block" id="five-am">  <div class="highlight"></div></div>
-    <div class="hour-block" id="six-am">   <div class="highlight"></div></div>
-    <div class="hour-block" id="seven-am"> <div class="highlight"></div></div>
-    <div class="hour-block" id="eight-am"> <div class="highlight"></div></div>
-    <div class="hour-block" id="nine-am">  <div class="highlight"></div></div>
-    <div class="hour-block" id="ten-am">   <div class=""></div></div>
-    <div class="hour-block" id="eleven-am"><div class=""></div></div>
-    <div class="hour-block" id="twelve-pm"><div class=""></div></div>
-    <div class="hour-block" id="one-pm">   <div class=""></div></div>
-    <div class="hour-block" id="two-pm">   <div class=""></div></div>
-    <div class="hour-block" id="three-pm"> <div class=""></div></div>
-    <div class="hour-block" id="four-pm">  <div class="highlight"></div></div>
-    <div class="hour-block" id="five-pm">  <div class="highlight"></div></div>
-    <div class="hour-block" id="six-pm">   <div class="highlight"></div></div>
-    <div class="hour-block" id="seven-pm"> <div class="highlight"></div></div>
-    <div class="hour-block" id="eight-pm"> <div class="highlight"></div></div>
-    <div class="hour-block" id="nine-pm">  <div class="highlight"></div></div>
-    <div class="hour-block" id="ten-pm">   <div class="highlight"></div></div>
-    <div class="hour-block" id="eleven-pm"><div class="highlight"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '12a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '1a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '2a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '3a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '4a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '5a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '6a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '7a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '8a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '9a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '10a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '11a') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '12p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '1p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '2p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '3p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '4p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '5p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '6p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '7p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '8p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '9p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '10p') %>highlight<% end %>"></div></div>
+    <div class="hour-block"><div class="<% if time_of_day.hours.find_by(name: '11p') %>highlight<% end %>"></div></div>
   </div>
-
-  <% time_of_day.hours.each do |hour| %>
-    <p><%= hour.name %></p>
-  <% end %>
+  
 </div>
