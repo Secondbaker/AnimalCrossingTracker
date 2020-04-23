@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :hours
   resources :passport_titles
   resources :reward_title_positions
   resources :reward_titles

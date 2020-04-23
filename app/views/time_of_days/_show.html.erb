@@ -27,4 +27,7 @@
     <div class="hour-block" id="eleven-pm"><div class="highlight"></div></div>
   </div>
 
+  <% time_of_day.hours.each do |hour| %>
+    <p><%= hour.name %></p>
+  <% end %>
 </div>

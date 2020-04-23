@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_09_144545) do
+ActiveRecord::Schema.define(version: 2020_04_23_141923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,17 @@ ActiveRecord::Schema.define(version: 2020_04_09_144545) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hours", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "hours_time_of_days", id: false, force: :cascade do |t|
+    t.bigint "hour_id", null: false
+    t.bigint "time_of_day_id", null: false
   end
 
   create_table "island_collections", force: :cascade do |t|
@@ -238,15 +249,6 @@ ActiveRecord::Schema.define(version: 2020_04_09_144545) do
     t.index ["collectible_attribute_id"], name: "index_time_of_years_on_collectible_attribute_id"
   end
 
-  create_table "timespans", force: :cascade do |t|
-    t.time "start"
-    t.time "end"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "time_of_day_id"
-    t.index ["time_of_day_id"], name: "index_timespans_on_time_of_day_id"
-  end
-
   create_table "villager_catchphrases", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -273,5 +275,4 @@ ActiveRecord::Schema.define(version: 2020_04_09_144545) do
   add_foreign_key "reward_title_positions", "passport_titles"
   add_foreign_key "reward_title_positions", "reward_titles"
   add_foreign_key "time_of_years", "collectible_attributes"
-  add_foreign_key "timespans", "time_of_days"
 end

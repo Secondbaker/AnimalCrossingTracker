@@ -28,27 +28,22 @@ def parseTimeOfYear(time_of_year:String, verbose:boolean = false)
     return creation
 end
 
-#takes a string of format '[(#)# [am/pm] - (#)# [am/pm](; (#)# [am/pm] - (#)# [am/pm](;...))/All day]'
+#takes a string which is a list of hour names with spaces between them
 #returns a TimeOfDay
 def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     creation = TimeOfDay.create
-    if time_of_day =~ /[aA]ll [dD]ay/
-        creation.timespans << Timespan.create(start: "12:00am", end: "12:00am")
-        if verbose
-            puts "-\tAll day"
-        end
-    else
-
-        times = time_of_day.split(';')
-        times.each do |time|
-            start_time = time.split('-')[0]
-            end_time = time.split('-')[1]
-            creation.timespans << Timespan.create(start: start_time, end: end_time)
+    if verbose
+        puts "-\t" + time_of_day
+    end
+    hours = time_of_day.split(' ')
+    hours.each do |hour|
+        if !Hour.find_by(name: hour)
             if verbose
-                puts "-\t" + start_time + " to " + end_time
+                puts "Error:  Probably misspelled hour: " + hour
             end
+        else
+            creation.hours << Hour.find_by(name: hour)
         end
-        
     end
     return creation
 end
@@ -342,7 +337,7 @@ def getFish(csv:CSV::Table, verbose:boolean = false)
         puts "Creating IslandCollection:\tFish"
     end
     csv.each do |fish_data|
-        createFish!(fish:fish, fish_name:fish_data[0], thumbnail_url:fish_data[1], bell_value: fish_data[2], fishing_location:fish_data[3], shadow_size:fish_data[4], time_of_day:fish_data[5], time_of_year:fish_data[6], verbose:verbose)
+        createFish!(fish:fish, fish_name:fish_data["Fish"], thumbnail_url:fish_data["Image"], bell_value: fish_data["Value"], fishing_location:fish_data["Location"], shadow_size:fish_data["Shadow Size"], time_of_day:fish_data["Time (New)"], time_of_year:fish_data["Month"], verbose:verbose)
     end
 end
 
@@ -385,28 +380,89 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
         createNookMiles!(nook_miles:nook_miles, name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
     end
 end
-RewardTitlePosition.destroy_all
-RewardTitle.destroy_all
-Description.destroy_all
-VillagerCatchphrase.destroy_all
-Birthday.destroy_all
-VillagerSpecies.destroy_all
-VillagerPersonality.destroy_all
-VillagerGender.destroy_all
-ShadowSize.destroy_all
-CollectibleAttribute.destroy_all
-Timespan.destroy_all
-Rarity.destroy_all
-BellValue.destroy_all
-TimeOfDay.destroy_all
-TimeOfYear.destroy_all
-FishingLocation.destroy_all
-BugLocation.destroy_all
-Collectible.destroy_all
-IslandCollection.destroy_all
-Collection.destroy_all
 
+verbose = true
+
+if verbose
+    puts "Destroying RewardTitlePosition"
+end
+RewardTitlePosition.destroy_all
+if verbose
+    puts "Destroying RewardTitle"
+end
+RewardTitle.destroy_all
+if verbose
+    puts "Destroying Description"
+end
+Description.destroy_all
+if verbose
+    puts "Destroying VillagerCatchphrase"
+end
+VillagerCatchphrase.destroy_all
+if verbose
+    puts "Destroying Birthday"
+end
+Birthday.destroy_all
+if verbose
+    puts "Destroying VillagerSpecies"
+end
+VillagerSpecies.destroy_all
+if verbose
+    puts "Destroying VillagerPersonality"
+end
+VillagerPersonality.destroy_all
+if verbose
+    puts "Destroying VillagerGender"
+end
+VillagerGender.destroy_all
+if verbose
+    puts "Destroying ShadowSize"
+end
+ShadowSize.destroy_all
+if verbose
+    puts "Destroying CollectibleAttribute"
+end
+CollectibleAttribute.destroy_all
+if verbose
+    puts "Destroying Rarity"
+end
+Rarity.destroy_all
+if verbose
+    puts "Destroying BellValue"
+end
+BellValue.destroy_all
+if verbose
+    puts "Destroying TimeOfDay"
+end
+TimeOfDay.destroy_all
+if verbose
+    puts "Destroying TimeOfYear"
+end
+TimeOfYear.destroy_all
+if verbose
+    puts "Destroying FishingLocation"
+end
+FishingLocation.destroy_all
+if verbose
+    puts "Destroying BugLocation"
+end
+BugLocation.destroy_all
+if verbose
+    puts "Destroying Collectible"
+end
+Collectible.destroy_all
+if verbose
+    puts "Destroying IslandCollection"
+end
+IslandCollection.destroy_all
+
+if verbose
+    puts "Destroying CollectibleAttributeType"
+end
 CollectibleAttributeType.destroy_all
+if verbose
+    puts "Creating CollectibleAttributeTypes"
+end
 rarity_type = CollectibleAttributeType.create(name: 'Rarity')
 bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
 time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
@@ -426,12 +482,18 @@ title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
 title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
 miles_type = CollectibleAttributeType.create(name: 'Miles')
 
+if verbose
+    puts "Destroying MoodName"
+end
 MoodName.destroy_all
-#hard_to_say = MoodName.create(name: 'Hard to say')
-#lazy = MoodName.create(name: 'Lazy')
 
-
+if verbose
+    puts "Destroying Month"
+end
 Month.destroy_all
+if verbose
+    puts "Creating Months"
+end
 january = Month.create(name: 'January', number: 1)
 february = Month.create(name: 'February', number: 2)
 march = Month.create(name: 'March', number: 3)
@@ -445,62 +507,74 @@ october = Month.create(name: 'October', number: 10)
 november = Month.create(name: 'November', number: 11)
 december = Month.create(name: 'December', number: 12)
 
-PersonalityType.destroy_all
-#p_t_1 = PersonalityType.create(name: 'Jock')
-#p_t_2 = PersonalityType.create(name: 'Sleepy')
+if verbose
+    puts "Destroying Hour"
+end
+Hour.destroy_all
+if verbose
+    puts "Creating Hours"
+end
+Hour.create(name: '12a')
+Hour.create(name: '1a')
+Hour.create(name: '2a')
+Hour.create(name: '3a')
+Hour.create(name: '4a')
+Hour.create(name: '5a')
+Hour.create(name: '6a')
+Hour.create(name: '7a')
+Hour.create(name: '8a')
+Hour.create(name: '9a')
+Hour.create(name: '10a')
+Hour.create(name: '11a')
+Hour.create(name: '12p')
+Hour.create(name: '1p')
+Hour.create(name: '2p')
+Hour.create(name: '3p')
+Hour.create(name: '4p')
+Hour.create(name: '5p')
+Hour.create(name: '6p')
+Hour.create(name: '7p')
+Hour.create(name: '8p')
+Hour.create(name: '9p')
+Hour.create(name: '10p')
+Hour.create(name: '11p')
 
+if verbose
+    puts "Destroying PersonalityType"
+end
+PersonalityType.destroy_all
+
+if verbose
+    puts "Destroying Species"
+end
 Species.destroy_all
 #s_1 = Species.create(name: 'Bird')
 
+if verbose
+    puts "Destroying Catchphrase"
+end
 Catchphrase.destroy_all
 #c_1 = Catchphrase.create(name: 'aye aye')
 
+if verbose
+    puts "Destroying FishingSpot"
+end
 FishingSpot.destroy_all
-#pier = FishingSpot.create(name: 'Pier')
-#pond = FishingSpot.create(name: 'Pond')
-#river = FishingSpot.create(name: 'River')
-#river_clifftop = FishingSpot.create(name: 'River (Clifftop)')
-#river_mouth = FishingSpot.create(name: 'River (Mouth)')
-#sea = FishingSpot.create(name: 'Sea')
-#sea_raining = FishingSpot.create(name: 'Sea (Raining)')
 
+if verbose
+    puts "Destroying BugSpot"
+end
 BugSpot.destroy_all
-#question_bug = BugSpot.create(name: '?')
-#shell_disguise = BugSpot.create(name: 'On beach disguised as shells')
-#flying = BugSpot.create(name: 'Flying')
-#flying_by_light = BugSpot.create(name: 'Flying by light')
-#flying_by_rare_flowers = BugSpot.create(name: 'Flying by rare flowers')
-#under_rocks = BugSpot.create(name: 'Under rocks (hit the rock)')
-#hopping = BugSpot.create(name: 'Hopping')
-#tree_stump = BugSpot.create(name: 'On a tree stump')
-#beach_rocks = BugSpot.create(name: 'On beach rocks')
-#flowers = BugSpot.create(name: 'On flowers')
-#white_flowers = BugSpot.create(name: 'On white flowers')
-#ground = BugSpot.create(name: 'On ground')
-#ponds_rivers = BugSpot.create(name: 'On ponds and rivers')
-#rocks_rain = BugSpot.create(name: 'On rocks (raining)')
-#trash = BugSpot.create(name: 'On trash items')
-#tree = BugSpot.create(name: 'On trees')
-#palm_tree = BugSpot.create(name: 'On palm trees')
-#shaking_tree = BugSpot.create(name: 'Shaking trees')
-#leaf_disguise = BugSpot.create(name: 'Under trees disguised as leaves')
-#underground = BugSpot.create(name: 'Underground')
-#villagers_heads = BugSpot.create(name: 'Villagers\' heads')
 
+if verbose
+    puts "Destroying FishSize"
+end
 FishSize.destroy_all
-#narrow = FishSize.create(name: 'Narrow')
-#question_fish = FishSize.create(name: '? (Fin)')
-#one = FishSize.create(name: '1')
-#two = FishSize.create(name: '2')
-#three = FishSize.create(name: '3')
-#four = FishSize.create(name: '4')
-#five = FishSize.create(name: '5')
-#six = FishSize.create(name: '6')
-#six_fin = FishSize.create(name: '6 (Fin)')
 
+if verbose
+    puts "Destroying PassportTitle"
+end
 PassportTitle.destroy_all
-
-verbose = true
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
