@@ -40,28 +40,118 @@ div.modal input[type="checkbox"]:checked:before {
 	right: -15px;
 }
 
-div.modal div.collectible-data {
+div.collectible-data {
 	display: grid;
 	grid-template-columns: 1fr 3fr;
 	row-gap: 30px;
 	text-align: left;
 }
 
-div.modal div.collectible-edit {
+div.collectible-edit {
 	margin-top: 50px;
 	text-align: right;
 	font-size: 0.5rem;
 }
 
-div.modal div.collectible-data div.time-of-year td {
+div.time-of-year td {
 	padding: 10px 20px;
-	border: 2px solid #7B6C53;
+	border: 2px solid #D6C8AB;
+	color: #D6C8AB;
 }
 
-div.modal div.collectible-data div.time-of-year td.highlight {
-	background-image: asset-data-url('square-bg-orange.svg');
+div.time-of-year td.highlight {
+	background-image: asset-data-url('square-bg-yellow.svg');
 	background-size: 90% 80%;
 	background-position: center;
 	background-repeat: no-repeat;
-	color: #FFF9E5;
+	color: #7B6C53;
+}
+
+div.time-of-day div.active-hours {
+	display: grid;
+	grid-template-columns: repeat(24,1fr);
+	border-bottom: 2px solid #7B6C53;
+	padding-top: 30px;
+}
+
+div.time-of-day div.active-hours div.hour-block {
+	height: 1rem;
+	position: relative;
+}
+
+div.time-of-day div.active-hours div.hour-block:before {
+	content: "";
+	height: 30%;
+	display: block;
+	position: relative;
+	top: 50%;
+	border-left: 2px solid #7B6C53;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(1):before {
+	content: "12 AM";
+	font-size: 0.6rem;
+	border-left: none;
+	top: -1.25rem;
+	left: -0.5rem;
+	height: auto;
+	text-align: center;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(7):before {
+	content: "6 AM";
+	font-size: 0.6rem;
+	border-left: none;
+	top: -1.25rem;
+	left: -0.5rem;
+	height: auto;
+	text-align: center;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(13):before {
+	content: "12 PM";
+	font-size: 0.6rem;
+	border-left: none;
+	top: -1.25rem;
+	left: -0.5rem;
+	height: auto;
+	text-align: center;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(19):before {
+	content: "6 PM";
+	font-size: 0.6rem;
+	border-left: none;
+	top: -1.25rem;
+	left: -0.5rem;
+	height: auto;
+	text-align: center;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(4):before,
+div.time-of-day div.active-hours div.hour-block:nth-child(10):before,
+div.time-of-day div.active-hours div.hour-block:nth-child(16):before,
+div.time-of-day div.active-hours div.hour-block:nth-child(22):before {
+	height: 60%;
+	top: 30%;
+}
+
+div.time-of-day div.active-hours div.hour-block:nth-child(1),
+div.time-of-day div.active-hours div.hour-block:nth-child(7),
+div.time-of-day div.active-hours div.hour-block:nth-child(13),
+div.time-of-day div.active-hours div.hour-block:nth-child(19) {
+	border-left: 2px solid #7B6C53;
+}
+
+div.time-of-day div.active-hours div.hour-block:last-child {
+	border-right: 2px solid #7B6C53;
+}
+
+div.time-of-day div.active-hours div.hour-block div.highlight {
+	position: absolute;
+	z-index: -2;
+	top: 27%;
+	height: 60%;
+	width: 100%;
+	background-color: #F1E26F;
 }
