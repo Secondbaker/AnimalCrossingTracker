@@ -26,8 +26,8 @@
 			<ul class="main-menu">
 				<li class="logo"><a href=""><%= image_tag "logo.png" %></a></li>
 				<li class="menu"><a href="">Fish</a></li>
-				<li class="menu"><a href="">Bugs</a></li>
-				<li class="menu"><a href="">Fossils</a></li>
+				<!--<li class="menu"><a href="">Bugs</a></li>
+				<li class="menu"><a href="">Fossils</a></li>-->
 				<li class="login"><a href="">
 					<% if session[:userinfo] == nil %>
 						<%= button_to 'Login', 'auth/auth0', method: :post %>
