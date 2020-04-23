@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_154908) do
+ActiveRecord::Schema.define(version: 2020_04_23_155759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,12 +236,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_154908) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "collectible_attribute_id"
     t.index ["collectible_attribute_id"], name: "index_time_of_years_on_collectible_attribute_id"
-  end
-
-  create_table "villager_catchphrases", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "value"
   end
 
   create_table "villager_genders", force: :cascade do |t|

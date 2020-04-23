@@ -272,7 +272,7 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     end
     creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Birthday'))
 
-    v_catchphrase = VillagerCatchphrase.create(value:villager_catchphrase)
+    v_catchphrase = StringCollectibleAttribute.create(value:villager_catchphrase)
     if verbose
         puts "-\t" +  v_catchphrase.value
     end
@@ -375,6 +375,10 @@ end
 verbose = true
 
 if verbose
+    puts "Destroying StringCollectibleAttribute"
+end
+StringCollectibleAttribute.destroy_all
+if verbose
     puts "Destroying RewardTitlePosition"
 end
 RewardTitlePosition.destroy_all
@@ -386,10 +390,6 @@ if verbose
     puts "Destroying Description"
 end
 Description.destroy_all
-if verbose
-    puts "Destroying VillagerCatchphrase"
-end
-VillagerCatchphrase.destroy_all
 if verbose
     puts "Destroying Birthday"
 end
@@ -574,8 +574,8 @@ csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizo
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-#getVillagers(csv: csv_text, verbose:verbose)
+getVillagers(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
-getNookMiles(csv: csv_text, verbose:verbose)
+#getNookMiles(csv: csv_text, verbose:verbose)
