@@ -539,13 +539,6 @@ if verbose
     puts "Destroying Species"
 end
 Species.destroy_all
-#s_1 = Species.create(name: 'Bird')
-
-if verbose
-    puts "Destroying Catchphrase"
-end
-Catchphrase.destroy_all
-#c_1 = Catchphrase.create(name: 'aye aye')
 
 if verbose
     puts "Destroying FishingSpot"
