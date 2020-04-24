@@ -33,4 +33,6 @@
   <%= render partial: "reward_titles/show", locals: { reward_title: value } %>
 <% elsif value_class == StringCollectibleAttribute %>
   <%= render partial: "string_collectible_attributes/show", locals: { string_collectible_attribute: value } %>
+<% elsif value_class == CollectibleAttributeList %>
+  <%= render partial: "collectible_attribute_lists/show", locals: { collectible_attribute_list: value } %>
 <% end %>

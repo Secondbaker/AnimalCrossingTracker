@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_24_135539) do
+ActiveRecord::Schema.define(version: 2020_04_24_143608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,9 +73,9 @@ ActiveRecord::Schema.define(version: 2020_04_24_135539) do
     t.integer "position"
     t.integer "collectible_attribute_container_id"
     t.string "collectible_attribute_container_type"
+    t.index ["collectible_attribute_container_id"], name: "collectible_attribute_container_id_index"
     t.index ["collectible_attribute_type_id"], name: "collectible_attribute_type_index"
     t.index ["collectible_attribute_value_type", "collectible_attribute_value_id"], name: "collectible_attribute_value_index"
-    t.index ["collectible_id"], name: "index_collectible_attributes_on_collectible_id"
   end
 
   create_table "collectibles", force: :cascade do |t|
