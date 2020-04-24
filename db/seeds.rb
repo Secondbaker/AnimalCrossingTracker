@@ -48,25 +48,20 @@ def parseTimeOfDay(time_of_day:String, verbose:boolean = false)
     return creation
 end
 
-#takes a string of format '\w+;.?\w.?...'
-#returns a RewardTitle
-def parseTitles(titles:String, verbose:boolean = false)
+#takes a string of format '\w+;.?\w.?...' 
+#returns a CollectibleAttributeList of StringCollectibleAttributes
+def parseTitles!(titles:String, collectible_attribute_list:CollectibleAttributeList, verbose:boolean = false)
     title_values = titles.split(";")
-    creation = CollectibleAttributeList.create
+    puts collectible_attribute_list.collectible_attributes.all
     title_values.each do |value|
         title = StringCollectibleAttribute.create(value:value)
         if verbose
-            puts "Created PassportTitle " + title.value
+            puts "-\t" + title.value
         end
-        
-        position = creation.collectible_attribute_list_items.create
-        puts position
-        position.collectible_attribute.create(collectible_attribute_value:title, collectible_attribute_type:CollectibleAttributeType.find_by(name: "Passport Title"))
-        puts position.collectible_attribute.collectible_attribute_value.value
-
-        puts "-\t" + position.position.to_s + " - " + title.value 
+        collectible_attribute_list.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.find_by(value:value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'String Type'))
     end
-    return creation
+    
+    puts collectible_attribute_list.collectible_attributes.all
 end
 
 #takes a string of format '\d+;.?\d.?...'
@@ -302,18 +297,24 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     #milestones
     if verbose
         puts "-Milestones"
-     end
+    end
     creation_milestones = parseNumberList(numbers: milestones, verbose:verbose)
     creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
     
-
+    if verbose
+        puts "-Passport Title 1"
+    end
     #passport_title_1
-    creation_reward_titles = parseTitles(titles: passport_title_1, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: creation_reward_titles, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
+    parseTitles!(titles: passport_title_1, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
+    puts creation_reward_titles.collectible_attribute_value.collectible_attributes.inspect
 
+    if verbose
+        puts "-Passport Title 2"
+    end
     #passport_title_2
-    creation_reward_titles = parseTitles(titles: passport_title_2, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: creation_reward_titles, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
+    parseTitles!(titles: passport_title_2, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     #miles
     if verbose
@@ -374,7 +375,7 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
 end
 
 verbose = true
-
+CollectibleAttributeListItem.destroy_all
 if verbose
     puts "Destroying StringCollectibleAttribute"
 end
@@ -415,6 +416,7 @@ if verbose
     puts "Destroying CollectibleAttribute"
 end
 CollectibleAttribute.destroy_all
+
 if verbose
     puts "Destroying Rarity"
 end
@@ -443,6 +445,10 @@ if verbose
     puts "Destroying Collectible"
 end
 Collectible.destroy_all
+if verbose
+    puts "Destroying CollectibleAttributeList"
+end
+CollectibleAttributeList.destroy_all
 if verbose
     puts "Destroying IslandCollection"
 end
@@ -473,6 +479,7 @@ milestone_type = CollectibleAttributeType.create(name: 'Milestones')
 title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
 title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
 miles_type = CollectibleAttributeType.create(name: 'Miles')
+string_type = CollectibleAttributeType.create(name: 'String Type')
 
 if verbose
     puts "Destroying MoodName"
