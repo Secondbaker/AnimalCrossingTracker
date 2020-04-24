@@ -1,9 +1,5 @@
 <p>
-    <%= collectible_attribute_list.collectible_attribute_ids.inspect %>
     <% collectible_attribute_list.collectible_attributes.each do |collectible_attribute| %>
-        <p>
-        here
-        </p>
         <%= render partial: "collectible_attributes/show", locals: { collectible_attribute: collectible_attribute } %>
     <% end %>
 </p>
