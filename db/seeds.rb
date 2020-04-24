@@ -52,15 +52,18 @@ end
 #returns a RewardTitle
 def parseTitles(titles:String, verbose:boolean = false)
     title_values = titles.split(";")
-    creation = RewardTitle.create
+    creation = CollectibleAttributeList.create
     title_values.each do |value|
         title = StringCollectibleAttribute.create(value:value)
         if verbose
             puts "Created PassportTitle " + title.value
         end
         
-        position = creation.reward_title_positions.create
-        title.reward_title_positions << position
+        position = creation.collectible_attribute_list_items.create
+        puts position
+        position.collectible_attribute.create(collectible_attribute_value:title, collectible_attribute_type:CollectibleAttributeType.find_by(name: "Passport Title"))
+        puts position.collectible_attribute.collectible_attribute_value.value
+
         puts "-\t" + position.position.to_s + " - " + title.value 
     end
     return creation

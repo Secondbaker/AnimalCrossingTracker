@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Collectible attribute list:</strong>
+  <%= @collectible_attribute_list_item.collectible_attribute_list_id %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @collectible_attribute_list_item.position %>
+</p>
+
+<%= link_to 'Edit', edit_collectible_attribute_list_item_path(@collectible_attribute_list_item) %> |
+<%= link_to 'Back', collectible_attribute_list_items_path %>
