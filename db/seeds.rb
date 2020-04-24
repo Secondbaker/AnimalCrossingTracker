@@ -52,7 +52,6 @@ end
 #returns a CollectibleAttributeList of StringCollectibleAttributes
 def parseTitles!(titles:String, collectible_attribute_list:CollectibleAttributeList, verbose:boolean = false)
     title_values = titles.split(";")
-    puts collectible_attribute_list.collectible_attributes.all
     title_values.each do |value|
         title = StringCollectibleAttribute.create(value:value)
         if verbose
@@ -61,22 +60,21 @@ def parseTitles!(titles:String, collectible_attribute_list:CollectibleAttributeL
         collectible_attribute_list.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.find_by(value:value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'String Type'))
     end
     
-    puts collectible_attribute_list.collectible_attributes.all
 end
 
 #takes a string of format '\d+;.?\d.?...'
-#returns a Milestone for now
+#returns a CollectibleAttributeList of NumberCollectibleAttributes
 def parseNumberList(numbers:String, verbose:boolean = false)
     number_values = numbers.split(";")
-    creation = Milestone.create
+    creation = CollectibleAttributeList.create
     number_values.each do |value|
         if value =~ /[uU]nknown/
-            creation.milestone_values << MilestoneValue.create(value:0)
+            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:0), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Number Type'))
         else
-            creation.milestone_values << MilestoneValue.create(value:value)
+            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:value), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Number Type'))
         end
         if verbose
-            puts "-\t" + creation.milestone_values.last.value.to_s
+            puts "-\t" + creation.collectible_attributes.last.collectible_attribute_value.value.to_s
         end
     end
     return creation
@@ -480,6 +478,7 @@ title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
 title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
 miles_type = CollectibleAttributeType.create(name: 'Miles')
 string_type = CollectibleAttributeType.create(name: 'String Type')
+number_type = CollectibleAttributeType.create(name: 'Number Type')
 
 if verbose
     puts "Destroying MoodName"
