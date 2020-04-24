@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_23_155759) do
+ActiveRecord::Schema.define(version: 2020_04_24_135539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,19 @@ ActiveRecord::Schema.define(version: 2020_04_23_155759) do
     t.string "name"
   end
 
+  create_table "collectible_attribute_list_items", force: :cascade do |t|
+    t.bigint "collectible_attribute_list_id", null: false
+    t.integer "position"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collectible_attribute_list_id"], name: "index_on_list"
+  end
+
+  create_table "collectible_attribute_lists", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "collectible_attribute_types", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -51,13 +64,15 @@ ActiveRecord::Schema.define(version: 2020_04_23_155759) do
   end
 
   create_table "collectible_attributes", force: :cascade do |t|
-    t.integer "collectible_id", null: false
+    t.integer "collectible_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "collectible_attribute_value_type"
     t.integer "collectible_attribute_value_id"
     t.integer "collectible_attribute_type_id"
     t.integer "position"
+    t.integer "collectible_attribute_container_id"
+    t.string "collectible_attribute_container_type"
     t.index ["collectible_attribute_type_id"], name: "collectible_attribute_type_index"
     t.index ["collectible_attribute_value_type", "collectible_attribute_value_id"], name: "collectible_attribute_value_index"
     t.index ["collectible_id"], name: "index_collectible_attributes_on_collectible_id"
@@ -254,6 +269,7 @@ ActiveRecord::Schema.define(version: 2020_04_23_155759) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "collectible_attribute_list_items", "collectible_attribute_lists"
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "milestone_values", "milestones"
   add_foreign_key "reward_title_positions", "passport_titles"
