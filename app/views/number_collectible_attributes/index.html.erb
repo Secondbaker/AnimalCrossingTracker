@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Number Collectible Attributes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Value</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @number_collectible_attributes.each do |number_collectible_attribute| %>
+      <tr>
+        <td><%= number_collectible_attribute.value %></td>
+        <td><%= link_to 'Show', number_collectible_attribute %></td>
+        <td><%= link_to 'Edit', edit_number_collectible_attribute_path(number_collectible_attribute) %></td>
+        <td><%= link_to 'Destroy', number_collectible_attribute, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Number Collectible Attribute', new_number_collectible_attribute_path %>
