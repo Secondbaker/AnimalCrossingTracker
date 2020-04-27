@@ -1,2 +1,0 @@
-module RewardTitlesHelper
-end
