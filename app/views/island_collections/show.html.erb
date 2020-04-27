@@ -5,6 +5,15 @@
   <p class="collection-count"><span id="count-checked-checkboxes">0</span> / <span id="count-checkboxes">0</span> collected</p>
 </section>
 
+<section class="sort">
+  <%select_options = [] %>
+  <% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
+    <% select_options.push collectible_attribute.collectible_attribute_type.name %>
+  <% end %>
+  <%= select_tag "order", options_for_select(select_options) %>
+  <%= link_to 'Sort', island_collection_sort_path(id: @island_collection.id, sort_by: ) %>
+</section>
+
 <section id="collection" class="collection-items">
   <% @collectibles.each do |collectible| %>
     <div>

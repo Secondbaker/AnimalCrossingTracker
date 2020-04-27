@@ -24,7 +24,6 @@ class IslandCollectionsController < ApplicationController
         collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
       }.reverse!
     end
-    
   end
 
   # GET /island_collections/new

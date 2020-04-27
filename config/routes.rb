@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :milestones
   get 'welcome/index'
   resources :island_collections do
-    get "/*sort_by/order/*order/:id", to: "island_collections#show"
+    get "/*sort_by/order/*order/:id", to: "island_collections#show", as: :sort
   end
   resources :descriptions
   resources :villager_catchphrases
