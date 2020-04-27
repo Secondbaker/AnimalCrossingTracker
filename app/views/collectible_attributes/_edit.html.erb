@@ -29,9 +29,5 @@
   <%= render partial: "villager_catchphrases/show", locals: { villager_catchphrase: value, form_helper: collectible_attribute_value } %>
 <% elsif value_class == Description %>
   <%= render partial: "descriptions/show", locals: { description: value, form_helper: collectible_attribute_value } %>
-<% elsif value_class == Milestone %>
-  <%= render partial: "milestones/show", locals: { milestone: value, form_helper: collectible_attribute_value } %>
-<% elsif value_class == RewardTitle %>
-  <%= render partial: "reward_titles/show", locals: { reward_title: value, form_helper: collectible_attribute_value } %>
 <% end %>
 <% end %>

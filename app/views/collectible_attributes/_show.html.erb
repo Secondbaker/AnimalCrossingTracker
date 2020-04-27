@@ -27,10 +27,6 @@
   <%= render partial: "birthdays/show", locals: { birthday: value } %>
 <% elsif value_class == Description %>
   <%= render partial: "descriptions/show", locals: { description: value } %>
-<% elsif value_class == Milestone %>
-  <%= render partial: "milestones/show", locals: { milestone: value } %>
-<% elsif value_class == RewardTitle %>
-  <%= render partial: "reward_titles/show", locals: { reward_title: value } %>
 <% elsif value_class == StringCollectibleAttribute %>
   <%= render partial: "string_collectible_attributes/show", locals: { string_collectible_attribute: value } %>
 <% elsif value_class == CollectibleAttributeList %>
