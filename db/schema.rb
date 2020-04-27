@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_24_212302) do
+ActiveRecord::Schema.define(version: 2020_04_27_143158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_212302) do
     t.string "name"
     t.boolean "complete"
     t.bigint "island_collection_id"
+    t.integer "position"
     t.index ["island_collection_id"], name: "index_collectibles_on_island_collection_id"
   end
 
