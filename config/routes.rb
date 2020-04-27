@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   resources :milestone_values
   resources :milestones
   get 'welcome/index'
-  resources :island_collections
+  resources :island_collections do
+    get "/*sort_by/order/*order/:id", to: "island_collections#show"
+  end
   resources :descriptions
   resources :villager_catchphrases
   resources :catchphrases
@@ -42,7 +44,6 @@ Rails.application.routes.draw do
   resources :collectibles do
     patch "/toggle", :to => "collectibles#toggle", :as => "toggle"
   end
-  resources :collections
   root 'welcome#index'
 
   get 'auth/auth0/callback' => 'auth0#callback'

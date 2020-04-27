@@ -14,7 +14,17 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1.json
   def show
     @island_collection = IslandCollection.find(params[:id])
-    @collectibles = @island_collection.collectibles.includes(:collectible_attributes).sort_by{|collectible| collectible.collectible_attributes.first }
+    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+    if params[:sort_by] && params[:order] == 'asc'
+      @collectibles = @collectibles.sort_by{|collectible| 
+        collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
+       }
+    elsif params[:sort_by] && params[:order] == 'desc'
+      @collectibles = @collectibles.sort_by{|collectible| 
+        collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
+      }.reverse!
+    end
+    
   end
 
   # GET /island_collections/new
