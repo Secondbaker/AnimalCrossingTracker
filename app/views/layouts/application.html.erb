@@ -70,6 +70,31 @@ function countCheckedCheckbox() {
 	return $('#collection input[type="checkbox"]:checked').length;
 }
 
+function setSortLink() {
+	console.log("setSortLink");
+	var sort_by = $('#sort_by').find(':selected').val();
+	console.log(sort_by);
+
+	var link = $('#sort_link').prop('href');
+	console.log(link);
+	console.log(link.split('/'));
+	var link_parts = link.split('/');
+	var island_collection_id = link_parts[link_parts.length - 1];
+	console.log(island_collection_id);
+
+	
+	var order = $('#order').find(':selected').val();
+	if(order === 'Ascending')
+		order = 'asc';
+	else if (order === 'Descending')
+		order = 'desc';
+
+	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/93';
+	console.log(newPath);
+	
+	$('#sort_link').prop('href', newPath);
+}
+
 document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
 document.getElementById("count-checkboxes").innerHTML = countCheckbox();
 
@@ -88,6 +113,13 @@ $('.collectible').click(
 
 	}
 );
+
+$('#sort_by').on('change', function(ev) {
+	setSortLink();	
+});
+$('#order').on('change', function(ev) {
+	setSortLink();	
+});
 
 </script>
 </html>

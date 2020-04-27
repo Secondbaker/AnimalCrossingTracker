@@ -10,8 +10,9 @@
   <% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
     <% select_options.push collectible_attribute.collectible_attribute_type.name %>
   <% end %>
-  <%= select_tag "order", options_for_select(select_options) %>
-  <%= link_to 'Sort', island_collection_sort_path(id: @island_collection.id, sort_by: ) %>
+  <%= select_tag "sort_by", options_for_select(select_options) %>
+  <%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
+  <%= link_to 'Sort', island_collection_sort_path( sort_by: select_options.first, order: 'asc', island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 </section>
 
 <section id="collection" class="collection-items">
