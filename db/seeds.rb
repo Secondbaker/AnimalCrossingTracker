@@ -305,7 +305,6 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     #passport_title_1
     creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
     parseTitles!(titles: passport_title_1, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
-    puts creation_reward_titles.collectible_attribute_value.collectible_attributes.inspect
 
     if verbose
         puts "-Passport Title 2"
@@ -378,14 +377,6 @@ if verbose
     puts "Destroying StringCollectibleAttribute"
 end
 StringCollectibleAttribute.destroy_all
-if verbose
-    puts "Destroying RewardTitlePosition"
-end
-RewardTitlePosition.destroy_all
-if verbose
-    puts "Destroying RewardTitle"
-end
-RewardTitle.destroy_all
 if verbose
     puts "Destroying Description"
 end
@@ -562,26 +553,21 @@ if verbose
 end
 FishSize.destroy_all
 
-if verbose
-    puts "Destroying PassportTitle"
-end
-PassportTitle.destroy_all
-
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
-#getFish(csv: csv_text, verbose:verbose)
+getFish(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Bugs.csv'), headers: true)
 
-#getBugs(csv: csv_text, verbose:verbose)
+getBugs(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fossils.csv'), headers: true)
 
-#getFossils(csv: csv_text, verbose:verbose)
+getFossils(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Villagers.csv'), headers: true)
 
-#getVillagers(csv: csv_text, verbose:verbose)
+getVillagers(csv: csv_text, verbose:verbose)
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
