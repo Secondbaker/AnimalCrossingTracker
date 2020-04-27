@@ -89,7 +89,7 @@ function setSortLink() {
 	else if (order === 'Descending')
 		order = 'desc';
 
-	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/93';
+	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/' + island_collection_id;
 	console.log(newPath);
 	
 	$('#sort_link').prop('href', newPath);
