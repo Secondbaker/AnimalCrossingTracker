@@ -72,7 +72,7 @@ function countCheckedCheckbox() {
 
 function setSortLink() {
 	console.log("setSortLink");
-	var sort_by = $('#sort_by').find(':selected').val();
+	var sort_by = $('#sort_by').find(':selected').val().replace(' ', '%20');
 	console.log(sort_by);
 
 	var link = $('#sort_link').prop('href');
