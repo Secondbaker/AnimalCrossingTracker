@@ -22,6 +22,48 @@ section.title p.collection-count {
 
 section.title p.collection-count span { color: #FFF9E5; }
 
+section.sort {
+	margin: 50px 200px 0;
+	text-align: center;
+}
+
+section.sort div {
+	display: inline-block;
+	position: relative;
+}
+
+section.sort div:after {
+	content: asset-data-url('arrow.svg');
+	display: inline-block;
+	position: absolute;
+	height: 0.75rem;
+	width: 0.75rem;
+	right: 1.25rem;
+	top: 0.5rem;
+	transform: rotate(-90deg);
+	opacity: 0.5;
+}
+
+section.sort select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-family: 'houschka-rounded';
+	font-size: 1rem;
+	color: #7B6C53;
+	background-color: #D7ECDD;
+	margin: 0 20px;
+	padding: 5px 30px 5px 20px;
+	border: none;
+	border-bottom: 3px solid #7B6C53;
+}
+
+section.sort select:focus { outline: 0; }
+
+section.sort select option {
+	background-color: #FFFFFF;
+}
+
 section.collection-items {
 	display: grid;
 	grid-template-columns: repeat(8, 1fr);
