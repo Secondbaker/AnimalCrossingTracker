@@ -14,7 +14,7 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1.json
   def show
     @island_collection = IslandCollection.find(params[:id])
-    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+    @collectibles = @island_collection.collectibles.includes(:collectible_attributes).sort_by{|collectible| collectible.collectible_attributes.first }
   end
 
   # GET /island_collections/new
