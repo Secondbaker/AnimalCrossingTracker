@@ -83,11 +83,14 @@ section.collection-items {
 	padding: 50px 200px 0;
 }
 
-section.collection-items div {
+section.collection-items>div {
 	justify-self: center;
 	align-self: start;
 	position: relative;
+	padding-bottom: 50px;
 }
+
+section.collection-items div.collectible { padding-bottom: 10px; }
 
 section.collection-items div img {
 	background-image: asset-data-url('square-bg-ltblue.svg');
