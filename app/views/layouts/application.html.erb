@@ -125,11 +125,13 @@ btns.on('click', function(e) {
 
 	$.ajax({
         type: "GET",
-        url: 'http://localhost:3000/collectibles/' + btnId + '.json',
+        url: '/collectibles/' + btnId + '.json',
         success: function(response) {
-            //var collectible_json = $.parseJSON(response);
             var collectible_json = response;
 			console.log(collectible_json);
+			console.log(collectible_json["name"]);
+			console.log($('#modal-collectible-name').text());
+			$('#modal-collectible-name').text(collectible_json["name"]);
         }
 	});
 
