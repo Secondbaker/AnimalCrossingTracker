@@ -45,7 +45,7 @@
 
 <script>
 
-function navDropdown() {
+/*function navDropdown() {
 	document.getElementById("collections-submenu").classList.toggle("show");
 }
 	
@@ -60,7 +60,7 @@ window.onclick = function(event) {
 			}
 		}
 	}
-}
+}*/
 
 function countCheckbox() {
 	return $('#collection input[type="checkbox"]').length;
@@ -120,6 +120,26 @@ $('#sort_by').on('change', function(ev) {
 $('#order').on('change', function(ev) {
 	setSortLink();	
 });
+
+var modal = document.getElementById("1411");
+
+var btn = document.getElementById("btn-1411");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn.onclick = function() {
+	modal.style.display = "block";
+}
+
+span.onclick = function() {
+	modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = "none";
+	}
+}
 
 </script>
 </html>

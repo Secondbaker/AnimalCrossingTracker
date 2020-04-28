@@ -1,42 +1,62 @@
 <p id="notice"><%= notice %></p>
 
-<section class="title">
-  <h1><%= @island_collection.title %></h1>
-  <p class="collection-count"><span id="count-checked-checkboxes">0</span> / <span id="count-checkboxes">0</span> collected</p>
-</section>
-
-<section class="sort">
-  <%select_options = [] %>
-  <% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
-    <% select_options.push collectible_attribute.collectible_attribute_type.name %>
-  <% end %>
-  <div class="sort_by">
-    <%= select_tag "sort_by", options_for_select(select_options) %>
-  </div>
-  <div class="order">
-    <%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
-  </div>
-  <%= link_to 'Sort', island_collection_sort_path( sort_by: select_options.first, order: 'asc', island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
+<section class="heading">
+	<div class="title">
+		<h1><%= @island_collection.title %></h1>
+    	<p class="collection-count"><span id="count-checked-checkboxes">0</span> / <span id="count-checkboxes">0</span> collected</p>
+	</div>
+	<div class="sort">
+		<%select_options = [] %>
+		<% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
+			<% select_options.push collectible_attribute.collectible_attribute_type.name %>
+		<% end %>
+		<div class="sort_by">
+			<%= select_tag "sort_by", options_for_select(select_options) %>
+		</div>
+		<div class="order">
+			<%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
+		</div>
+		<%= link_to 'Sort', island_collection_sort_path( sort_by: select_options.first, order: 'asc', island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
+	</div>
 </section>
 
 <section id="collection" class="collection-items">
-  <% @collectibles.each do |collectible| %>
-    <div>
-      <div class="collectible" id="<%= collectible.id %>">
-        <%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
-          <% unless collectible.thumbnail == nil%>
-            <%= image_tag collectible.thumbnail, height: '100', width: '100' %>
-          <% end %>
-        <% end %>
-        <%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
-      </div>
-      <p><%= link_to collectible.name, collectible %></p>
-    </div>
-  <% end %>
-</section>
+	<% @collectibles.each do |collectible| %>
+		<div>
+			<div class="collectible">
+				<%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
+					<% unless collectible.thumbnail == nil%>
+						<%= image_tag collectible.thumbnail, height: '100', width: '100' %>
+					<% end %>
+				<% end %>
+				<%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
+			</div>
+			<p id="<%= "btn-"+collectible.id.to_s %>"><%= collectible.name %></p>
+		</div>
 
-<div class="modal">
-</div>
+		<div class="modal" id="<%= collectible.id %>">
+			<p id="notice"><%= notice %></p>
+
+  			<span class="modal-close"></span>
+
+  			<h3><%= collectible.name %></h3>
+  			<%= image_tag(collectible.thumbnail, size: "100") %>
+  			<%= check_box_tag "Complete", collectible.complete, collectible.complete %>
+
+  			<div class="collectible-data">
+    			<% collectible.collectible_attributes.each do |att|%>
+     				<p><%= att.collectible_attribute_type.name %></p>
+     				<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
+    			<% end %>
+  			</div>
+  
+  			<div class="collectible-edit">
+    			<%= link_to 'Edit', edit_collectible_path(collectible) %>
+  			</div>
+		</div>
+	
+	<% end %>
+</section>
 
 <%= link_to 'Edit', edit_island_collection_path(@island_collection) %> |
 <%= link_to 'Back', island_collections_path %>

@@ -11,6 +11,7 @@ div.modal {
 	background-repeat: no-repeat;
 	filter: drop-shadow(0 10px 10px rgba(0,0,0,0.10));
 	max-width: 800px;
+	display: none;
 }
 
 div.modal .modal-close {
