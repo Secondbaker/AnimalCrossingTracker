@@ -3,6 +3,16 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
 div.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(37,29,15,0.7);
+}
+
+div.modal>div {
 	text-align: center;
 	margin: 0 auto;
 	padding: 100px 200px;
@@ -11,39 +21,39 @@ div.modal {
 	background-repeat: no-repeat;
 	filter: drop-shadow(0 10px 10px rgba(0,0,0,0.10));
 	max-width: 800px;
-	display: none;
+	align-self: center;
 }
 
 div.modal.visible-modal {
-	display: block;
+	display: grid;
 }
 
-div.modal .modal-close {
+div.modal>div .modal-close {
 	float: left;
 	margin-top: 30px;
 	opacity: 0.5;
 }
 
-div.modal .modal-close:hover,
-div.modal .modal-close:focus {
+div.modal>div .modal-close:hover,
+div.modal>div .modal-close:focus {
 	opacity: 1;
 	transition: all ease-in-out 0.3s;
 }
 
-div.modal img {
+div.modal>div img {
 	height: 64px;
 	width: 64px;
 }
 
-div.modal input[type="checkbox"],
-div.modal input[type="checkbox"]:checked {
+div.modal>div input[type="checkbox"],
+div.modal>div input[type="checkbox"]:checked {
 	visibility: hidden;
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-div.modal input[type="checkbox"]:checked:before {
+div.modal>div input[type="checkbox"]:checked:before {
 	visibility: visible;
 	content: asset-data-url('stamp.svg');
 	opacity: 50%;
