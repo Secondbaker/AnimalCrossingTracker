@@ -107,6 +107,51 @@ $('.collectible').click(
 	}
 );
 
+function checkboxToggle(){
+		var checkbox = $("#modal-checkbox");
+
+		if (checkbox[0].checked === false) {
+			checkbox[0].checked = true;
+		}
+		else if (checkbox[0].checked == true) {
+			checkbox[0].checked = false;
+		}
+
+		var checkbox = $('#' + checkbox.attr('data-value') + '-complete');
+
+		if (checkbox[0].checked === false) {
+			checkbox[0].checked = true;
+		}
+		else if (checkbox[0].checked == true) {
+			checkbox[0].checked = false;
+		}
+		document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+	}
+
+$('#modal-toggle').click(function(){
+	checkboxToggle();
+});
+
+$('#modal-checkbox').on('change', function(ev){
+	$.ajax({
+        type: "PATCH",
+        url: '/collectibles/' +  $('#modal-checkbox').attr('data-value') + '/toggle',
+        success: function(response) {
+		
+			var checkbox = $('#' +  $('#modal-checkbox').attr('data-value') + '-complete');
+
+			if (checkbox[0].checked === false) {
+				checkbox[0].checked = true;
+			}
+			else if (checkbox[0].checked == true) {
+				checkbox[0].checked = false;
+			}
+
+			document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+        }
+	});
+});
+
 $('#sort_by').on('change', function(ev) {
 	setSortLink();	
 });
@@ -131,10 +176,17 @@ btns.on('click', function(e) {
 			console.log(collectible_json);
 			console.log(collectible_json["name"]);
 			console.log($('#modal-collectible-name').text());
+			//Set name
 			$('#modal-collectible-name').text(collectible_json["name"]);
+			//Set thumbnail
 			$('#modal-collectible-thumbnail').attr('src', collectible_json["thumbnail"]);
+			//Set the checkbox value
 			$('#modal-checkbox').attr('value', collectible_json["complete"]);
 			$('#modal-checkbox').attr('checked', collectible_json["complete"]);
+			$('#modal-checkbox').attr('data-value', collectible_json["id"]);
+			//Set the toggle url
+			$('#modal-toggle').attr('href', '/collectibles/' + btnId + '/toggle/');
+			$('#modal-checkbox-toggle').attr('href','/collectibles/' + btnId + '/toggle/');
         }
 	});
 
