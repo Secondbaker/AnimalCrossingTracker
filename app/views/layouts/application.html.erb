@@ -108,25 +108,25 @@ $('.collectible').click(
 );
 
 function checkboxToggle(){
-		var checkbox = $("#modal-checkbox");
+	var checkbox = $("#modal-checkbox");
 
-		if (checkbox[0].checked === false) {
-			checkbox[0].checked = true;
-		}
-		else if (checkbox[0].checked == true) {
-			checkbox[0].checked = false;
-		}
-
-		var checkbox = $('#' + checkbox.attr('data-value') + '-complete');
-
-		if (checkbox[0].checked === false) {
-			checkbox[0].checked = true;
-		}
-		else if (checkbox[0].checked == true) {
-			checkbox[0].checked = false;
-		}
-		document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+	if (checkbox[0].checked === false) {
+		checkbox[0].checked = true;
 	}
+	else if (checkbox[0].checked == true) {
+		checkbox[0].checked = false;
+	}
+
+	var checkbox = $('#' + checkbox.attr('data-value') + '-complete');
+
+	if (checkbox[0].checked === false) {
+		checkbox[0].checked = true;
+	}
+	else if (checkbox[0].checked == true) {
+		checkbox[0].checked = false;
+	}
+	document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+}
 
 $('#modal-toggle').click(function(){
 	checkboxToggle();
@@ -161,6 +161,10 @@ $('#order').on('change', function(ev) {
 
 var btns = $('.modal-btn');
 
+function renderFromJSON(){
+
+}
+
 btns.on('click', function(e) {
 	e.preventDefault();
 	var btnId = this.id;
@@ -187,6 +191,26 @@ btns.on('click', function(e) {
 			//Set the toggle url
 			$('#modal-toggle').attr('href', '/collectibles/' + btnId + '/toggle/');
 			$('#modal-checkbox-toggle').attr('href','/collectibles/' + btnId + '/toggle/');
+
+			var collectible_attribute_types = $('.modal-collectible-attribute-type')
+			var collectible_attribute_values = $('.modal-collectible-attribute-value')
+
+			collectible_json["collectible_attributes"].forEach(collectible_attribute => {
+				var attribute_type = $.grep(collectible_attribute_types, function(cat){
+					if($(cat).text() == collectible_attribute["collectible_attribute_type"]["name"])
+						return cat;
+				});
+
+				attribute_type.forEach(type => {
+					var value_div = $('.modal-collectible-attribute-value[value=' + $(type).attr('value') + ']');
+					console.log(value_div);
+					console.log(value_div[0]);
+					var value = $(value_div).find('p[class="collectible_attribute_value"]');
+					value.text(collectible_attribute["collectible_attribute_value"]["value"]);
+				});
+
+
+			});
         }
 	});
 

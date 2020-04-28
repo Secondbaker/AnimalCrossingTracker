@@ -54,9 +54,11 @@
 			<%= check_box_tag "Complete", @collectibles.first.complete, @collectibles.first.complete, id: "modal-checkbox" %>
 
 			<div class="collectible-data">
+				<% collectible_attribute_counter = 0 %>
 				<% @collectibles.first.collectible_attributes.each do |att|%>
-					<p><%= att.collectible_attribute_type.name %></p>
-					<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
+					<p class="modal-collectible-attribute-type" value='<%= collectible_attribute_counter %>'><%= att.collectible_attribute_type.name %></p>
+					<div class="modal-collectible-attribute-value" value='<%= collectible_attribute_counter %>'><%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %></div>
+					<% collectible_attribute_counter = collectible_attribute_counter + 1 %>
 				<% end %>
 			</div>
 	

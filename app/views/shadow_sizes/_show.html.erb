@@ -1,1 +1,3 @@
-<%= render partial: 'fish_sizes/show', locals: {fish_size: shadow_size.fish_sizes.first } %>
+<p id="shadow-size-<%= shadow_size.id %>">
+    <%= render partial: 'fish_sizes/show', locals: {fish_size: shadow_size.fish_sizes.first } %>
+</p>
