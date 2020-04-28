@@ -133,6 +133,8 @@ btns.on('click', function(e) {
 			console.log($('#modal-collectible-name').text());
 			$('#modal-collectible-name').text(collectible_json["name"]);
 			$('#modal-collectible-thumbnail').attr('src', collectible_json["thumbnail"]);
+			$('#modal-checkbox').attr('value', collectible_json["complete"]);
+			$('#modal-checkbox').attr('checked', collectible_json["complete"]);
         }
 	});
 
