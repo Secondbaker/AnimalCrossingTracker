@@ -29,7 +29,7 @@
 						<%= image_tag collectible.thumbnail, height: '100', width: '100' %>
 					<% end %>
 				<% end %>
-				<%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
+				<%= check_box_tag "Complete", collectible.complete, collectible.complete, id: collectible.id.to_s + "-complete" , :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch } %>
 			</div>
 			<a class="modal-btn" id="<%= "btn-"+collectible.id.to_s %>"><%= collectible.name %></a>
 		</div>
@@ -46,8 +46,12 @@
 			<span class="modal-close">X</span>
 
 			<h3 id='modal-collectible-name'><%= @collectibles.first.name %></h3>
-			<%= image_tag(@collectibles.first.thumbnail, size: "100", id: 'modal-collectible-thumbnail' )%>
-			<%= check_box_tag "modal-checkbox", @collectibles.first.complete, @collectibles.first.complete, id: "modal-checkbox" %>
+			<%= link_to collectible_toggle_path(@collectibles.first), :data => {:remote => true, :method => :patch}, id: 'modal-toggle' do %>
+				<% unless @collectibles.first.thumbnail == nil%>
+					<%= image_tag @collectibles.first.thumbnail, height: '100', width: '100', id: 'modal-collectible-thumbnail' %>
+				<% end %>
+			<% end %>
+			<%= check_box_tag "Complete", @collectibles.first.complete, @collectibles.first.complete, id: "modal-checkbox" %>
 
 			<div class="collectible-data">
 				<% @collectibles.first.collectible_attributes.each do |att|%>
