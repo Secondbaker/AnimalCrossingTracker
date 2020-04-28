@@ -93,15 +93,15 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
     #begin setting attributes
 
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
 
     #time_of_day
     bug_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Time of Day'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Active Hours'))
 
     #time_of_year
     bug_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Time of Year'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Seasonality'))
 
     #bug_location
     
@@ -116,7 +116,7 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
         puts "-\t" + bug_location
     end
     bug_l.bug_spots<< BugSpot.find_by(name:bug_location)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_l, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bug Location'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_l, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Location'))
     
 end
 
@@ -131,7 +131,7 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
     #begin setting attributes
     
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
    
     #shadow_size
     #we need to add new sizes to the list of possible sizes while we seed
@@ -146,15 +146,15 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
         puts "-\t" + shadow_size
     end
     fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow Size'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow'))
     
     #time_of_day
     fish_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Day'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Active Hours'))
     
     #time_of_year
     fish_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Time of Year'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Seasonality'))
     
     #fishing_location
 
@@ -187,7 +187,7 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
         end
         fish_spot.fishing_spots << FishingSpot.find_by(name:location)
     end
-    creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Fishing Location'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Location'))
 end
 
 def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:String, bell_value:string, verbose:boolean = false)
@@ -202,7 +202,7 @@ def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:St
     #begin adding collectible attributes
 
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Bell Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
 end
 
 def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
@@ -470,6 +470,11 @@ title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
 miles_type = CollectibleAttributeType.create(name: 'Miles')
 string_type = CollectibleAttributeType.create(name: 'String Type')
 number_type = CollectibleAttributeType.create(name: 'Number Type')
+active_hours_type = CollectibleAttributeType.create(name: 'Active Hours')
+seasonality_type = CollectibleAttributeType.create(name: 'Seasonality')
+location_type = CollectibleAttributeType.create(name: 'Location')
+shadow_type = CollectibleAttributeType.create(name: 'Shadow')
+value_type = CollectibleAttributeType.create(name: 'Value')
 
 if verbose
     puts "Destroying MoodName"
