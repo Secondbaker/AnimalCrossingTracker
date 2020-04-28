@@ -117,7 +117,10 @@ section.collection-items div input[type="checkbox"]:checked:before {
 	transform: rotate(-15deg);
 }
 
-section.collection-items div p { padding: 10px 0 60px; }
+section.collection-items div a {
+	padding: 10px 0 60px;
+	cursor: pointer;
+}
 
 @media (max-width: 1024px) {
 
