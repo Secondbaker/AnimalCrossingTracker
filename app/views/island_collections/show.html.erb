@@ -38,30 +38,30 @@
 
 <section class="modals">
 
-	<% @collectibles.each do |collectible| %>
-		<div class="modal" id="<%= collectible.id %>">
-			<div>
-				<p id="notice"><%= notice %></p>
+	
+	<div class="modal" id="<%= @collectibles.first.id %>">
+		<div>
+			<p id="notice"><%= notice %></p>
 
-				<span class="modal-close">X</span>
+			<span class="modal-close">X</span>
 
-				<h3><%= collectible.name %></h3>
-				<%= image_tag(collectible.thumbnail, size: "100") %>
-				<%= check_box_tag "Complete", collectible.complete, collectible.complete %>
+			<h3 id='modal-collectible-name'><%= @collectibles.first.name %></h3>
+			<%= image_tag(@collectibles.first.thumbnail, size: "100") %>
+			<%= check_box_tag "Complete", @collectibles.first.complete, @collectibles.first.complete %>
 
-				<div class="collectible-data">
-					<% collectible.collectible_attributes.each do |att|%>
-						<p><%= att.collectible_attribute_type.name %></p>
-						<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
-					<% end %>
-				</div>
-		
-				<div class="collectible-edit">
-					<%= link_to 'Edit', edit_collectible_path(collectible) %>
-				</div>
+			<div class="collectible-data">
+				<% @collectibles.first.collectible_attributes.each do |att|%>
+					<p><%= att.collectible_attribute_type.name %></p>
+					<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
+				<% end %>
+			</div>
+	
+			<div class="collectible-edit">
+				<%= link_to 'Edit', edit_collectible_path(@collectibles.first) %>
 			</div>
 		</div>
-	<% end %>
+	</div>
+	
 
 </section>
 

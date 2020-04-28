@@ -121,7 +121,17 @@ btns.on('click', function(e) {
 	var btnId = this.id;
 	btnId = btnId.split("-")[1];
 
-	var modal = $(".modal[id=" + btnId + "]");
+	var modal = $(".modal");
+
+	$.ajax({
+        type: "GET",
+        url: 'http://localhost:3000/collectibles/' + btnId + '.json',
+        success: function(response) {
+            //var collectible_json = $.parseJSON(response);
+            var collectible_json = response;
+			console.log(collectible_json);
+        }
+	});
 
   	modal.toggleClass('visible-modal');
 });
