@@ -71,17 +71,11 @@ function countCheckedCheckbox() {
 }
 
 function setSortLink() {
-	console.log("setSortLink");
 	var sort_by = $('#sort_by').find(':selected').val().replace(' ', '%20');
-	console.log(sort_by);
 
 	var link = $('#sort_link').prop('href');
-	console.log(link);
-	console.log(link.split('/'));
 	var link_parts = link.split('/');
 	var island_collection_id = link_parts[link_parts.length - 1];
-	console.log(island_collection_id);
-
 	
 	var order = $('#order').find(':selected').val();
 	if(order === 'Ascending')
@@ -90,7 +84,6 @@ function setSortLink() {
 		order = 'desc';
 
 	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/' + island_collection_id;
-	console.log(newPath);
 	
 	$('#sort_link').prop('href', newPath);
 }
@@ -121,25 +114,17 @@ $('#order').on('change', function(ev) {
 	setSortLink();	
 });
 
-var modal = document.getElementById("1411");
+var btns = $('.modal-btn');
 
-var btn = document.getElementById("btn-1411");
+btns.on('click', function(e) {
+	e.preventDefault();
+	var btnId = this.id;
+	btnId = btnId.split("-")[1];
 
-var span = document.getElementsByClassName("close")[0];
+	var modal = $(".modal[id=" + btnId + "]");
 
-btn.onclick = function() {
-	modal.style.display = "block";
-}
-
-span.onclick = function() {
-	modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = "none";
-	}
-}
+  	modal.toggleClass('visible-modal');
+});
 
 </script>
 </html>

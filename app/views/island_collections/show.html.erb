@@ -31,31 +31,36 @@
 				<% end %>
 				<%= check_box_tag "Complete", collectible.complete, collectible.complete, :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch  } %>
 			</div>
-			<p id="<%= "btn-"+collectible.id.to_s %>"><%= collectible.name %></p>
+			<a class="modal-btn" id="<%= "btn-"+collectible.id.to_s %>"><%= collectible.name %></a>
 		</div>
+	<% end %>
+</section>
 
+<section class="modals">
+
+	<% @collectibles.each do |collectible| %>
 		<div class="modal" id="<%= collectible.id %>">
 			<p id="notice"><%= notice %></p>
 
-  			<span class="modal-close"></span>
+			<span class="modal-close"></span>
 
-  			<h3><%= collectible.name %></h3>
-  			<%= image_tag(collectible.thumbnail, size: "100") %>
-  			<%= check_box_tag "Complete", collectible.complete, collectible.complete %>
+			<h3><%= collectible.name %></h3>
+			<%= image_tag(collectible.thumbnail, size: "100") %>
+			<%= check_box_tag "Complete", collectible.complete, collectible.complete %>
 
-  			<div class="collectible-data">
-    			<% collectible.collectible_attributes.each do |att|%>
-     				<p><%= att.collectible_attribute_type.name %></p>
-     				<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
-    			<% end %>
-  			</div>
-  
-  			<div class="collectible-edit">
-    			<%= link_to 'Edit', edit_collectible_path(collectible) %>
-  			</div>
-		</div>
+			<div class="collectible-data">
+				<% collectible.collectible_attributes.each do |att|%>
+					<p><%= att.collectible_attribute_type.name %></p>
+					<%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
+				<% end %>
+			</div>
 	
+			<div class="collectible-edit">
+				<%= link_to 'Edit', edit_collectible_path(collectible) %>
+			</div>
+		</div>
 	<% end %>
+
 </section>
 
 <%= link_to 'Edit', edit_island_collection_path(@island_collection) %> |
