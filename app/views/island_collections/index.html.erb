@@ -2,28 +2,18 @@
 
 <h1>Island Collections</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Thumbnail</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @island_collections.each do |island_collection| %>
-      <tr>
-        <td><%= island_collection.title %></td>
-        <td><%= island_collection.thumbnail %></td>
-        <td><%= link_to 'Show', island_collection %></td>
-        <td><%= link_to 'Edit', edit_island_collection_path(island_collection) %></td>
-        <td><%= link_to 'Destroy', island_collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+<section class="island-collections">
+	<% @island_collections.each do |island_collection| %>
+		<div class="island-collection-item">
+			<% unless island_collection.thumbnail == nil%>
+				<%= image_tag island_collection.thumbnail, height: '100', width: '100' %>
+			<% end %>
+			<p><%= island_collection.title %></p>
+			<%= link_to 'Show', island_collection, class: 'btn' %>
+			<%= link_to 'Edit', edit_island_collection_path(island_collection), class: 'btn' %>
+			<%= link_to 'Remove', island_collection, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+		</div>
+	<% end %>
+</section>
 
 <%= link_to 'New Island Collection', new_island_collection_path %>
