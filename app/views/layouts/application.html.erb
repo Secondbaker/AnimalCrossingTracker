@@ -132,6 +132,7 @@ btns.on('click', function(e) {
 			console.log(collectible_json["name"]);
 			console.log($('#modal-collectible-name').text());
 			$('#modal-collectible-name').text(collectible_json["name"]);
+			$('#modal-collectible-thumbnail').attr('src', collectible_json["thumbnail"]);
         }
 	});
 

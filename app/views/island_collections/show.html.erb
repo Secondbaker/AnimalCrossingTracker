@@ -46,7 +46,7 @@
 			<span class="modal-close">X</span>
 
 			<h3 id='modal-collectible-name'><%= @collectibles.first.name %></h3>
-			<%= image_tag(@collectibles.first.thumbnail, size: "100") %>
+			<%= image_tag(@collectibles.first.thumbnail, size: "100", id: 'modal-collectible-thumbnail' )%>
 			<%= check_box_tag "Complete", @collectibles.first.complete, @collectibles.first.complete %>
 
 			<div class="collectible-data">
