@@ -117,7 +117,7 @@ function checkboxToggle(){
 		checkbox[0].checked = false;
 	}
 
-	var checkbox = $('#' + checkbox.attr('data-value') + '-complete');
+	var checkbox = $('#' + checkbox.attr('data_value') + '-complete');
 
 	if (checkbox[0].checked === false) {
 		checkbox[0].checked = true;
@@ -135,10 +135,10 @@ $('#modal-toggle').click(function(){
 $('#modal-checkbox').on('change', function(ev){
 	$.ajax({
         type: "PATCH",
-        url: '/collectibles/' +  $('#modal-checkbox').attr('data-value') + '/toggle',
+        url: '/collectibles/' +  $('#modal-checkbox').attr('data_value') + '/toggle',
         success: function(response) {
 		
-			var checkbox = $('#' +  $('#modal-checkbox').attr('data-value') + '-complete');
+			var checkbox = $('#' +  $('#modal-checkbox').attr('data_value') + '-complete');
 
 			if (checkbox[0].checked === false) {
 				checkbox[0].checked = true;

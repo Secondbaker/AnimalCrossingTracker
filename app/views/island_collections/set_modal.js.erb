@@ -1,7 +1,3 @@
-console.log("here");
-console.log("<%= escape_javascript @collectible.inspect %>")
-console.log("<%= escape_javascript render(:partial => 'collectibles/show', :locals => { :collectible => @collectible }) %>");
-console.log($('#modal_contents'));
 $('#modal_contents').replaceWith("<%= escape_javascript render(:partial => 'collectibles/show', :locals => { :collectible => @collectible }) %>");
 $('.modal-close').on('click', function(e) {
 	$('.modal').removeClass("visible-modal");
