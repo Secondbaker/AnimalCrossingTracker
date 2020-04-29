@@ -31,44 +31,15 @@
 				<% end %>
 				<%= check_box_tag "Complete", collectible.complete, collectible.complete, id: collectible.id.to_s + "-complete" , :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch } %>
 			</div>
-			<a class="modal-btn" id="<%= "btn-"+collectible.id.to_s %>"><%= collectible.name %></a>
+			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
 		</div>
 	<% end %>
 </section>
 
 <section class="modals">
-
-	
-	<div class="modal" id="<%= @collectibles.first.id %>">
-		<div>
-			<p id="notice"><%= notice %></p>
-
-			<span class="modal-close">X</span>
-
-			<h3 id='modal-collectible-name'><%= @collectibles.first.name %></h3>
-			<%= link_to collectible_toggle_path(@collectibles.first), :data => {:remote => true, :method => :patch}, id: 'modal-toggle' do %>
-				<% unless @collectibles.first.thumbnail == nil%>
-					<%= image_tag @collectibles.first.thumbnail, height: '100', width: '100', id: 'modal-collectible-thumbnail' %>
-				<% end %>
-			<% end %>
-			<%= check_box_tag "Complete", @collectibles.first.complete, @collectibles.first.complete, id: "modal-checkbox" %>
-
-			<div class="collectible-data">
-				<% collectible_attribute_counter = 0 %>
-				<% @collectibles.first.collectible_attributes.each do |att|%>
-					<p class="modal-collectible-attribute-type" value='<%= collectible_attribute_counter %>'><%= att.collectible_attribute_type.name %></p>
-					<div class="modal-collectible-attribute-value" value='<%= collectible_attribute_counter %>'><%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %></div>
-					<% collectible_attribute_counter = collectible_attribute_counter + 1 %>
-				<% end %>
-			</div>
-	
-			<div class="collectible-edit">
-				<%= link_to 'Edit', edit_collectible_path(@collectibles.first) %>
-			</div>
-		</div>
+	<div class="modal" id="modal">
+		<%= render partial: "collectibles/show", locals: { collectible: @collectibles.first } %>
 	</div>
-	
-
 </section>
 
 <%= link_to 'Edit', edit_island_collection_path(@island_collection) %> |

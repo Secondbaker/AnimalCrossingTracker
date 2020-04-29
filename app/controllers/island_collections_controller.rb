@@ -79,6 +79,14 @@ class IslandCollectionsController < ApplicationController
     end
   end
 
+  # GET /island_collections/set_modal/1
+  def set_modal
+    @collectible = Collectible.find(params[:id])
+    respond_to do |format|
+        format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_island_collection
