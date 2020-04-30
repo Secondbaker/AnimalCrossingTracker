@@ -68,9 +68,16 @@ function checkFilters() {
 
 	console.log(filter_checkboxes);
 	console.log(filter_checkboxes[0]);
-	console.log($('input:selected'));
+	console.log($('input:checked'));
 	$(filter_checkboxes).each(function( index ) {
-  		console.log( index + ": " + $(this).find('input:selected').attr('value') );
+  		if( $(this).find('input:checked').attr('value'))
+		{
+			console.log("found?");
+		}
+		else
+		{
+			console.log("not found?")
+		}
 	});
 
 
@@ -175,6 +182,14 @@ $('#order').on('change', function(ev) {
 	setSortLink();	
 });
 $('.filter-checkbox').on('change', function(ev) {
+	if($(this).find('input').attr('checked'))
+	{
+		$(this).find('input').removeAttr('checked');
+	}
+	else
+	{
+		$(this).find('input').attr('checked', 'checked');
+	}
 	setSortLink();
 });
 
