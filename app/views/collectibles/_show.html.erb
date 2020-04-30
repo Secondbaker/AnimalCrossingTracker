@@ -1,22 +1,26 @@
-<div class="modal">
+<div id="modal_contents">
+	<p id="notice"><%= notice %></p>
 
-  <p id="notice"><%= notice %></p>
+	<span class="modal-close">X</span>
 
-  <span class="modal-close"><%= link_to 'X', @collectible.island_collection %></span>
+	<h3 id='modal-collectible-name'><%= collectible.name %></h3>
+	<%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch}, id: 'modal-toggle' do %>
+		<% unless collectible.thumbnail == nil%>
+			<%= image_tag collectible.thumbnail, height: '100', width: '100', id: 'modal-collectible-thumbnail' %>
+		<% end %>
+	<% end %>
+	<%= check_box_tag "Complete", collectible.complete, collectible.complete, { id: "modal-checkbox", data_value: collectible.id }%>
 
-  <h3><%= @collectible.name %></h3>
-  <%= image_tag(@collectible.thumbnail, size: "100") %>
-  <%= check_box_tag "Complete", @collectible.complete, @collectible.complete %>
+	<div class="collectible-data">
+		<% collectible_attribute_counter = 0 %>
+		<% collectible.collectible_attributes.each do |att|%>
+			<p class="modal-collectible-attribute-type" value='<%= collectible_attribute_counter %>'><%= att.collectible_attribute_type.name %></p>
+			<div class="modal-collectible-attribute-value" value='<%= collectible_attribute_counter %>'><%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %></div>
+			<% collectible_attribute_counter = collectible_attribute_counter + 1 %>
+		<% end %>
+	</div>
 
-  <div class="collectible-data">
-    <% @collectible.collectible_attributes.each do |att|%>
-      <p><%= att.collectible_attribute_value_type %></p>
-      <%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %>
-    <% end %>
-  </div>
-  
-  <div class="collectible-edit">
-    <%= link_to 'Edit', edit_collectible_path(@collectible) %>
-  </div>
-
+	<div class="collectible-edit">
+		<%= link_to 'Edit', edit_collectible_path(collectible) %>
+	</div>
 </div>

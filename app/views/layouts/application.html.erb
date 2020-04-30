@@ -107,6 +107,51 @@ $('.collectible').click(
 	}
 );
 
+function checkboxToggle(){
+	var checkbox = $("#modal-checkbox");
+
+	if (checkbox[0].checked === false) {
+		checkbox[0].checked = true;
+	}
+	else if (checkbox[0].checked == true) {
+		checkbox[0].checked = false;
+	}
+
+	var checkbox = $('#' + checkbox.attr('data_value') + '-complete');
+
+	if (checkbox[0].checked === false) {
+		checkbox[0].checked = true;
+	}
+	else if (checkbox[0].checked == true) {
+		checkbox[0].checked = false;
+	}
+	document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+}
+
+$('#modal-toggle').click(function(){
+	checkboxToggle();
+});
+
+$('#modal-checkbox').on('change', function(ev){
+	$.ajax({
+        type: "PATCH",
+        url: '/collectibles/' +  $('#modal-checkbox').attr('data_value') + '/toggle',
+        success: function(response) {
+		
+			var checkbox = $('#' +  $('#modal-checkbox').attr('data_value') + '-complete');
+
+			if (checkbox[0].checked === false) {
+				checkbox[0].checked = true;
+			}
+			else if (checkbox[0].checked == true) {
+				checkbox[0].checked = false;
+			}
+
+			document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+        }
+	});
+});
+
 $('#sort_by').on('change', function(ev) {
 	setSortLink();	
 });
@@ -118,11 +163,9 @@ var btns = $('.modal-btn');
 
 btns.on('click', function(e) {
 	e.preventDefault();
-	var btnId = this.id;
-	btnId = btnId.split("-")[1];
-
-	var modal = $(".modal[id=" + btnId + "]");
-
+	
+	var modal = $(".modal");
+	$('#modal_contents').replaceWith("<div id='modal_contents'></div>");
   	modal.toggleClass('visible-modal');
 });
 
