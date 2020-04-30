@@ -7,7 +7,7 @@
 	</div>
 	<div class="sort">
 		<%select_options = [] %>
-		<% @collectibles.first.collectible_attributes.each do |collectible_attribute| %>
+		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
 			<% select_options.push collectible_attribute.collectible_attribute_type.name %>
 		<% end %>
 		<div class="sort_by">
@@ -16,7 +16,11 @@
 		<div class="order">
 			<%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
 		</div>
-		<%= link_to 'Sort', island_collection_sort_path( sort_by: select_options.first, order: 'asc', island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
+		<div class="filter-checkbox">
+			<%= label_tag "Current month only?" %>
+			<%= check_box_tag "current_month"%>
+		</div>
+		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'current_month' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>
 </section>
 
@@ -38,7 +42,7 @@
 
 <section class="modals">
 	<div class="modal" id="modal">
-		<%= render partial: "collectibles/show", locals: { collectible: @collectibles.first } %>
+		<%= render partial: "collectibles/show", locals: { collectible: @island_collection.collectibles.first } %>
 	</div>
 </section>
 
