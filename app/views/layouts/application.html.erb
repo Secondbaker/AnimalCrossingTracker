@@ -165,7 +165,7 @@ btns.on('click', function(e) {
 	e.preventDefault();
 	
 	var modal = $(".modal");
-
+	$('#modal_contents').replaceWith("<div id='modal_contents'></div>");
   	modal.toggleClass('visible-modal');
 });
 
