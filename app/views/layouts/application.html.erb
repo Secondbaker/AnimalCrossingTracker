@@ -61,6 +61,9 @@ window.onclick = function(event) {
 		}
 	}
 }*/
+function checkFilters() {
+	return "none";
+}
 
 function countCheckbox() {
 	return $('#collection input[type="checkbox"]').length;
@@ -83,7 +86,8 @@ function setSortLink() {
 	else if (order === 'Descending')
 		order = 'desc';
 
-	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/' + island_collection_id;
+	var filter = checkFilters();
+	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/filter/' + filter + "/" + island_collection_id;
 	
 	$('#sort_link').prop('href', newPath);
 }

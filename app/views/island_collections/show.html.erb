@@ -18,9 +18,9 @@
 		</div>
 		<div class="filter-checkbox">
 			<%= label_tag "Current month only?" %>
-			<%= check_box_tag "current_month"%>
+			<%= check_box_tag "current_month", value: "current_month" %>
 		</div>
-		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'current_month' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
+		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>
 </section>
 
