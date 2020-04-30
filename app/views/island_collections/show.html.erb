@@ -20,6 +20,10 @@
 			<%= label_tag "Current month only?" %>
 			<%= check_box_tag "current_month", value: "current_month" %>
 		</div>
+		<div class="filter-checkbox">
+			<%= label_tag "Current time of day only?" %>
+			<%= check_box_tag "current_time_of_day", value: "current_time_of_day" %>
+		</div>
 		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>
 </section>

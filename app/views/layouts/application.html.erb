@@ -63,6 +63,16 @@ window.onclick = function(event) {
 }*/
 function checkFilters() {
 	var filter = "none";
+
+	var filter_checkboxes = $('.filter-checkbox');
+
+	console.log(filter_checkboxes);
+	console.log(filter_checkboxes[0]);
+	$(filter_checkboxes).each(element => {
+		console.log("here");
+	});
+
+
 	return filter;
 }
 
@@ -162,6 +172,9 @@ $('#sort_by').on('change', function(ev) {
 });
 $('#order').on('change', function(ev) {
 	setSortLink();	
+});
+$('.filter-checkbox').on('change', function(ev) {
+	setSortLink();
 });
 
 var btns = $('.modal-btn');
