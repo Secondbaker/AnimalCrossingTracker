@@ -62,17 +62,15 @@ window.onclick = function(event) {
 	}
 }*/
 function checkFilters() {
-	var filter = "none";
+	var filters = "none";
 
 	var filter_checkboxes = $('.filter-checkbox');
 
-	console.log(filter_checkboxes);
-	console.log(filter_checkboxes[0]);
-	console.log($('input:checked'));
 	$(filter_checkboxes).each(function( index ) {
   		if( $(this).find('input:checked').attr('value'))
 		{
 			console.log("found?");
+			filters = $(this).find('input:checked').attr('value');
 		}
 		else
 		{
@@ -81,7 +79,7 @@ function checkFilters() {
 	});
 
 
-	return filter;
+	return filters;
 }
 
 function countCheckbox() {
