@@ -68,8 +68,9 @@ function checkFilters() {
 
 	console.log(filter_checkboxes);
 	console.log(filter_checkboxes[0]);
-	$(filter_checkboxes).each(element => {
-		console.log("here");
+	console.log($('input:selected'));
+	$(filter_checkboxes).each(function( index ) {
+  		console.log( index + ": " + $(this).find('input:selected').attr('value') );
 	});
 
 
