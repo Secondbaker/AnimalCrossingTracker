@@ -17,11 +17,21 @@ class IslandCollectionsController < ApplicationController
     unfiltered_collectibles = @island_collection.collectibles.includes(:collectible_attributes)
     
     if params[:filter] && params[:filter] == 'current_month'
-      current_month = Date::MONTHNUMBERS[Date.current.month]
-      
+      current_month = Date::MONTHNAMES[Date.current.month]
+      puts unfiltered_collectibles.inspect
+      filtered_collectibles = {}
+      unfiltered_collectibles.each do |collectible|
+        collectible.collectible_attributes.each do |collectible_attribute|
+          if collectible_attribute.collectible_attribute_value.class == TimeOfYear
+            if collectible_attribute.collectible_attribute_value.months.find_by(name: current_month)
+              filtered_collectibles.add(collectible)
+            end
+          end
+        end
+      end
     end
     
-    @collectibles = .sort_by{|obj| obj.position}
+    @collectibles = unfiltered_collectibles.sort_by{|obj| obj.position}
     if params[:sort_by] && params[:order] == 'asc'
       @collectibles = @collectibles.sort_by{|collectible| 
         collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
