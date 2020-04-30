@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :milestones
   get 'welcome/index'
   resources :island_collections do
+    get "/sort_by/*sort_by/order/*order/filter/*filter/:id", to: "island_collections#show", as: :sort_and_filter
     get "/sort_by/*sort_by/order/*order/:id", to: "island_collections#show", as: :sort
     get "/set_modal/:id", to: "island_collections#set_modal", as: :set_modal
   end
