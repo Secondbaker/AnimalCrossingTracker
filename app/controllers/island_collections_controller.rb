@@ -15,7 +15,6 @@ class IslandCollectionsController < ApplicationController
   def show
     @island_collection = IslandCollection.includes(:collectibles).find(params[:id])
     @proto_collectible = @island_collection.collectibles.first
-    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
     collectible_attribute_class_names = []
     @proto_collectible.collectible_attributes.each do |collectible_attribute|
       collectible_attribute_class_names.push collectible_attribute.collectible_attribute_value.class.to_s
@@ -30,15 +29,21 @@ class IslandCollectionsController < ApplicationController
     end
     
     @collectibles = @collectibles.sort_by{|obj| obj.position}
-    if params[:sort_by] && params[:order] == 'asc'
-      @collectibles = @collectibles.sort_by{|collectible| 
-        collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
-       }
-    elsif params[:sort_by] && params[:order] == 'desc'
-      @collectibles = @collectibles.sort_by{|collectible| 
-        collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
-      }.reverse!
+    if params[:sort_by]
+      if params[:sort_by] == "Name"
+        @collectibles = @collectibles.sort_by{ |collectible| collectible.name }
+      elsif params[:sort_by] == "Collected"
+        @collectibles = @collectibles.sort_by{ |collectible| collectible.complete ? 0 : 1 }
+      else
+        @collectibles = @collectibles.sort_by{|collectible| 
+          collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
+         }
+      end
+      if params[:order] =='desc'
+        @collectibles.reverse!  
+      end
     end
+    
 
     
   end
