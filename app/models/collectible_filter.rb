@@ -1,2 +1,0 @@
-class CollectibleFilter < ApplicationRecord
-end

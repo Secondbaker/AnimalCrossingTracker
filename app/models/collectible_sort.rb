@@ -1,2 +1,0 @@
-class CollectibleSort < ApplicationRecord
-end
