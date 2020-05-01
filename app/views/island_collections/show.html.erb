@@ -8,7 +8,9 @@
 	<div class="sort">
 		<%select_options = [] %>
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
-			<% select_options.push collectible_attribute.collectible_attribute_type.name %>
+			<% if collectible_attribute.collectible_attribute_value.class < SortableAttribute %>
+				<% select_options.push collectible_attribute.collectible_attribute_type.name %>
+			<% end %>
 		<% end %>
 		<div class="sort_by">
 			<%= select_tag "sort_by", options_for_select(select_options) %>
