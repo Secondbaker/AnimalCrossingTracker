@@ -21,7 +21,7 @@ class IslandCollectionsController < ApplicationController
       collectible_attribute_class_names.push collectible_attribute.collectible_attribute_value.class.to_s
     end
     @collectible_filters = CollectibleFilter.where(collectible_attribute_class_name: collectible_attribute_class_names)
-    @collectible_attribute_class_names = collectible_attribute_class_names #remove this later
+    @collectible_attribute_class_names = collectible_attribute_class_names #TODO remove this line later
     
     if params[:filter] && params[:filter] == 'current_month'
       @collectibles = @island_collection.collectibles.select{|collectible| collectible.active_in(DateTime::MONTHNAMES[DateTime.current.month])}

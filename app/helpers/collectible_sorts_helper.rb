@@ -1,0 +1,2 @@
+module CollectibleSortsHelper
+end

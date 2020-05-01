@@ -1,0 +1,32 @@
+<%= form_with(model: collectible_sort, local: true) do |form| %>
+  <% if collectible_sort.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(collectible_sort.errors.count, "error") %> prohibited this collectible_sort from being saved:</h2>
+
+      <ul>
+        <% collectible_sort.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :keyword %>
+    <%= form.text_field :keyword %>
+  </div>
+
+  <div class="field">
+    <%= form.label :collectible_attribute_class_name %>
+    <%= form.text_field :collectible_attribute_class_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

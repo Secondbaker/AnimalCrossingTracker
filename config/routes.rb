@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :collectible_sorts
   resources :collectible_filters
   resources :number_collectible_attributes
   resources :collectible_attribute_list_items
