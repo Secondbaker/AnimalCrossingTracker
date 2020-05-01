@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Collectible Filters</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Keyword</th>
+      <th>Collectible attribute class name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collectible_filters.each do |collectible_filter| %>
+      <tr>
+        <td><%= collectible_filter.name %></td>
+        <td><%= collectible_filter.keyword %></td>
+        <td><%= collectible_filter.collectible_attribute_class_name %></td>
+        <td><%= link_to 'Show', collectible_filter %></td>
+        <td><%= link_to 'Edit', edit_collectible_filter_path(collectible_filter) %></td>
+        <td><%= link_to 'Destroy', collectible_filter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collectible Filter', new_collectible_filter_path %>

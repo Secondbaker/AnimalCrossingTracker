@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :collectible_filters
   resources :number_collectible_attributes
   resources :collectible_attribute_list_items
   resources :collectible_attribute_lists
@@ -52,5 +53,7 @@ Rails.application.routes.draw do
   get 'auth/failure' => 'auth0#failure'
 
   get '/logout' => 'logout#logout'
+
+  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

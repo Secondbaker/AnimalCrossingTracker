@@ -13,8 +13,15 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1
   # GET /island_collections/1.json
   def show
-    @island_collection = IslandCollection.find(params[:id])
-    
+    @island_collection = IslandCollection.includes(:collectibles).find(params[:id])
+    @proto_collectible = @island_collection.collectibles.first
+    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+    collectible_attribute_class_names = []
+    @proto_collectible.collectible_attributes.each do |collectible_attribute|
+      collectible_attribute_class_names.push collectible_attribute.collectible_attribute_value.class.to_s
+    end
+    @collectible_filters = CollectibleFilter.where(collectible_attribute_class_name: collectible_attribute_class_names)
+    @collectible_attribute_class_names = collectible_attribute_class_names #remove this later
     
     if params[:filter] && params[:filter] == 'current_month'
       @collectibles = @island_collection.collectibles.select{|collectible| collectible.active_in(DateTime::MONTHNAMES[DateTime.current.month])}
@@ -32,6 +39,8 @@ class IslandCollectionsController < ApplicationController
         collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
       }.reverse!
     end
+
+    
   end
 
   # GET /island_collections/new

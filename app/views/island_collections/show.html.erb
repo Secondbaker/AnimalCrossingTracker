@@ -16,14 +16,13 @@
 		<div class="order">
 			<%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
 		</div>
-		<div class="filter-checkbox">
-			<%= label_tag "Current month only?" %>
-			<%= check_box_tag "current_month", "current_month" %>
-		</div>
-		<div class="filter-checkbox">
-			<%= label_tag "Current time of day only?" %>
-			<%= check_box_tag "current_time_of_day", "current_time_of_day"%>
-		</div>
+		
+		<% @collectible_filters.each do |collectible_filter| %>
+			<div class="filter-checkbox">
+				<%= label_tag collectible_filter.name %>
+				<%= check_box_tag collectible_filter.keyword, collectible_filter.keyword%>
+			</div>
+		<% end %>
 		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>
 </section>

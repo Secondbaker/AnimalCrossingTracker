@@ -1,0 +1,2 @@
+class CollectibleFilter < ApplicationRecord
+end
