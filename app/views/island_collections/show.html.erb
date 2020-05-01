@@ -19,10 +19,11 @@
 			<%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
 		</div>
 		
-		<% @collectible_filters.each do |collectible_filter| %>
+		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
 			<div class="filter-checkbox">
-				<%= label_tag collectible_filter.name %>
-				<%= check_box_tag collectible_filter.keyword, collectible_filter.keyword%>
+				<p>This is where we will check the filters</p>
+				<%= label_tag "Filter label" %>
+				<%= check_box_tag "Filter keyword", "Filter keyword"%>
 			</div>
 		<% end %>
 		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
