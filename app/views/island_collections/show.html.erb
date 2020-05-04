@@ -6,7 +6,7 @@
     	<p class="collection-count"><span id="count-checked-checkboxes">0</span> / <span id="count-checkboxes">0</span> collected</p>
 	</div>
 	<div class="sort">
-		<%select_options = ["Default", "Name", "Collected"] %>
+		<% select_options = ["Default", "Name", "Collected"] %>
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
 			<% if collectible_attribute.collectible_attribute_value.class < SortableAttribute %>
 				<% select_options.push collectible_attribute.collectible_attribute_type.name %>

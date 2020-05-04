@@ -15,7 +15,7 @@ class IslandCollectionsController < ApplicationController
   def show
     @island_collection = IslandCollection.includes(:collectibles).find(params[:id])
     
-    if params[:filter] && params[:filter] == 'current_month'
+    if params[:filter] && params[:filter].include?('current_month')
       @collectibles = @island_collection.collectibles.select{|collectible| collectible.active_in(DateTime::MONTHNAMES[DateTime.current.month])}
     else
       @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
