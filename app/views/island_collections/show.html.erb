@@ -20,11 +20,14 @@
 		</div>
 		
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
-			<div class="filter-checkbox">
-				<p>This is where we will check the filters</p>
-				<%= label_tag "Filter label" %>
-				<%= check_box_tag "Filter keyword", "Filter keyword"%>
-			</div>
+			<% if collectible_attribute.is_filterable %>
+				<% collectible_attribute.collectible_attribute_value.filters.each do |filter|%>
+					<div class="filter-checkbox">
+						<%= label_tag filter[1] %>
+						<%= check_box_tag filter[0], filter[0]%>
+					</div>
+				<% end %>
+			<% end %>
 		<% end %>
 		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>

@@ -1,5 +1,9 @@
 module FilterableAttribute
-    NAME = "default"
-    KEYWORD = "default"
-    CLASS = "default"
+    def filters
+        @filters = {}
+    end
+    
+    def is_filterable
+        return true
+    end
 end
