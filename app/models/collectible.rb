@@ -7,13 +7,20 @@ class Collectible < ApplicationRecord
   acts_as_list scope: :island_collection
 
   def active_in(month)
-    result = false;
+    result = false
     
     self.collectible_attributes.each do |collectible_attribute|
       if collectible_attribute.collectible_attribute_value.class == TimeOfYear && collectible_attribute.collectible_attribute_value.months.find_by(name: month)
-        result = true;
+        result = true
       end
     end
-    return result;
+    return result
+  end
+
+  def active_at_time(time)
+    result = false
+
+
+    return result
   end
 end
