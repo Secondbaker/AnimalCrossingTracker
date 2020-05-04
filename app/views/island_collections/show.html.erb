@@ -16,7 +16,7 @@
 			<%= select_tag "sort_by", options_for_select(select_options) %>
 		</div>
 		<div class="order">
-			<%= select_tag "order", options_for_select(['Ascending', 'Descending']) %>
+			<%= select_tag "order", options_for_select(['A-Z (0-9)', 'Z-A (9-0)']) %>
 		</div>
 		
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
