@@ -9,6 +9,9 @@ class CollectibleAttribute < ApplicationRecord
   accepts_nested_attributes_for :collectible_attribute_value
 
   def <=>(other)
+    if other.class != CollectibleAttribute
+      return nil
+    end
     self.collectible_attribute_value <=> other.collectible_attribute_value
   end
 
