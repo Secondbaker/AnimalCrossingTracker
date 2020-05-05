@@ -59,6 +59,10 @@ class IslandCollectionsController < ApplicationController
           end
         end
 
+        if params[:filter] =~ /(?:^|\W)\d+[ap]m(?:$|\W)/
+          specific_time = false
+        end
+
         current_month && complete && not_complete && current_time && specific_month && specific_time
       }
     else
