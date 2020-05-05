@@ -46,21 +46,24 @@ class IslandCollectionsController < ApplicationController
           current_time = collectible.active_at_time(time: Time.current)
         end
 
-        if params[:filter].match(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
+        months_to_check = params[:filter].scan(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
+        if months_to_check.size > 0
           specific_month = false
-        end
-        if !specific_month
-          DateTime::MONTHNAMES[1..12].map(&:downcase).each do |month_name|
-            if params[:filter].include?(month_name)
-              if collectible.active_in(month: month_name.capitalize)
-                specific_month = true
-              end
+          months_to_check.each do |month_name|
+            if collectible.active_in(month: month_name.capitalize)
+              specific_month = true
             end
           end
         end
 
-        if params[:filter] =~ /(?:^|\W)\d+[ap]m(?:$|\W)/
+        times_to_check = params[:filter].scan(/(?:^|\W)\d+[ap]m(?:$|\W)/)
+        if times_to_check.size > 0
           specific_time = false
+          times_to_check.each do |time|
+            if collectible.active_at_time(time: Time.now.change(hour: time))
+              specific_time = true
+            end
+          end
         end
 
         current_month && complete && not_complete && current_time && specific_month && specific_time
