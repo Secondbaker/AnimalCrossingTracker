@@ -16,16 +16,23 @@
 			<%= select_tag "sort_by", options_for_select(select_options) %>
 		</div>
 		<div class="order">
-			<%= select_tag "order", options_for_select(['A-Z (0-9)', 'Z-A (9-0)']) %>
+			<%= select_tag "order", options_for_select([['A-Z (0-9)', 'asc'], ['Z-A (9-0)', 'desc']]) %>
 		</div>
 		
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
 			<% if collectible_attribute.is_filterable %>
 				<% collectible_attribute.collectible_attribute_value.filters.each do |filter|%>
-					<div class="filter-checkbox">
-						<%= label_tag filter[1] %>
-						<%= check_box_tag filter[0], filter[0]%>
-					</div>
+					<% if filter[1].class == Hash %>
+						<div class="filter-multi-select" >
+							<%= label_tag filter[0] %>
+							<%= select_tag filter[0], options_for_select(filter[1].invert), multiple: true, html_options: { multiple: true } %>
+						</div>
+					<% else %>
+						<div class="filter-checkbox">
+							<%= label_tag filter[1] %>
+							<%= check_box_tag filter[0], filter[0]%>
+						</div>
+					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>

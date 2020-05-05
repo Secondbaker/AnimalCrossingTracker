@@ -6,7 +6,7 @@ class Collectible < ApplicationRecord
   accepts_nested_attributes_for :collectible_attributes
   acts_as_list scope: :island_collection
 
-  def active_in(month)
+  def active_in(month: string)
     result = false
     
     self.collectible_attributes.each do |collectible_attribute|
@@ -14,12 +14,18 @@ class Collectible < ApplicationRecord
         result = true
       end
     end
+
     return result
   end
 
-  def active_at_time(time)
+  def active_at_time(time: Time)
     result = false
 
+    self.collectible_attributes.each do |collectible_attribute|
+      if collectible_attribute.collectible_attribute_value.class == TimeOfDay && collectible_attribute.collectible_attribute_value.active_at_time(time: time)
+        result = true
+      end
+    end
 
     return result
   end

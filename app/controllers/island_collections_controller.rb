@@ -17,6 +17,7 @@ class IslandCollectionsController < ApplicationController
     
     if params[:filter]
       @collectibles = @island_collection.collectibles.select{|collectible|
+        
         current_month = true
         complete = true
         not_complete = true
@@ -25,7 +26,7 @@ class IslandCollectionsController < ApplicationController
         specific_time = true
 
         if params[:filter].include?('current_month')
-          current_month = current_month = collectible.active_in(DateTime::MONTHNAMES[DateTime.current.month])
+          current_month = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
         end
 
         if params[:filter] =~ /(?:^|\W)complete(?:$|\W)/
@@ -42,7 +43,20 @@ class IslandCollectionsController < ApplicationController
         end
 
         if params[:filter].include?('current_time')
-          current_time = true
+          current_time = collectible.active_at_time(time: Time.current)
+        end
+
+        if params[:filter].match(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
+          specific_month = false
+        end
+        if !specific_month
+          DateTime::MONTHNAMES[1..12].map(&:downcase).each do |month_name|
+            if params[:filter].include?(month_name)
+              if collectible.active_in(month: month_name.capitalize)
+                specific_month = true
+              end
+            end
+          end
         end
 
         current_month && complete && not_complete && current_time && specific_month && specific_time
