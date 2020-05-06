@@ -7,6 +7,7 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections
   # GET /island_collections.json
   def index
+    @user = User.find_by(auth0_id: session[:userinfo]['uid'])
     @island_collections = IslandCollection.all
   end
 

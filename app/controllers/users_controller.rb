@@ -28,7 +28,7 @@ class UsersController < ApplicationController
     @user.auth0_id = session[:userinfo]['uid']
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to island_collections_path, notice: 'User was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
