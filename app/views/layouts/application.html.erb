@@ -71,15 +71,18 @@ function checkFilters() {
 	var filter_multi_selects = $('.filter-multi-select');
 
 	$(filter_checkboxes).each(function( index ) {
-  		filters.push($(this).find('input:checked').attr('value'));
-		
+		if($(this).find('input:checked').length > 0)
+		{
+			console.log($(this).find('input:checked').attr('value'));
+  			filters.push($(this).find('input:checked').attr('value'));
+		}
 	});
 
 	$(filter_multi_selects).each(function( index ){
 		console.log($(this).find('select').val());
 		if ($(this).find('select').val().length > 0)
 		{
-			$(this).find('select').val().forEach(value => console.log(value) );
+			$(this).find('select').val().forEach(value => filters.push(value) );
 		}
 	});
 
