@@ -180,6 +180,10 @@ $('#sort_by').on('change', function(ev) {
 $('#order').on('change', function(ev) {
 	setSortLink();	
 });
+$('.filter-multi-select').on('change', function(ev) {
+	setSortLink();	
+});
+
 $('.filter-checkbox').on('change', function(ev) {
 	if($(this).find('input').attr('checked'))
 	{
