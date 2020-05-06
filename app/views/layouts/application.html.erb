@@ -73,20 +73,25 @@ function checkFilters() {
 	$(filter_checkboxes).each(function( index ) {
 		if($(this).find('input:checked').length > 0)
 		{
-			console.log($(this).find('input:checked').attr('value'));
   			filters.push($(this).find('input:checked').attr('value'));
 		}
 	});
 
 	$(filter_multi_selects).each(function( index ){
-		console.log($(this).find('select').val());
 		if ($(this).find('select').val().length > 0)
 		{
 			$(this).find('select').val().forEach(value => filters.push(value) );
 		}
 	});
 
-	console.log(filters);
+	if(filters.length == 0)
+	{
+		filterString = "none";
+	}
+	else
+	{
+		filterString = filters.join('+');
+	}
 	return filterString;
 }
 
