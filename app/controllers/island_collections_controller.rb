@@ -13,7 +13,7 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1
   # GET /island_collections/1.json
   def show
-    @island_collection = IslandCollection.includes(:collectibles).find(params[:id])
+    @island_collection = IslandCollection.includes(:collectibles).friendly.find(params[:id])
     
     if params[:filter]
       @collectibles = @island_collection.collectibles.select{|collectible|
@@ -99,7 +99,7 @@ class IslandCollectionsController < ApplicationController
 
   # GET /island_collections/1/edit
   def edit
-    @island_collection = IslandCollection.find(params[:id])
+    @island_collection = IslandCollection.friendly.find(params[:id])
 
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
 
@@ -156,7 +156,7 @@ class IslandCollectionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_island_collection
-      @island_collection = IslandCollection.find(params[:id])
+      @island_collection = IslandCollection.friendly.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
