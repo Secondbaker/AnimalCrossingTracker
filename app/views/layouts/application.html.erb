@@ -76,11 +76,15 @@ function checkFilters() {
 	});
 
 	$(filter_multi_selects).each(function( index ){
-		console.log($(this).find('select'));
+		console.log($(this).find('select').val());
+		if ($(this).find('select').val().length > 0)
+		{
+			$(this).find('select').val().forEach(value => console.log(value) );
+		}
 	});
 
-
-	return filters;
+	console.log(filters);
+	return filterString;
 }
 
 function countCheckbox() {
