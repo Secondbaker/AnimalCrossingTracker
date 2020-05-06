@@ -5,7 +5,11 @@ class Auth0Controller < ApplicationController
       session[:userinfo] = request.env['omniauth.auth']
   
       # Redirect to the URL you want after successful auth
-      redirect_to '/island_collections'
+      if User.find_by(auth0_id: session[:userinfo]['uid'])
+        redirect_to '/island_collections'
+      else
+        redirect_to new_user_path
+      end
     end
   
     def failure
