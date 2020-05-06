@@ -62,20 +62,21 @@ window.onclick = function(event) {
 	}
 }*/
 function checkFilters() {
-	var filters = "none";
+	var filterString = "none";
+
+	var filters = [];
 
 	var filter_checkboxes = $('.filter-checkbox');
 
+	var filter_multi_selects = $('.filter-multi-select');
+
 	$(filter_checkboxes).each(function( index ) {
-  		if( $(this).find('input:checked').attr('value'))
-		{
-			console.log("found?");
-			filters = $(this).find('input:checked').attr('value');
-		}
-		else
-		{
-			console.log("not found?")
-		}
+  		filters.push($(this).find('input:checked').attr('value'));
+		
+	});
+
+	$(filter_multi_selects).each(function( index ){
+		console.log($(this).find('select'));
 	});
 
 
