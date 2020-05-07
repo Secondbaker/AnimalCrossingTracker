@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
+  include Secured
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /users
   # GET /users.json
   def index
@@ -14,7 +15,14 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    unless User.find_by(auth0_id: session[:userinfo]['uid'])
+      @user = User.new
+    else
+      respond_to do |format|
+        format.html { redirect_to island_collections_path, notice: 'User already exists.' }
+      end
+    end 
+   
   end
 
   # GET /users/1/edit
@@ -26,6 +34,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.auth0_id = session[:userinfo]['uid']
+    @user.island_collections << IslandCollection.where(default: true)
     respond_to do |format|
       if @user.save
         format.html { redirect_to island_collections_path, notice: 'User was successfully created.' }

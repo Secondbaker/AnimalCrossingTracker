@@ -10,8 +10,10 @@
 			<% end %>
 			<p><%= island_collection.title %></p>
 			<%= link_to 'Show', island_collection, class: 'btn' %>
-			<%= link_to 'Edit', edit_island_collection_path(island_collection), class: 'btn' %>
-			<%= link_to 'Remove', island_collection, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+			<% unless island_collection.default %>
+				<%= link_to 'Edit', edit_island_collection_path(island_collection), class: 'btn' %>
+				<%= link_to 'Remove', island_collection, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn' %>
+			<% end %>
 		</div>
 	<% end %>
 </section>

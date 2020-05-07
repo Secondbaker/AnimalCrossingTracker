@@ -322,7 +322,7 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
-    fish = IslandCollection.create(title: "Fish")
+    fish = IslandCollection.create(title: "Fish", default: true)
     if verbose
         puts "Creating IslandCollection:\tFish"
     end
@@ -332,7 +332,7 @@ def getFish(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getBugs(csv:CSV::Table, verbose:boolean = false)
-    bugs = IslandCollection.create(title: "Bugs")
+    bugs = IslandCollection.create(title: "Bugs", default: true)
     if verbose
         puts "Creating IslandCollection:\tBugs"
     end
@@ -342,7 +342,7 @@ def getBugs(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getFossils(csv:CSV::Table, verbose:boolean = false)
-    fossils = IslandCollection.create(title: "Fossils")
+    fossils = IslandCollection.create(title: "Fossils", default: true)
     if verbose
         puts "Creating IslandCollection:\tFossils"
     end
@@ -352,7 +352,7 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getVillagers(csv:CSV::Table, verbose:boolean = false)
-    villagers = IslandCollection.create(title: "Villagers")
+    villagers = IslandCollection.create(title: "Villagers", default: true)
     if verbose
         puts "Creating IslandCollection:\tVillagers"
     end
@@ -362,7 +362,7 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getNookMiles(csv:CSV::Table, verbose:boolean = false)
-    nook_miles = IslandCollection.create(title: "Nook Miles", thumbnail: "http://google.jpg")
+    nook_miles = IslandCollection.create(title: "Nook Miles", thumbnail: "http://google.jpg", default: true)
     if verbose
         puts "Creating IslandCollection:\tNook Miles"
     end
@@ -372,6 +372,13 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
 end
 
 verbose = true
+if verbose
+    puts "Destroying User"
+end
+User.destroy_all
+if verbose
+    puts "Destroying CollectibleAttributeListItem"
+end
 CollectibleAttributeListItem.destroy_all
 if verbose
     puts "Destroying StringCollectibleAttribute"
