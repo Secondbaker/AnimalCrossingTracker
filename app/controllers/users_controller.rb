@@ -32,16 +32,20 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
-    @user.auth0_id = session[:userinfo]['uid']
-    @user.island_collections << IslandCollection.where(default: true)
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to island_collections_path, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if User.find_by(auth0_id: session[:userinfo]['uid'])
+      redirect_to island_collections_path, notice: 'User already exists.'
+    else
+      @user = User.new(user_params)
+      @user.auth0_id = session[:userinfo]['uid']
+      @user.island_collections << IslandCollection.where(default: true)
+      respond_to do |format|
+        if @user.save
+          format.html { redirect_to island_collections_path, notice: 'User was successfully created.' }
+          format.json { render :show, status: :created, location: @user }
+        else
+          format.html { render :new }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
