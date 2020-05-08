@@ -51,12 +51,8 @@
 				<% end %>
 				<%= check_box_tag "Complete", collectible.complete, collectible.complete, id: collectible.id.to_s + "-complete" , :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch } %>
 				
-				<%= if collectible.users.any? 
-				collectible.users.first.username 
-				end %>
-				<%= @user.username %>
 				<% if collectible.users.include?(@user)%>
-					<p>here</p>
+					<p><%= @user.my_collected_collectibles.find_by(collectible:collectible).completions %></p>
 				<% end %>
 
 			</div>
