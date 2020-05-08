@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_07_140610) do
+ActiveRecord::Schema.define(version: 2020_05_08_144012) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
 
   create_table "bell_values", force: :cascade do |t|
@@ -147,6 +148,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_140610) do
   create_table "island_collections_users", id: false, force: :cascade do |t|
     t.bigint "island_collection_id", null: false
     t.bigint "user_id", null: false
+    t.integer "test_int"
   end
 
   create_table "milestone_values", force: :cascade do |t|
@@ -188,6 +190,18 @@ ActiveRecord::Schema.define(version: 2020_05_07_140610) do
   create_table "moods", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "my_collected_collectibles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "collectible_id"
+    t.hstore "completions"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["collectible_id", "user_id"], name: "by_collectible_user", unique: true
+    t.index ["collectible_id"], name: "index_my_collected_collectibles_on_collectible_id"
+    t.index ["user_id", "collectible_id"], name: "by_user_collectible", unique: true
+    t.index ["user_id"], name: "index_my_collected_collectibles_on_user_id"
   end
 
   create_table "number_collectible_attributes", force: :cascade do |t|
@@ -294,6 +308,8 @@ ActiveRecord::Schema.define(version: 2020_05_07_140610) do
   add_foreign_key "collectible_attribute_list_items", "collectible_attribute_lists"
   add_foreign_key "collectible_attributes", "collectibles"
   add_foreign_key "milestone_values", "milestones"
+  add_foreign_key "my_collected_collectibles", "collectibles"
+  add_foreign_key "my_collected_collectibles", "users"
   add_foreign_key "reward_title_positions", "passport_titles"
   add_foreign_key "reward_title_positions", "reward_titles"
   add_foreign_key "time_of_years", "collectible_attributes"
