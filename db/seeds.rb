@@ -373,6 +373,10 @@ end
 
 verbose = true
 if verbose
+    puts "Destroying MyCollectedCollectible"
+end
+MyCollectedCollectible.destroy_all
+if verbose
     puts "Destroying User"
 end
 User.destroy_all
