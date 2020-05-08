@@ -14,6 +14,8 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/1
   # GET /island_collections/1.json
   def show
+    @user = User.find_by(auth0_id: session[:userinfo]['uid'])
+    
     @island_collection = IslandCollection.includes(:collectibles).friendly.find(params[:id])
     
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)

@@ -50,6 +50,15 @@
 					<% end %>
 				<% end %>
 				<%= check_box_tag "Complete", collectible.complete, collectible.complete, id: collectible.id.to_s + "-complete" , :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch } %>
+				
+				<%= if collectible.users.any? 
+				collectible.users.first.username 
+				end %>
+				<%= @user.username %>
+				<% if collectible.users.include?(@user)%>
+					<p>here</p>
+				<% end %>
+
 			</div>
 			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
 		</div>
