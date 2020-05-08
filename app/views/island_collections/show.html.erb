@@ -53,6 +53,15 @@
 				
 				<% if collectible.users.include?(@user)%>
 					<p><%= @user.my_collected_collectibles.find_by(collectible:collectible).completions %></p>
+					<% completions = @user.my_collected_collectibles.find_by(collectible:collectible).completions %>
+					<% if completions.any? %>
+						<% completions.each do |completion| %>
+							<p>here </p>
+							<%= check_box_tag "Complete", 
+								completion[1], 
+								completion[1]%>
+						<% end %>
+					<% end %>
 				<% end %>
 
 			</div>
