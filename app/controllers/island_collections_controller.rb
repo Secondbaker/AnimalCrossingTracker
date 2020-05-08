@@ -16,63 +16,64 @@ class IslandCollectionsController < ApplicationController
   def show
     @island_collection = IslandCollection.includes(:collectibles).friendly.find(params[:id])
     
+    @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+
     if params[:filter]
-      @collectibles = @island_collection.collectibles.select{|collectible|
-        
-        current_month = true
-        complete = true
-        not_complete = true
-        current_time = true
-        specific_month = true
-        specific_time = true
+      
+      times_to_check = params[:filter].scan(/(?:^|\W)\d+[ap]m(?:$|\W)/)
+      months_to_check = params[:filter].scan(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
 
-        if params[:filter].include?('current_month')
-          current_month = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
-        end
+      puts months_to_check
+      puts times_to_check
+      if params[:filter].include?('current_month') || months_to_check.size > 0
+        @collectibles = @collectibles.select{ |collectible| 
+          found = false
+          
+          found = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
 
-        if params[:filter] =~ /(?:^|\W)complete(?:$|\W)/
-          complete = collectible.complete
-        end
-
-        if params[:filter] =~ /(?:^|\W)not_complete(?:$|\W)/
-          not_complete = !collectible.complete
-        end
-
-        if params[:filter] =~ /(?:^|\W)not_complete(?:$|\W)/ && params[:filter] =~ /(?:^|\W)complete(?:$|\W)/
-          complete = true
-          not_complete = true
-        end
-
-        if params[:filter].include?('current_time')
-          current_time = collectible.active_at_time(time: Time.current)
-        end
-
-        months_to_check = params[:filter].scan(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
-        if months_to_check.size > 0
-          specific_month = false
           months_to_check.each do |month_name|
-            if collectible.active_in(month: month_name.capitalize)
-              specific_month = true
+            unless found
+              if collectible.active_in(month: month_name.capitalize)
+                found = true
+              end
             end
           end
-        end
 
-        times_to_check = params[:filter].scan(/(?:^|\W)\d+[ap]m(?:$|\W)/)
-        if times_to_check.size > 0
-          specific_time = false
+          found
+        }
+      end
+
+      if params[:filter].include?('current_time') || times_to_check.size > 0
+        @collectibles = @collectibles.select{ |collectible| 
+          found = false
+          
+          found = collectible.active_at_time(time: Time.current)
+
           times_to_check.each do |time|
-            if collectible.active_at_time(time: Time.now.change(hour: time))
-              specific_time = true
+            unless found
+              if collectible.active_at_time(time: Time.now.change(hour: time))
+                found = true
+              end
             end
           end
-        end
 
-        current_month && complete && not_complete && current_time && specific_month && specific_time
-      }
-    else
-      @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
+          found
+        }
+      end
+
+      if params[:filter] =~ /(?:^|\W)not_complete(?:$|\W)/ && params[:filter] !=~ /(?:^|\W)complete(?:$|\W)/
+        @collectibles = @collectibles.select { |collectible|
+          !collectible.complete
+        }
+      end
+
+      if params[:filter] =~ /(?:^|\W)complete(?:$|\W)/ && params[:filter] !=~ /(?:^|\W)not_complete(?:$|\W)/
+        @collectibles = @collectibles.select { |collectible|
+          collectible.complete
+        }
+      end
     end
-    
+
     @collectibles = @collectibles.sort_by{|obj| obj.position}
     if params[:sort_by]
       if params[:sort_by] == "Name"
