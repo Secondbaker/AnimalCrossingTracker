@@ -1,5 +1,6 @@
 class CreateMyCollectedCollectibles < ActiveRecord::Migration[6.0]
   def change
+    enable_extension "hstore"
     create_table :my_collected_collectibles do |t|
       t.references :user, foreign_key: true
       t.references :collectible, foreign_key: true
