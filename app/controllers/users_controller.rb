@@ -38,7 +38,12 @@ class UsersController < ApplicationController
       @user = User.new(user_params)
       @user.auth0_id = session[:userinfo]['uid']
       @user.island_collections << IslandCollection.where(default: true)
-      @user.collectibles << Collectible.where(island_collection: IslandCollection.where(default: true))
+      @user.island_collections.each do |island_collection|
+        island_collection.collectibles.each do |collectible|
+          @user.my_collected_collectibles << MyCollectedCollectible.create(collectible_id: collectible.id, completions: {"first":"false"})
+        end
+      end
+      
       respond_to do |format|
         if @user.save
           format.html { redirect_to island_collections_path, notice: 'User was successfully created.' }

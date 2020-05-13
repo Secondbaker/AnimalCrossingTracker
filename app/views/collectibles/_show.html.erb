@@ -4,7 +4,7 @@
 	<span class="modal-close">X</span>
 
 	<h3 id='modal-collectible-name'><%= collectible.name %></h3>
-	<%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch}, id: 'modal-toggle' do %>
+	<%= link_to collectible_toggle_path(collectible_id: collectible.id, user_id: user.id), :data => {:remote => true, :method => :patch}, id: 'modal-toggle' do %>
 		<% unless collectible.thumbnail == nil%>
 			<%= image_tag collectible.thumbnail, height: '100', width: '100', id: 'modal-collectible-thumbnail' %>
 		<% end %>

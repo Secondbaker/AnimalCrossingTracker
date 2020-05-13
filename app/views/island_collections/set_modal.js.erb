@@ -1,5 +1,5 @@
 
-$('#modal_contents').replaceWith("<%= escape_javascript render(:partial => 'collectibles/show', :locals => { :collectible => @collectible }) %>");
+$('#modal_contents').replaceWith("<%= escape_javascript render(:partial => 'collectibles/show', :locals => {  collectible: @collectible, user: @user }) %>");
 $('.modal-close').on('click', function(e) {
 	$('.modal').removeClass("visible-modal");
 });
