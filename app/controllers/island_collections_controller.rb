@@ -152,6 +152,7 @@ class IslandCollectionsController < ApplicationController
   # GET /island_collections/set_modal/1
   def set_modal
     @collectible = Collectible.find(params[:id])
+    @user = User.find(params[:user])
     respond_to do |format|
         format.js
     end

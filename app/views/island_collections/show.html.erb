@@ -66,7 +66,7 @@
 				<% end %>
 
 			</div>
-			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
+			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id, user: @user), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
 		</div>
 	<% end %>
 </section>
