@@ -6,7 +6,7 @@ class Auth0Controller < ApplicationController
   
       # Redirect to the URL you want after successful auth
       if User.find_by(auth0_id: session[:userinfo]['uid'])
-        redirect_to '/island_collections'
+        redirect_to island_collections_path
       else
         redirect_to new_user_path
       end

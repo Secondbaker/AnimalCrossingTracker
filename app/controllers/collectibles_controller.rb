@@ -54,8 +54,10 @@ class CollectiblesController < ApplicationController
   # PATCH/PUT /collectibles/1/toggle/
   def toggle
     @collectible = Collectible.find(params[:collectible_id])
-    @collectible.complete = !@collectible.complete
-    if @collectible.save
+    @user = User.find(params[:user_id])
+    @my_collected_collectible = @user.my_collected_collectibles.find_by(collectible_id: @collectible.id)
+    @my_collected_collectible.completions['first'] = @my_collected_collectible.completions['first'] == 'true' ? 'false':'true'
+    if @my_collected_collectible.save
       #redirect_to island_collection_path(@collectible.island_collection, anchor: @collectible.id)
     else
       render json: @collectible.errors, status: :unprocessable_entity

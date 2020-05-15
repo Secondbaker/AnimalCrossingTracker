@@ -17,7 +17,7 @@ module AnimalCrossingTracker
     # the framework and any gems in your application.
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins 'https://laboratory.ninja', 'https://sheltered-shore-69264.herokuapp.com'
         resource '*', headers: :any, methods: [:get, :post, :options, :patch, :put]
       end
     end

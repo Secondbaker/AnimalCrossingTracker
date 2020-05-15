@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= @user.username %>'s Island Collections</h1>
+<h1><%= @user.username %>'s Collections</h1>
 
 <section class="island-collections">
 	<% @island_collections.each do |island_collection| %>
@@ -17,5 +17,3 @@
 		</div>
 	<% end %>
 </section>
-
-<%= link_to 'New Island Collection', new_island_collection_path %>

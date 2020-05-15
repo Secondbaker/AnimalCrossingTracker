@@ -44,21 +44,37 @@
 	<% @collectibles.each do |collectible| %>
 		<div>
 			<div class="collectible">
-				<%= link_to collectible_toggle_path(collectible), :data => {:remote => true, :method => :patch} do %>
+				<%= link_to collectible_toggle_path(collectible_id: collectible.id, user_id: @user.id), :data => {:remote => true, :method => :patch} do %>
 					<% unless collectible.thumbnail == nil%>
 						<%= image_tag collectible.thumbnail, height: '100', width: '100' %>
 					<% end %>
 				<% end %>
-				<%= check_box_tag "Complete", collectible.complete, collectible.complete, id: collectible.id.to_s + "-complete" , :data => {:remote => true, :url => url_for(collectible_toggle_path(collectible)), :method => :patch } %>
+				
+				<% if collectible.users.include?(@user)%>
+					
+					<% completions = @user.my_collected_collectibles.find_by(collectible:collectible).completions %>
+					<% if completions %>
+						<% completions.each do |completion| %>
+							
+							<%= check_box_tag "Complete", 
+								completion[1], 
+								completion[1] == 'true',
+								id: collectible.id.to_s + "-complete",
+								:data => {:remote => true, :url => url_for(collectible_toggle_path(collectible_id: collectible.id, user_id: @user.id)), :method => :patch } %>
+						<% end %>
+					<% end %>
+				<% end %>
+
 			</div>
-			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
+			<%= link_to collectible.name, island_collection_set_modal_path(island_collection_id: @island_collection.id, id: collectible.id, user: @user), html_options = { remote: true, class: "modal-btn", id: "btn-" + collectible.id.to_s } %>
 		</div>
 	<% end %>
 </section>
 
 <section class="modals">
 	<div class="modal" id="modal">
-		<%= render partial: "collectibles/show", locals: { collectible: @island_collection.collectibles.first } %>
+		<%= puts @user.id%>
+		<%= render partial: "collectibles/show", locals: { collectible: @island_collection.collectibles.first, user: @user } %>
 	</div>
 </section>
 

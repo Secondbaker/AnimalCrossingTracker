@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users
+  resources :users, except: [:index, :show]
   resources :number_collectible_attributes
   resources :collectible_attribute_list_items
   resources :collectible_attribute_lists
@@ -13,11 +13,14 @@ Rails.application.routes.draw do
   resources :milestone_values
   resources :milestones
   get 'welcome/index'
-  resources :island_collections do
+  resources :island_collections, path: 'collections' do
     get "/sort_by/*sort_by/order/*order/filter/*filter/:id", to: "island_collections#show", as: :sort_and_filter
     get "/sort_by/*sort_by/order/*order/:id", to: "island_collections#show", as: :sort
     get "/set_modal/:id", to: "island_collections#set_modal", as: :set_modal
   end
+  get '/collections/fish', as: :fish
+  get '/collections/bugs', as: :bugs
+  get '/collections/fossils', as: :fossils
   resources :descriptions
   resources :villager_catchphrases
   resources :catchphrases
