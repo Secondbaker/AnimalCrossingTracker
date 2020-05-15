@@ -14,7 +14,7 @@
 </head>
 
 <body>
-
+<% unless current_page?(new_user_path)%>
 <header>
 	<% if session[:userinfo] == nil %>
 		<%= button_to 'Login', 'auth/auth0', method: :post %>
@@ -37,6 +37,7 @@
 		</nav>
 	<% end %>
 </header>
+<% end %>
 <%= yield %>
 
 </body>
