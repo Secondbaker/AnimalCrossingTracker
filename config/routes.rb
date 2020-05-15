@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :users, except: [:index]
+  resources :users, except: [:index, :show]
   resources :number_collectible_attributes
   resources :collectible_attribute_list_items
   resources :collectible_attribute_lists
