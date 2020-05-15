@@ -22,10 +22,10 @@
 	<% unless params[:controller] == 'welcome' %>
 		<nav>
 			<ul class="main-menu">
-				<li class="logo"><a href=""><%= image_tag "logo.png" %></a></li>
-				<li class="menu"><a>Fish</a></li>
-				<li class="menu"><a>Bugs</a></li>
-				<li class="menu"><a>Fossils</a></li>
+				<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
+				<%= link_to(fish_path) do %><li class="menu">Fish</li><% end %>
+				<%= link_to(bugs_path) do %><li class="menu">Bugs</li><% end %>
+				<%= link_to(fossils_path) do %><li class="menu">Fossils</li><% end %>
 				<li class="login"><a>
 					<% if session[:userinfo] == nil %>
 						<%= button_to 'Login', 'auth/auth0', method: :post %>
