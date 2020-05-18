@@ -7,21 +7,16 @@ $('#modal-toggle').click(function(){
 	checkboxToggle();
 });
 $('#modal-checkbox').on('change', function(ev){
-	$.ajax({
-        type: "PATCH",
-        url: '/collectibles/' +  $('#modal-checkbox').attr('data_value') + '/toggle',
-        success: function(response) {
-		
-			var checkbox = $('#' +  $('#modal-checkbox').attr('data_value') + '-complete');
 
-			if (checkbox[0].checked === false) {
-				checkbox[0].checked = true;
-			}
-			else if (checkbox[0].checked == true) {
-				checkbox[0].checked = false;
-			}
+	var checkbox = $('#' +  $('#modal-checkbox').attr('data_value') + '-complete');
 
-			document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
-        }
-	});
+	if (checkbox[0].checked === false) {
+		checkbox[0].checked = true;
+	}
+	else if (checkbox[0].checked == true) {
+		checkbox[0].checked = false;
+	}
+
+	document.getElementById("count-checked-checkboxes").innerHTML = countCheckedCheckbox();
+	
 });

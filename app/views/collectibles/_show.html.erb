@@ -9,7 +9,24 @@
 			<%= image_tag collectible.thumbnail, height: '100', width: '100', id: 'modal-collectible-thumbnail' %>
 		<% end %>
 	<% end %>
-	<%= check_box_tag "Complete", collectible.complete, collectible.complete, { id: "modal-checkbox", data_value: collectible.id }%>
+	
+	
+	
+	<% if collectible.users.include?(@user)%>
+					
+		<% completions = @user.my_collected_collectibles.find_by(collectible:collectible).completions %>
+		<% if completions %>
+			<% completions.each do |completion| %>
+				
+				<%= check_box_tag "Complete", 
+					completion[1], 
+					completion[1] == 'true',
+					id: 'modal-checkbox',
+					:data => {:remote => true, :url => url_for(collectible_toggle_path(collectible_id: collectible.id, user_id: user.id)), :method => :patch},
+					data_value: collectible.id  %>
+			<% end %>
+		<% end %>
+	<% end %>
 
 	<div class="collectible-data">
 		<% collectible_attribute_counter = 0 %>
@@ -20,7 +37,5 @@
 		<% end %>
 	</div>
 
-	<div class="collectible-edit">
-		<%= link_to 'Edit', edit_collectible_path(collectible) %>
-	</div>
+	
 </div>
