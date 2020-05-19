@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_152229) do
+ActiveRecord::Schema.define(version: 2020_05_19_151142) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -88,12 +88,6 @@ ActiveRecord::Schema.define(version: 2020_05_18_152229) do
     t.bigint "island_collection_id"
     t.integer "position"
     t.index ["island_collection_id"], name: "index_collectibles_on_island_collection_id"
-  end
-
-  create_table "descriptions", force: :cascade do |t|
-    t.text "information"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "fish_sizes", force: :cascade do |t|
