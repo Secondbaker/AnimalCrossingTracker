@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_172232) do
+ActiveRecord::Schema.define(version: 2020_05_19_173628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -45,14 +45,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_172232) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-  end
-
-  create_table "collectible_attribute_list_items", force: :cascade do |t|
-    t.bigint "collectible_attribute_list_id", null: false
-    t.integer "position"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["collectible_attribute_list_id"], name: "index_on_list"
   end
 
   create_table "collectible_attribute_lists", force: :cascade do |t|
@@ -148,19 +140,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_172232) do
     t.integer "test_int"
   end
 
-  create_table "milestone_values", force: :cascade do |t|
-    t.bigint "milestone_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "value"
-    t.index ["milestone_id"], name: "index_milestone_values_on_milestone_id"
-  end
-
-  create_table "milestones", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "months", force: :cascade do |t|
     t.string "name"
     t.integer "number"
@@ -171,22 +150,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_172232) do
   create_table "months_time_of_years", id: false, force: :cascade do |t|
     t.integer "month_id", null: false
     t.integer "time_of_year_id", null: false
-  end
-
-  create_table "mood_names", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "mood_names_moods", id: false, force: :cascade do |t|
-    t.integer "mood_id", null: false
-    t.integer "mood_name_id", null: false
-  end
-
-  create_table "moods", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "my_collected_collectibles", force: :cascade do |t|
@@ -206,33 +169,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_172232) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "label"
-  end
-
-  create_table "passport_titles", force: :cascade do |t|
-    t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "rarities", force: :cascade do |t|
-    t.integer "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "reward_title_positions", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "position"
-    t.bigint "reward_title_id"
-    t.bigint "passport_title_id"
-    t.index ["passport_title_id"], name: "index_reward_title_positions_on_passport_title_id"
-    t.index ["reward_title_id"], name: "index_reward_title_positions_on_reward_title_id"
-  end
-
-  create_table "reward_titles", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "shadow_sizes", force: :cascade do |t|
@@ -276,12 +212,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_172232) do
     t.string "label", default: "Gender"
   end
 
-  add_foreign_key "collectible_attribute_list_items", "collectible_attribute_lists"
   add_foreign_key "collectible_attributes", "collectibles"
-  add_foreign_key "milestone_values", "milestones"
   add_foreign_key "my_collected_collectibles", "collectibles"
   add_foreign_key "my_collected_collectibles", "users"
-  add_foreign_key "reward_title_positions", "passport_titles"
-  add_foreign_key "reward_title_positions", "reward_titles"
   add_foreign_key "time_of_years", "collectible_attributes"
 end
