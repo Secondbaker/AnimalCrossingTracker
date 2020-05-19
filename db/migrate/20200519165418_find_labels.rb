@@ -1,6 +1,6 @@
 class FindLabels < ActiveRecord::Migration[6.0]
   def up
-    verbose = true
+    verbose = false
     StringCollectibleAttribute.all.each do |string_collectible_attribute|
       if verbose
         puts 'StringCollectibleAttribute: ' + string_collectible_attribute.id.to_s
