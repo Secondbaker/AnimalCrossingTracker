@@ -3,50 +3,51 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
   def up
     verbose = false
     add_column :string_collectible_attributes, :label, :string
-    
-    Collectible.all.each do |collectible|
-      if verbose
-        puts 'Collectible: ' + collectible.name
-      end
-      collectible.collectible_attributes.each do |collectible_attribute|
-        current_class = collectible_attribute.collectible_attribute_value.class
-        if Object.const_defined?('Description')
-          if current_class == Description
-            if verbose
-              puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.information
-            end
-            description_replacement = StringCollectibleAttribute.create(label: current_class.to_s, value: collectible_attribute.collectible_attribute_value.information)
-            collectible_attribute.collectible_attribute_value = description_replacement
-            collectible_attribute.save
-            if verbose
-              puts 'Saved'
+    if ENV['RAILS_ENV'] == 'development'
+      Collectible.all.each do |collectible|
+        if verbose
+          puts 'Collectible: ' + collectible.name
+        end
+        collectible.collectible_attributes.each do |collectible_attribute|
+          current_class = collectible_attribute.collectible_attribute_value.class
+          if Object.const_defined?('Description')
+            if current_class == Description
+              if verbose
+                puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.information
+              end
+              description_replacement = StringCollectibleAttribute.create(label: current_class.to_s, value: collectible_attribute.collectible_attribute_value.information)
+              collectible_attribute.collectible_attribute_value = description_replacement
+              collectible_attribute.save
+              if verbose
+                puts 'Saved'
+              end
             end
           end
-        end
-        if Object.const_defined?('VillagerPersonality')
-          puts 'here'
-          if current_class == VillagerPersonality
-            if verbose
-              puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.personality_types.first.name
-            end
-            personality_replacement = StringCollectibleAttribute.create(label: "Personality", value: collectible_attribute.collectible_attribute_value.personality_types.first.name)
-            collectible_attribute.collectible_attribute_value = personality_replacement
-            collectible_attribute.save
-            if verbose
-              puts 'Saved'
+          if Object.const_defined?('VillagerPersonality')
+            puts 'here'
+            if current_class == VillagerPersonality
+              if verbose
+                puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.personality_types.first.name
+              end
+              personality_replacement = StringCollectibleAttribute.create(label: "Personality", value: collectible_attribute.collectible_attribute_value.personality_types.first.name)
+              collectible_attribute.collectible_attribute_value = personality_replacement
+              collectible_attribute.save
+              if verbose
+                puts 'Saved'
+              end
             end
           end
-        end
-        if Object.const_defined?('VillagerSpecies')
-          if current_class == VillagerSpecies
-            if verbose
-              puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.species.first.name
-            end
-            species_replacement = StringCollectibleAttribute.create(label: "Species", value: collectible_attribute.collectible_attribute_value.species.first.name)
-            collectible_attribute.collectible_attribute_value = species_replacement
-            collectible_attribute.save
-            if verbose
-              puts 'Saved'
+          if Object.const_defined?('VillagerSpecies')
+            if current_class == VillagerSpecies
+              if verbose
+                puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.species.first.name
+              end
+              species_replacement = StringCollectibleAttribute.create(label: "Species", value: collectible_attribute.collectible_attribute_value.species.first.name)
+              collectible_attribute.collectible_attribute_value = species_replacement
+              collectible_attribute.save
+              if verbose
+                puts 'Saved'
+              end
             end
           end
         end
