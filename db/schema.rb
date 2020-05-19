@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_151142) do
+ActiveRecord::Schema.define(version: 2020_05_19_153103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -210,17 +210,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_151142) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "personality_types", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-  end
-
-  create_table "personality_types_villager_personalities", id: false, force: :cascade do |t|
-    t.integer "personality_type_id", null: false
-    t.integer "villager_personality_id", null: false
-  end
-
   create_table "rarities", force: :cascade do |t|
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
@@ -286,11 +275,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_151142) do
 
   create_table "villager_genders", force: :cascade do |t|
     t.integer "value", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "villager_personalities", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
