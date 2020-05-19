@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_165418) do
+ActiveRecord::Schema.define(version: 2020_05_19_172232) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -20,18 +20,20 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Value"
   end
 
   create_table "birthdays", force: :cascade do |t|
     t.date "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Birthday"
   end
 
   create_table "bug_locations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
+    t.string "label", default: "Location"
   end
 
   create_table "bug_locations_spots", id: false, force: :cascade do |t|
@@ -56,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
   create_table "collectible_attribute_lists", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label"
   end
 
   create_table "collectible_attribute_types", force: :cascade do |t|
@@ -102,9 +105,9 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
   end
 
   create_table "fishing_locations", force: :cascade do |t|
-    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Location"
   end
 
   create_table "fishing_locations_spots", id: false, force: :cascade do |t|
@@ -202,6 +205,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
     t.integer "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label"
   end
 
   create_table "passport_titles", force: :cascade do |t|
@@ -234,6 +238,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
   create_table "shadow_sizes", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Shadow Size"
   end
 
   create_table "string_collectible_attributes", force: :cascade do |t|
@@ -246,12 +251,14 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
   create_table "time_of_days", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Active Hours"
   end
 
   create_table "time_of_years", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "collectible_attribute_id"
+    t.string "label", default: "Seasonality"
     t.index ["collectible_attribute_id"], name: "index_time_of_years_on_collectible_attribute_id"
   end
 
@@ -266,6 +273,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_165418) do
     t.integer "value", limit: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "label", default: "Gender"
   end
 
   add_foreign_key "collectible_attribute_list_items", "collectible_attribute_lists"
