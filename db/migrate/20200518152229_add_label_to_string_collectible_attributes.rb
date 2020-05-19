@@ -29,7 +29,7 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
         puts 'Collectible: ' + collectible.name
       end
       collectible.collectible_attributes.each do |collectible_attribute|
-        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label = "Description"
+        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Description"
           if verbose
             puts 'replacing description:  ' + collectible_attribute.collectible_attribute_value.value
           end

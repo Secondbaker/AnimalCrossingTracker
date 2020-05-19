@@ -2,20 +2,19 @@ class IslandCollectionsController < ApplicationController
   include Secured
 
   before_action :set_island_collection, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
 
   # GET /island_collections
   # GET /island_collections.json
   def index
-    @user = User.find_by(auth0_id: session[:userinfo]['uid'])
     @island_collections = @user.island_collections
   end
 
   # GET /island_collections/1
   # GET /island_collections/1.json
   def show
-    @user = User.find_by(auth0_id: session[:userinfo]['uid'])
-    
+        
     @island_collection = IslandCollection.includes(:collectibles).friendly.find(params[:id])
     
     @collectibles = @island_collection.collectibles.includes(:collectible_attributes)
@@ -167,5 +166,13 @@ class IslandCollectionsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def island_collection_params
       params.require(:island_collection).permit(:title, :thumbnail, :collectibles_attributes => [:island_collection_id, :name, :thumbnail, :complete, :id])
+    end
+
+    def set_user
+      @user = User.find_by(auth0_id: session[:userinfo]['uid'])
+
+      if !@user
+        redirect_to new_user_path
+      end
     end
 end
