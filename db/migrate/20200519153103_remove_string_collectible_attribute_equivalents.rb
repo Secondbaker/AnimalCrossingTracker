@@ -4,6 +4,10 @@ class RemoveStringCollectibleAttributeEquivalents < ActiveRecord::Migration[6.0]
     drop_table :personality_types
     drop_table :villager_personalities
     drop_table :personality_types_villager_personalities
+    drop_table :species
+    drop_table :villager_species
+    drop_table :species_villager_species
+    
   end
   def down
     create_table :descriptions do |t|
@@ -23,6 +27,19 @@ class RemoveStringCollectibleAttributeEquivalents < ActiveRecord::Migration[6.0]
     create_join_table :personality_types, :villager_personalities do |t|
       t.index [:personality_type_id, :villager_personality_id], name: "personality_types_villagers"
       t.index [:villager_personality_id, :personality_type_id], name: "personality_villagers_types"
+    end
+    create_table :villager_species do |t|
+
+      t.timestamps
+    end
+    create_table :species do |t|
+      t.string :name
+
+      t.timestamps
+    end
+    create_join_table :species, :villager_species do |t|
+      t.index [:species_id, :villager_species_id], name: "species_villagers"
+      t.index [:villager_species_id, :species_id], name: "villagers_species"
     end
   end
 end

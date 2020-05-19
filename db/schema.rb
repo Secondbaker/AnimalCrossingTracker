@@ -236,17 +236,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_153103) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "species", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "species_villager_species", id: false, force: :cascade do |t|
-    t.integer "species_id", null: false
-    t.integer "villager_species_id", null: false
-  end
-
   create_table "string_collectible_attributes", force: :cascade do |t|
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
@@ -275,11 +264,6 @@ ActiveRecord::Schema.define(version: 2020_05_19_153103) do
 
   create_table "villager_genders", force: :cascade do |t|
     t.integer "value", limit: 2
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "villager_species", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

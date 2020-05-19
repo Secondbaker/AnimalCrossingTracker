@@ -30,6 +30,17 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
           if verbose
             puts 'Saved'
           end
+
+        elsif current_class == VillagerSpecies
+          if verbose
+            puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.species.first.name
+          end
+          species_replacement = StringCollectibleAttribute.create(label: "Species", value: collectible_attribute.collectible_attribute_value.species.first.name)
+          collectible_attribute.collectible_attribute_value = species_replacement
+          collectible_attribute.save
+          if verbose
+            puts 'Saved'
+          end
         end
       end
     end
@@ -65,6 +76,24 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
           end
           personality_replacement.personality_types << PersonalityType.find_by(name: collectible_attribute.collectible_attribute_value.value)
           collectible_attribute.collectible_attribute_value = personality_replacement
+          collectible_attribute.save
+          if verbose
+            puts 'Saved'
+          end
+        end
+        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Species"
+          if verbose
+            puts 'replacing species:  ' + collectible_attribute.collectible_attribute_value.value
+          end
+          species_replacement = VillagerSpecies.create
+          unless Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
+            if verbose
+              puts 'creating Species: ' + collectible_attribute.collectible_attribute_value.value
+            end
+            Species.create(name: collectible_attribute.collectible_attribute_value.value)
+          end
+          species_replacement.species << Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
+          collectible_attribute.collectible_attribute_value = species_replacement
           collectible_attribute.save
           if verbose
             puts 'Saved'
