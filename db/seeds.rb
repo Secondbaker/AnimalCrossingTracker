@@ -84,8 +84,14 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
     if thumbnail_url =~ /[uU]nknown/
         thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
     end
-    #create bug
-    creation = bugs.collectibles.create(name: bug_name, thumbnail: thumbnail_url, complete: false)
+    
+    creation = bugs.collectibles.find_by(name: bug_name)
+    if creation == nil
+        #create bug
+        creation = bugs.collectibles.create(name: bug_name, thumbnail: thumbnail_url, complete: false)
+    else
+        creation.collectible_attributes.destroy_all
+    end
     if verbose
         puts "Creating " + bug_name
     end
@@ -121,9 +127,14 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
 end
 
 def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, bell_value:String, time_of_day:String, time_of_year:String, fishing_location:String, shadow_size:String, verbose:boolean = false)
-
-    #create fish
-    creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
+    
+    creation = fish.collectibles.find_by(name: fish_name)
+    if creation == nil
+        #create fish
+        creation = fish.collectibles.create(name: fish_name, thumbnail: thumbnail_url, complete: false)
+    else
+        creation.collectible_attributes.destroy_all
+    end
     if verbose
         puts "Creating " + fish_name
     end
@@ -197,7 +208,12 @@ def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:St
     if thumbnail_url =~ /[uU]nknown/
         thumbnail_url = "https://playcrazygame.com/wp-content/uploads/2019/08/Default-Skin-Icons.jpg"
     end
-    creation = fossils.collectibles.create(name:fossil_name, thumbnail:thumbnail_url, complete:false)
+    creation = fossils.collectibles.find_by(name: fossil_name)
+    if creation == nil
+        creation = fossils.collectibles.create(name:fossil_name, thumbnail:thumbnail_url, complete:false)
+    else
+        creation.collectible_attributes.destroy_all
+    end
     
     #begin adding collectible attributes
 
@@ -322,7 +338,10 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
-    fish = IslandCollection.create(title: "Fish", default: true)
+    fish = IslandCollection.find_by(title: "Fish", default: true)
+    if fish == nil
+        fish = IslandCollection.create(title: "Fish", default: true)
+    end
     if verbose
         puts "Creating IslandCollection:\tFish"
     end
@@ -332,7 +351,10 @@ def getFish(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getBugs(csv:CSV::Table, verbose:boolean = false)
-    bugs = IslandCollection.create(title: "Bugs", default: true)
+    bugs = IslandCollection.find_by(title: 'Bugs', default: true)
+    if bugs == nil
+        bugs = IslandCollection.create(title: "Bugs", default: true)
+    end
     if verbose
         puts "Creating IslandCollection:\tBugs"
     end
@@ -342,7 +364,11 @@ def getBugs(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getFossils(csv:CSV::Table, verbose:boolean = false)
-    fossils = IslandCollection.create(title: "Fossils", default: true)
+    fossils = IslandCollection.find_by(title: "Fossils", default: true)
+    if fossils == nil
+        fossils = IslandCollection.create(title: "Fossils", default: true)
+    end
+
     if verbose
         puts "Creating IslandCollection:\tFossils"
     end
@@ -352,7 +378,10 @@ def getFossils(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getVillagers(csv:CSV::Table, verbose:boolean = false)
-    villagers = IslandCollection.create(title: "Villagers", default: true)
+    villagers = IslandCollection.find_by(title: 'Villagers', default: true)
+    if villagers == nil
+        villagers = IslandCollection.create(title: "Villagers", default: true)
+    end
     if verbose
         puts "Creating IslandCollection:\tVillagers"
     end
@@ -362,7 +391,10 @@ def getVillagers(csv:CSV::Table, verbose:boolean = false)
 end
 
 def getNookMiles(csv:CSV::Table, verbose:boolean = false)
-    nook_miles = IslandCollection.create(title: "Nook Miles", thumbnail: "http://google.jpg", default: true)
+    nook_miles = IslandCollection.find_by(title: 'Nook Miles', default: true)
+    if nook_miles == nil
+        nook_miles = IslandCollection.create(title: "Nook Miles", thumbnail: "http://google.jpg", default: true)
+    end
     if verbose
         puts "Creating IslandCollection:\tNook Miles"
     end
@@ -371,93 +403,95 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
     end
 end
 
+puts ENV['RAILS_ENV'].to_s
 verbose = true
-if verbose
-    puts "Destroying MyCollectedCollectible"
+allowed_env = 'development'
+if Rails.env == allowed_env
+    if verbose
+        puts "Destroying MyCollectedCollectible"
+    end
+    MyCollectedCollectible.destroy_all
+
+    if verbose
+        puts "Destroying User"
+    end
+    User.destroy_all
 end
-MyCollectedCollectible.destroy_all
-if verbose
-    puts "Destroying User"
-end
-User.destroy_all
-if verbose
-    puts "Destroying CollectibleAttributeListItem"
-end
-CollectibleAttributeListItem.destroy_all
+
 if verbose
     puts "Destroying StringCollectibleAttribute"
 end
 StringCollectibleAttribute.destroy_all
-if verbose
-    puts "Destroying Description"
-end
-Description.destroy_all
+
 if verbose
     puts "Destroying Birthday"
 end
 Birthday.destroy_all
-if verbose
-    puts "Destroying VillagerSpecies"
-end
-VillagerSpecies.destroy_all
-if verbose
-    puts "Destroying VillagerPersonality"
-end
-VillagerPersonality.destroy_all
+
 if verbose
     puts "Destroying VillagerGender"
 end
 VillagerGender.destroy_all
+
 if verbose
     puts "Destroying ShadowSize"
 end
 ShadowSize.destroy_all
+
 if verbose
     puts "Destroying CollectibleAttribute"
 end
 CollectibleAttribute.destroy_all
 
 if verbose
-    puts "Destroying Rarity"
-end
-Rarity.destroy_all
-if verbose
     puts "Destroying BellValue"
 end
 BellValue.destroy_all
+
 if verbose
     puts "Destroying TimeOfDay"
 end
 TimeOfDay.destroy_all
+
 if verbose
     puts "Destroying TimeOfYear"
 end
 TimeOfYear.destroy_all
+
 if verbose
     puts "Destroying FishingLocation"
 end
 FishingLocation.destroy_all
+
 if verbose
     puts "Destroying BugLocation"
 end
 BugLocation.destroy_all
-if verbose
-    puts "Destroying Collectible"
+
+if Rails.env== allowed_env
+    if verbose
+        puts "Destroying Collectible"
+    end
+    Collectible.destroy_all
 end
-Collectible.destroy_all
 if verbose
     puts "Destroying CollectibleAttributeList"
 end
 CollectibleAttributeList.destroy_all
-if verbose
-    puts "Destroying IslandCollection"
-end
-IslandCollection.destroy_all
 
+if Rails.env == allowed_env
+    if verbose
+        puts "Destroying IslandCollection"
+    end
+    IslandCollection.destroy_all
+end
+
+if Rails.env == allowed_env
 if verbose
     puts "Destroying CollectibleAttributeType"
 end
 CollectibleAttributeType.destroy_all
+
 if verbose
     puts "Creating CollectibleAttributeTypes"
 end
@@ -486,11 +520,6 @@ seasonality_type = CollectibleAttributeType.create(name: 'Seasonality')
 location_type = CollectibleAttributeType.create(name: 'Location')
 shadow_type = CollectibleAttributeType.create(name: 'Shadow')
 value_type = CollectibleAttributeType.create(name: 'Value')
-
-if verbose
-    puts "Destroying MoodName"
-end
-MoodName.destroy_all
 
 if verbose
     puts "Destroying Month"
@@ -544,30 +573,22 @@ Hour.create(name: '9p')
 Hour.create(name: '10p')
 Hour.create(name: '11p')
 
-if verbose
-    puts "Destroying PersonalityType"
-end
-PersonalityType.destroy_all
 
-if verbose
-    puts "Destroying Species"
-end
-Species.destroy_all
+    if verbose
+        puts "Destroying FishingSpot"
+    end
+    FishingSpot.destroy_all
 
-if verbose
-    puts "Destroying FishingSpot"
-end
-FishingSpot.destroy_all
+    if verbose
+        puts "Destroying BugSpot"
+    end
+    BugSpot.destroy_all
 
-if verbose
-    puts "Destroying BugSpot"
+    if verbose
+        puts "Destroying FishSize"
+    end
+    FishSize.destroy_all
 end
-BugSpot.destroy_all
-
-if verbose
-    puts "Destroying FishSize"
-end
-FishSize.destroy_all
 
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Fish.csv'), headers: true)
 
