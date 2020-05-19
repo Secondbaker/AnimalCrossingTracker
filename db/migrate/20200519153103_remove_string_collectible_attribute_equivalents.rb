@@ -37,9 +37,11 @@ class RemoveStringCollectibleAttributeEquivalents < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    create_join_table :species, :villager_species do |t|
-      t.index [:species_id, :villager_species_id], name: "species_villagers"
-      t.index [:villager_species_id, :species_id], name: "villagers_species"
+    create_table :species_villager_species, id: false, force: :cascade do |t|
+      t.bigint "species_id", null: false
+      t.bigint "villager_species_id", null: false
+      t.index ["species_id", "villager_species_id"], name: "species_villagers"
+      t.index ["villager_species_id", "species_id"], name: "villagers_species"
     end
   end
 end

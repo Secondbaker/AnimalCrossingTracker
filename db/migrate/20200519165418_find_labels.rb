@@ -12,7 +12,9 @@ class FindLabels < ActiveRecord::Migration[6.0]
           end
           string_collectible_attribute.label = string_collectible_attribute.collectible_attribute.collectible_attribute_type.name
           string_collectible_attribute.save
-          puts 'Saved'
+          if verbose
+            puts 'Saved'
+          end
         end
       end
     end
