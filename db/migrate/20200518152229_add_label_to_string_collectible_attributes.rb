@@ -3,6 +3,7 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
   def up
     verbose = false
     add_column :string_collectible_attributes, :label, :string
+    
     Collectible.all.each do |collectible|
       if verbose
         puts 'Collectible: ' + collectible.name
@@ -23,6 +24,7 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
           end
         end
         if Object.const_defined?('VillagerPersonality')
+          puts 'here'
           if current_class == VillagerPersonality
             if verbose
               puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.personality_types.first.name
@@ -58,51 +60,57 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
         puts 'Collectible: ' + collectible.name
       end
       collectible.collectible_attributes.each do |collectible_attribute|
-        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Description"
-          if verbose
-            puts 'replacing description:  ' + collectible_attribute.collectible_attribute_value.value
-          end
-          description_replacement = Description.create(information: collectible_attribute.collectible_attribute_value.value)
-          collectible_attribute.collectible_attribute_value = description_replacement
-          collectible_attribute.save
-          if verbose
-            puts 'Saved'
+        if Object.const_defined?('Description')
+          if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Description"
+            if verbose
+              puts 'replacing description:  ' + collectible_attribute.collectible_attribute_value.value
+            end
+            description_replacement = Description.create(information: collectible_attribute.collectible_attribute_value.value)
+            collectible_attribute.collectible_attribute_value = description_replacement
+            collectible_attribute.save
+            if verbose
+              puts 'Saved'
+            end
           end
         end
-        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Personality"
-          if verbose
-            puts 'replacing personality:  ' + collectible_attribute.collectible_attribute_value.value
-          end
-          personality_replacement = VillagerPersonality.create
-          unless PersonalityType.find_by(name: collectible_attribute.collectible_attribute_value.value)
+        if Object.const_defined?('VillagerPersonality')
+          if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Personality"
             if verbose
-              puts 'creating PersonalityType: ' + collectible_attribute.collectible_attribute_value.value
+              puts 'replacing personality:  ' + collectible_attribute.collectible_attribute_value.value
             end
-            PersonalityType.create(name: collectible_attribute.collectible_attribute_value.value)
-          end
-          personality_replacement.personality_types << PersonalityType.find_by(name: collectible_attribute.collectible_attribute_value.value)
-          collectible_attribute.collectible_attribute_value = personality_replacement
-          collectible_attribute.save
-          if verbose
-            puts 'Saved'
+            personality_replacement = VillagerPersonality.create
+            unless PersonalityType.find_by(name: collectible_attribute.collectible_attribute_value.value)
+              if verbose
+                puts 'creating PersonalityType: ' + collectible_attribute.collectible_attribute_value.value
+              end
+              PersonalityType.create(name: collectible_attribute.collectible_attribute_value.value)
+            end
+            personality_replacement.personality_types << PersonalityType.find_by(name: collectible_attribute.collectible_attribute_value.value)
+            collectible_attribute.collectible_attribute_value = personality_replacement
+            collectible_attribute.save
+            if verbose
+              puts 'Saved'
+            end
           end
         end
-        if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Species"
-          if verbose
-            puts 'replacing species:  ' + collectible_attribute.collectible_attribute_value.value
-          end
-          species_replacement = VillagerSpecies.create
-          unless Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
+        if Object.const_defined?('VillagerSpecies')
+          if collectible_attribute.collectible_attribute_value.class == StringCollectibleAttribute && collectible_attribute.collectible_attribute_value.label == "Species"
             if verbose
-              puts 'creating Species: ' + collectible_attribute.collectible_attribute_value.value
+              puts 'replacing species:  ' + collectible_attribute.collectible_attribute_value.value
             end
-            Species.create(name: collectible_attribute.collectible_attribute_value.value)
-          end
-          species_replacement.species << Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
-          collectible_attribute.collectible_attribute_value = species_replacement
-          collectible_attribute.save
-          if verbose
-            puts 'Saved'
+            species_replacement = VillagerSpecies.create
+            unless Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
+              if verbose
+                puts 'creating Species: ' + collectible_attribute.collectible_attribute_value.value
+              end
+              Species.create(name: collectible_attribute.collectible_attribute_value.value)
+            end
+            species_replacement.species << Species.find_by(name: collectible_attribute.collectible_attribute_value.value)
+            collectible_attribute.collectible_attribute_value = species_replacement
+            collectible_attribute.save
+            if verbose
+              puts 'Saved'
+            end
           end
         end
       end

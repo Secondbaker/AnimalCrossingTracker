@@ -1,6 +1,6 @@
 class FindCollectibleAttributeListLabels < ActiveRecord::Migration[6.0]
   def up
-    verbose = true
+    verbose = false
     CollectibleAttributeList.all.each do |collectible_attribute_list|
       if verbose
         puts 'CollectibleAttributeList: ' + collectible_attribute_list.id.to_s
