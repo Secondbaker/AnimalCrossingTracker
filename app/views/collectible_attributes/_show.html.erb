@@ -1,9 +1,7 @@
 <% value = collectible_attribute.collectible_attribute_value%>
 <% value_class = value.class %>
 
-<% if (value_class == Rarity) then %>
-  <%= render partial: "rarities/show", locals: { rarity: value } %>
-<% elsif (value_class == BellValue) then %>
+<% if (value_class == BellValue) then %>
   <%= render partial: "bell_values/show", locals: { bell_value: value } %>
 <% elsif (value_class == TimeOfDay) then %>
   <%= render partial: "time_of_days/show", locals: { time_of_day: value } %>
@@ -15,18 +13,10 @@
   <%= render partial: "bug_locations/show", locals: { bug_location: value } %>
 <% elsif value_class == ShadowSize %>
   <%= render partial: "shadow_sizes/show", locals: { shadow_size: value } %>
-<% elsif value_class == Mood %>
-  <%= render partial: "moods/show", locals: { mood: value } %>
 <% elsif value_class == VillagerGender %>
   <%= render partial: "villager_genders/show", locals: { villager_gender: value } %>
-<% elsif value_class == VillagerPersonality %>
-  <%= render partial: "villager_personalities/show", locals: { villager_personality: value } %>
-<% elsif value_class == VillagerSpecies %>
-  <%= render partial: "villager_species/show", locals: { villager_species: value } %>
 <% elsif value_class == Birthday %>
   <%= render partial: "birthdays/show", locals: { birthday: value } %>
-<% elsif value_class == Description %>
-  <%= render partial: "descriptions/show", locals: { description: value } %>
 <% elsif value_class == StringCollectibleAttribute %>
   <%= render partial: "string_collectible_attributes/show", locals: { string_collectible_attribute: value } %>
 <% elsif value_class == CollectibleAttributeList %>

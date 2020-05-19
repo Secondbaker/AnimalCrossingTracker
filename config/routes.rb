@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   resources :users, except: [:index, :show]
   resources :number_collectible_attributes
-  resources :collectible_attribute_list_items
   resources :collectible_attribute_lists
   resources :string_collectible_attributes
   resources :hours
@@ -21,17 +20,10 @@ Rails.application.routes.draw do
   get '/collections/fish', as: :fish
   get '/collections/bugs', as: :bugs
   get '/collections/fossils', as: :fossils
-  resources :descriptions
   resources :villager_catchphrases
   resources :catchphrases
   resources :birthdays
-  resources :villager_species
-  resources :species
-  resources :personality_types
-  resources :villager_personalities
   resources :villager_genders
-  resources :mood_names
-  resources :moods
   resources :shadow_sizes
   resources :fish_sizes
   resources :timespans
@@ -44,7 +36,6 @@ Rails.application.routes.draw do
   resources :collectible_attribute_types
   resources :months
   resources :bell_values
-  resources :rarities
   resources :time_of_days
   resources :collectible_attributes
   resources :collectibles do

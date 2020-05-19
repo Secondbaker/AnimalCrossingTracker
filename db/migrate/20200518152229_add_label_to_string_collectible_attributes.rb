@@ -1,7 +1,7 @@
 class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
   
   def up
-    verbose = true
+    verbose = false
     add_column :string_collectible_attributes, :label, :string
     Collectible.all.each do |collectible|
       if verbose
@@ -46,7 +46,7 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
     end
   end
   def down
-    verbose = true
+    verbose = false
     Collectible.all.each do |collectible|
       if verbose
         puts 'Collectible: ' + collectible.name
