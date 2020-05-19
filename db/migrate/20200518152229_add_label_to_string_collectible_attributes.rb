@@ -22,7 +22,7 @@ class AddLabelToStringCollectibleAttributes < ActiveRecord::Migration[6.0]
             end
           end
         end
-        if Object.const_defined('VillagerPersonality')
+        if Object.const_defined?('VillagerPersonality')
           if current_class == VillagerPersonality
             if verbose
               puts 'replacing ' + current_class.to_s + ':  ' + collectible_attribute.collectible_attribute_value.personality_types.first.name
