@@ -116,7 +116,7 @@ function setSortLink() {
 		order = 'desc';
 
 	var filter = checkFilters();
-	var newPath = '/island_collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/filter/' + filter + "/" + island_collection_id;
+	var newPath = '/collections/' + island_collection_id + '/sort_by/' + sort_by + '/order/' + order + '/filter/' + filter + "/" + island_collection_id;
 	
 	$('#sort_link').prop('href', newPath);
 }

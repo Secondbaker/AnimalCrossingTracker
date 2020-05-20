@@ -83,7 +83,7 @@ class IslandCollectionsController < ApplicationController
         @collectibles = @collectibles.sort_by{ |collectible| collectible.complete ? 0 : 1 }
       else
         @collectibles = @collectibles.sort_by{|collectible| 
-          collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
+          collectible.collectible_attributes.find_by(label:  params[:sort_by])
          }
       end
       if params[:order] =='desc'
