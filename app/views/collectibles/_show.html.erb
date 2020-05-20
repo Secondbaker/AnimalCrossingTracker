@@ -31,7 +31,7 @@
 	<div class="collectible-data">
 		<% collectible_attribute_counter = 0 %>
 		<% collectible.collectible_attributes.each do |att|%>
-			<p class="modal-collectible-attribute-type" value='<%= collectible_attribute_counter %>'><%= att.collectible_attribute_value.label %></p>
+			<p class="modal-collectible-attribute-type" value='<%= collectible_attribute_counter %>'><%= att.label %></p>
 			<div class="modal-collectible-attribute-value" value='<%= collectible_attribute_counter %>'><%= render partial: 'collectible_attributes/show', locals: { collectible_attribute: att } %></div>
 			<% collectible_attribute_counter = collectible_attribute_counter + 1 %>
 		<% end %>
