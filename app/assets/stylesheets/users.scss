@@ -1,3 +1,82 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.speech-bubble {
+	background-image: asset-data-url('speech-bubble.svg');
+	background-size: 100% 100%;
+	background-position: center;
+	max-width: 600px;
+	margin: 0 auto;
+	padding: 40px 60px;
+	line-height: 1.5;
+	position: relative;
+}
+
+.speech-bubble .speaker {
+	background-image: asset-data-url('square-bg-orange');
+	background-size: 100% 100%;
+	background-position: center;
+	color: #FFF9E5;
+	font-size: 0.75rem;
+	position: absolute;
+	padding: 5px 20px;
+	top: -5px;
+	left: 20px;
+	transform: rotate(-8deg);
+}
+
+.speech-bubble span { color: #1CC2C4; }
+
+.application {
+	background-color: #FFFFFF;
+	margin: 100px 200px;
+	padding: 50px;
+	border-radius: 5px;
+	filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.application label { display: block; }
+
+.application .field { justify-self: center; }
+
+.application input[type=text] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	font-family: 'houschka-rounded';
+	font-size: 1rem;
+	color: #7B6C53;
+	background-color: #D7ECDD;
+	margin: 20px 0;
+	padding: 5px 30px 5px 20px;
+	border: none;
+	border-bottom: 3px solid #7B6C53;
+}
+
+.application .actions {
+	grid-column: 1 / 3;
+	justify-self: center;
+	margin-top: 30px;
+}
+
+.application input[type=submit] {
+	border: none;
+	background: none;
+	font-family: 'houschka-rounded', sans-serif;
+	color: #FFF9E5;
+	font-size: 1rem;
+	background-image: asset-data-url('square-bg-orange.svg');
+	padding: 5px 30px;
+}
+
+p#notice {
+	background-image: asset-data-url('square-bg-cream.svg');
+	background-size: 100% 100%;
+	background-position: center;
+	margin: 0 auto;
+	color: #7B6C53;
+	width: fit-content;
+}

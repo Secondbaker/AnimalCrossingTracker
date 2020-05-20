@@ -1,3 +1,30 @@
+<header>
+	<% if session[:userinfo] == nil %>
+		<%= button_to 'Login', 'auth/auth0', method: :post %>
+	<% end %>	
+	<% unless params[:controller] == 'welcome' %>
+		<nav>
+			<ul class="main-menu">
+				<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
+				<%= link_to(fish_path) do %><li class="menu">Fish</li><% end %>
+				<%= link_to(bugs_path) do %><li class="menu">Bugs</li><% end %>
+				<%= link_to(fossils_path) do %><li class="menu">Fossils</li><% end %>
+				<li class="login"><a>
+					<% if session[:userinfo] == nil %>
+						<%= button_to 'Login', 'auth/auth0', method: :post %>
+					<% else %>
+						<%= button_to 'Logout', '/logout', method: :get %>
+					<% end %>
+				</a></li>
+			</ul>
+		</nav>
+	<% end %>
+</header>
+
+<div class="speech-bubble">
+	<div class="speaker">Timmy</div>
+	<p>Hello! We're so excited to have you here! Let us be the first to congratulate you on your wise decision to sign up for this adventure. There is so much to look forward to! But first, let's look up your application. Can we have your <span>name</span> and <span>birthday</span>?</p>
+</div>
 
 <%= render 'form', user: @user %>
 
