@@ -29,6 +29,7 @@ class IslandCollectionsController < ApplicationController
       if params[:filter].include?('current_month') || months_to_check.size > 0
         @collectibles = @collectibles.select{ |collectible| 
           found = false
+
           if params[:filter].include?('current_month')
             found = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
           end
@@ -49,15 +50,16 @@ class IslandCollectionsController < ApplicationController
       if params[:filter].include?('current_time') || times_to_check.size > 0
         @collectibles = @collectibles.select{ |collectible| 
           found = false
+
           if [:filter].include?('current_time') 
             found = collectible.active_at_time(time: Time.current)
           end
-          
+
           puts 'Found?'
           times_to_check.each do |time|
             unless found
-              puts 'Time now: ' + Time.now.change(hour: time).to_s
-              if collectible.active_at_time(time: Time.now.change(hour: time))
+              puts 'Time now: ' + Time.now.change(hour: DateTime.strptime(time, '%H%P').hour).to_s
+              if collectible.active_at_time(time: Time.now.change(hour: DateTime.strptime(time, '%H%P').hour))
                 found = true
               end
             end
