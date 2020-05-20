@@ -57,7 +57,7 @@ def parseTitles!(titles:String, collectible_attribute_list:CollectibleAttributeL
         if verbose
             puts "-\t" + title.value
         end
-        collectible_attribute_list.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.find_by(value:value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'String Type'))
+        collectible_attribute_list.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.find_by(value:value))
     end
     
 end
@@ -69,9 +69,9 @@ def parseNumberList(numbers:String, verbose:boolean = false)
     creation = CollectibleAttributeList.create
     number_values.each do |value|
         if value =~ /[uU]nknown/
-            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:0), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Number Type'))
+            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:0))
         else
-            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:value), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Number Type'))
+            creation.collectible_attributes.create(collectible_attribute_value: NumberCollectibleAttribute.create(value:value))
         end
         if verbose
             puts "-\t" + creation.collectible_attributes.last.collectible_attribute_value.value.to_s
@@ -99,15 +99,15 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
     #begin setting attributes
 
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), label: 'Value')
 
     #time_of_day
     bug_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Active Hours'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_d, label: 'Active Hours')
 
     #time_of_year
     bug_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Seasonality'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_t_y, label: 'Seasonality')
 
     #bug_location
     
@@ -122,7 +122,7 @@ def createBugs!(bugs:IslandCollection, bug_name:String, thumbnail_url:String, be
         puts "-\t" + bug_location
     end
     bug_l.bug_spots<< BugSpot.find_by(name:bug_location)
-    creation.collectible_attributes.create(collectible_attribute_value: bug_l, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Location'))
+    creation.collectible_attributes.create(collectible_attribute_value: bug_l, label: 'Location')
     
 end
 
@@ -142,7 +142,7 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
     #begin setting attributes
     
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), label: 'Value')
    
     #shadow_size
     #we need to add new sizes to the list of possible sizes while we seed
@@ -157,15 +157,15 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
         puts "-\t" + shadow_size
     end
     fish_shadow.fish_sizes << FishSize.find_by(name:shadow_size)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Shadow'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_shadow, label: 'Shadow Size')
     
     #time_of_day
     fish_t_d = parseTimeOfDay(time_of_day:time_of_day, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Active Hours'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_d, label: 'Active Hours')
     
     #time_of_year
     fish_t_y = parseTimeOfYear(time_of_year:time_of_year, verbose:verbose)
-    creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Seasonality'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_t_y, label: 'Seasonality')
     
     #fishing_location
 
@@ -198,7 +198,7 @@ def createFish!(fish:IslandCollection, fish_name:String, thumbnail_url:String, b
         end
         fish_spot.fishing_spots << FishingSpot.find_by(name:location)
     end
-    creation.collectible_attributes.create(collectible_attribute_value: fish_spot, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Location'))
+    creation.collectible_attributes.create(collectible_attribute_value: fish_spot, label: 'Location')
 end
 
 def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:String, bell_value:string, verbose:boolean = false)
@@ -218,11 +218,15 @@ def createFossil!(fossils:IslandCollection, fossil_name:String, thumbnail_url:St
     #begin adding collectible attributes
 
     #bell_value
-    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Value'))
+    creation.collectible_attributes.create(collectible_attribute_value: BellValue.create(value:bell_value), label: 'Value')
 end
 
 def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_url:String, villager_gender:String, villager_personality:String, villager_species:String, birthday:String, villager_catchphrase:String, verbose:boolean = false)
-    creation = villagers.collectibles.create(name:villager_name, thumbnail:thumbnail_url, complete:false)
+    
+    creation = villagers.collectibles.find_by(name:villager_name)
+    if creation == nil
+        creation = villagers.collectibles.create(name:villager_name, thumbnail:thumbnail_url, complete:false)
+    end
     if verbose
         puts "Created " + creation.name
     end
@@ -237,7 +241,7 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     elsif villager_gender =~ /[fF]+/
         villager_gender_int = 2
     end
-    creation.collectible_attributes.create(collectible_attribute_value: VillagerGender.create(value: villager_gender_int), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Gender'))
+    creation.collectible_attributes.create(collectible_attribute_value: VillagerGender.create(value: villager_gender_int), label: 'Gender')
     
 
     #villager_personality
@@ -245,14 +249,14 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     if verbose
         puts "-\t" + villager_personality_type.value
     end
-    creation.collectible_attributes.create(collectible_attribute_value: villager_personality_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Personality'))
+    creation.collectible_attributes.create(collectible_attribute_value: villager_personality_type, label: 'Personality')
     
     #villager_species
     villager_species_type = StringCollectibleAttribute.create(value: villager_species, label: 'Species')
     if verbose
         puts "\t" + villager_species_type.value
     end
-    creation.collectible_attributes.create(collectible_attribute_value: villager_species_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Species'))
+    creation.collectible_attributes.create(collectible_attribute_value: villager_species_type, label: 'Species')
 
     #villager_birthday
     #it looks like this is the unknown birthday
@@ -265,18 +269,22 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     if verbose
         puts "-\t" + date_of_birth.to_s
     end
-    creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Birthday'))
+    creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), label: 'Birthday')
 
     v_catchphrase = StringCollectibleAttribute.create(value:villager_catchphrase, label: 'Catchphrase')
     if verbose
         puts "-\t" +  v_catchphrase.value
     end
-    creation.collectible_attributes.create(collectible_attribute_value: v_catchphrase, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Catchphrase'))
+    creation.collectible_attributes.create(collectible_attribute_value: v_catchphrase, label: 'Catchphrase')
 
 end
 
 def createNookMiles!(nook_miles:nook_miles, name:String, description:String, milestones:String, passport_title_1:String, passport_title_2:String, miles:String, verbose:boolean = false)
-    creation = nook_miles.collectibles.create(name:name, thumbnail:"http://google.jpg", complete:false)
+    
+    creation = nook_miles.collectibles.find_by(name:name)
+    if creation == nil
+        creation = nook_miles.collectibles.create(name:name, thumbnail:"http://google.jpg", complete:false)
+    end
     if verbose
         puts "Creating " + name
     end
@@ -284,7 +292,7 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     #begin adding collectible_attributes
 
     #description
-    creation.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.create(value:description, label: 'Description'), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Description'))
+    creation.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.create(value:description, label: 'Description'), label: 'Description')
     if verbose
         short_description = description
         unless (description.length <= 20)
@@ -300,20 +308,20 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     creation_milestones = parseNumberList(numbers: milestones, verbose:verbose)
     creation_milestones.label = 'Milestones'
     creation_milestones.save
-    creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
+    creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, label: 'Milestones')
     
     if verbose
         puts "-Passport Title 1"
     end
     #passport_title_1
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 1'), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 1'), label: 'Passport Title 1')
     parseTitles!(titles: passport_title_1, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     if verbose
         puts "-Passport Title 2"
     end
     #passport_title_2
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 2'), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 2'), label: 'Passport Title 2')
     parseTitles!(titles: passport_title_2, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     #miles
@@ -323,7 +331,7 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     creation_miles = parseNumberList(numbers: miles, verbose:verbose)
     creation_miles.label = 'Miles'
     creation_miles.save
-    creation.collectible_attributes.create(collectible_attribute_value:creation_miles, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Miles'))
+    creation.collectible_attributes.create(collectible_attribute_value:creation_miles, label: 'Miles')
 end
 
 def getFish(csv:CSV::Table, verbose:boolean = false)
@@ -393,7 +401,7 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
 end
 start_time = Time.now
 verbose = true
-allowed_env = []
+allowed_env = [ ]
 if allowed_env.include?(Rails.env)
     if verbose
         puts "Destroying MyCollectedCollectible"
@@ -479,35 +487,6 @@ if verbose
     puts "Destroying CollectibleAttributeType"
 end
 CollectibleAttributeType.destroy_all
-
-if verbose
-    puts "Creating CollectibleAttributeTypes"
-end
-rarity_type = CollectibleAttributeType.create(name: 'Rarity')
-bell_value_type = CollectibleAttributeType.create(name: 'Bell Value')
-time_of_day_type = CollectibleAttributeType.create(name: 'Time of Day')
-time_of_year_type = CollectibleAttributeType.create(name: 'Time of Year')
-fishing_location_type = CollectibleAttributeType.create(name: 'Fishing Location')
-bug_location_type = CollectibleAttributeType.create(name: 'Bug Location')
-shadow_size_type = CollectibleAttributeType.create(name: 'Shadow Size')
-mood_type = CollectibleAttributeType.create(name: 'Mood')
-villager_gender = CollectibleAttributeType.create(name: 'Gender')
-villager_personality = CollectibleAttributeType.create(name: 'Personality')
-villager_species = CollectibleAttributeType.create(name: 'Species')
-birthday_type = CollectibleAttributeType.create(name: 'Birthday')
-catchphrase_type = CollectibleAttributeType.create(name: 'Catchphrase')
-description_type = CollectibleAttributeType.create(name: 'Description')
-milestone_type = CollectibleAttributeType.create(name: 'Milestones')
-title_1_type = CollectibleAttributeType.create(name: 'Passport Title 1')
-title_2_type = CollectibleAttributeType.create(name: 'Passport Title 2')
-miles_type = CollectibleAttributeType.create(name: 'Miles')
-string_type = CollectibleAttributeType.create(name: 'String Type')
-number_type = CollectibleAttributeType.create(name: 'Number Type')
-active_hours_type = CollectibleAttributeType.create(name: 'Active Hours')
-seasonality_type = CollectibleAttributeType.create(name: 'Seasonality')
-location_type = CollectibleAttributeType.create(name: 'Location')
-shadow_type = CollectibleAttributeType.create(name: 'Shadow')
-value_type = CollectibleAttributeType.create(name: 'Value')
 
 if verbose
     puts "Destroying Month"
