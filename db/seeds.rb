@@ -241,31 +241,16 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     
 
     #villager_personality
-    if !PersonalityType.find_by(name:villager_personality)
-        if verbose
-            puts "New PersonalityType:\t" + villager_personality
-        end
-        PersonalityType.create(name:villager_personality)
-    end
-    villager_personality_type = VillagerPersonality.create
-    villager_personality_type.personality_types << PersonalityType.find_by(name: villager_personality)
+    villager_personality_type = StringCollectibleAttribute.create(value: villager_personality, label:'Personality')
     if verbose
-        puts "-\t" + villager_personality_type.personality_types.first.name
+        puts "-\t" + villager_personality_type.value
     end
     creation.collectible_attributes.create(collectible_attribute_value: villager_personality_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Personality'))
     
     #villager_species
-    if !Species.find_by(name:villager_species)
-        if verbose
-            puts "New Species:\t" + villager_species
-        end
-        Species.create(name:villager_species)
-    end
-
-    villager_species_type = VillagerSpecies.create
-    villager_species_type.species << Species.find_by(name: villager_species)
+    villager_species_type = StringCollectibleAttribute.create(value: villager_species, label: 'Species')
     if verbose
-        puts "\t" + villager_species_type.species.first.name
+        puts "\t" + villager_species_type.value
     end
     creation.collectible_attributes.create(collectible_attribute_value: villager_species_type, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Species'))
 
@@ -282,7 +267,7 @@ def createVillager!(villagers:IslandCollection, villager_name:String, thumbnail_
     end
     creation.collectible_attributes.create(collectible_attribute_value: Birthday.create(value: date_of_birth), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Birthday'))
 
-    v_catchphrase = StringCollectibleAttribute.create(value:villager_catchphrase)
+    v_catchphrase = StringCollectibleAttribute.create(value:villager_catchphrase, label: 'Catchphrase')
     if verbose
         puts "-\t" +  v_catchphrase.value
     end
@@ -299,7 +284,7 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     #begin adding collectible_attributes
 
     #description
-    creation.collectible_attributes.create(collectible_attribute_value: Description.create(information:description), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Description'))
+    creation.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.create(value:description, label: 'Description'), collectible_attribute_type: CollectibleAttributeType.find_by(name:'Description'))
     if verbose
         short_description = description
         unless (description.length <= 20)
@@ -313,20 +298,22 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
         puts "-Milestones"
     end
     creation_milestones = parseNumberList(numbers: milestones, verbose:verbose)
+    creation_milestones.label = 'Milestones'
+    creation_milestones.save
     creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Milestones'))
     
     if verbose
         puts "-Passport Title 1"
     end
     #passport_title_1
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 1'), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 1'))
     parseTitles!(titles: passport_title_1, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     if verbose
         puts "-Passport Title 2"
     end
     #passport_title_2
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 2'), collectible_attribute_type: CollectibleAttributeType.find_by(name: 'Passport Title 2'))
     parseTitles!(titles: passport_title_2, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     #miles
@@ -334,6 +321,8 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
         puts "-Miles"
     end
     creation_miles = parseNumberList(numbers: miles, verbose:verbose)
+    creation_miles.label = 'Miles'
+    creation_miles.save
     creation.collectible_attributes.create(collectible_attribute_value:creation_miles, collectible_attribute_type: CollectibleAttributeType.find_by(name:'Miles'))
 end
 
@@ -402,11 +391,10 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
         createNookMiles!(nook_miles:nook_miles, name:nook_miles_data["Name"], description:nook_miles_data["Description"], milestones:nook_miles_data["Milestones"], passport_title_1:nook_miles_data["Passport Title 1"], passport_title_2:nook_miles_data["Passport Title 2"], miles:nook_miles_data["Miles"], verbose:verbose)
     end
 end
-
-puts ENV['RAILS_ENV'].to_s
+start_time = Time.now
 verbose = true
-allowed_env = 'development'
-if Rails.env == allowed_env
+allowed_env = []
+if allowed_env.include?(Rails.env)
     if verbose
         puts "Destroying MyCollectedCollectible"
     end
@@ -468,7 +456,7 @@ if verbose
 end
 BugLocation.destroy_all
 
-if Rails.env== allowed_env
+if allowed_env.include?(Rails.env)
     if verbose
         puts "Destroying Collectible"
     end
@@ -479,14 +467,14 @@ if verbose
 end
 CollectibleAttributeList.destroy_all
 
-if Rails.env == allowed_env
+if allowed_env.include?(Rails.env)
     if verbose
         puts "Destroying IslandCollection"
     end
     IslandCollection.destroy_all
 end
 
-if Rails.env == allowed_env
+if allowed_env.include?(Rails.env)
 if verbose
     puts "Destroying CollectibleAttributeType"
 end
@@ -609,3 +597,5 @@ getVillagers(csv: csv_text, verbose:verbose)
 csv_text = CSV.read(Rails.root.join('lib', 'seeds', 'Animal Crossing_ New Horizons Tracker - Nook Miles.csv'), headers: true)
 
 getNookMiles(csv: csv_text, verbose:verbose)
+
+puts 'Finished in ' + (Time.now - start_time).to_s + 's'
