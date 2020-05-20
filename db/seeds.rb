@@ -292,7 +292,7 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
     #begin adding collectible_attributes
 
     #description
-    creation.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.create(value:description, label: 'Description'), label: 'Description')
+    creation.collectible_attributes.create(collectible_attribute_value: StringCollectibleAttribute.create(value:description), label: 'Description')
     if verbose
         short_description = description
         unless (description.length <= 20)
@@ -306,22 +306,20 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
         puts "-Milestones"
     end
     creation_milestones = parseNumberList(numbers: milestones, verbose:verbose)
-    creation_milestones.label = 'Milestones'
-    creation_milestones.save
     creation.collectible_attributes.create(collectible_attribute_value:creation_milestones, label: 'Milestones')
     
     if verbose
         puts "-Passport Title 1"
     end
     #passport_title_1
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 1'), label: 'Passport Title 1')
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, label: 'Passport Title 1')
     parseTitles!(titles: passport_title_1, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     if verbose
         puts "-Passport Title 2"
     end
     #passport_title_2
-    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create(label: 'Passport Title 2'), label: 'Passport Title 2')
+    creation_reward_titles = creation.collectible_attributes.create(collectible_attribute_value: CollectibleAttributeList.create, label: 'Passport Title 2')
     parseTitles!(titles: passport_title_2, collectible_attribute_list: creation_reward_titles.collectible_attribute_value, verbose:verbose)
 
     #miles
@@ -329,8 +327,6 @@ def createNookMiles!(nook_miles:nook_miles, name:String, description:String, mil
         puts "-Miles"
     end
     creation_miles = parseNumberList(numbers: miles, verbose:verbose)
-    creation_miles.label = 'Miles'
-    creation_miles.save
     creation.collectible_attributes.create(collectible_attribute_value:creation_miles, label: 'Miles')
 end
 
