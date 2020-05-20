@@ -1,1 +1,0 @@
-json.partial! "collectible_attribute_lists/collectible_attribute_list", collectible_attribute_list: @collectible_attribute_list
