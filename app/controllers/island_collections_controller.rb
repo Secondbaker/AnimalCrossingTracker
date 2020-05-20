@@ -51,14 +51,12 @@ class IslandCollectionsController < ApplicationController
         @collectibles = @collectibles.select{ |collectible| 
           found = false
 
-          if [:filter].include?('current_time') 
+          if params[:filter].include?('current_time') 
             found = collectible.active_at_time(time: Time.current)
           end
 
-          puts 'Found?'
           times_to_check.each do |time|
             unless found
-              puts 'Time now: ' + Time.now.change(hour: DateTime.strptime(time, '%H%P').hour).to_s
               if collectible.active_at_time(time: Time.now.change(hour: DateTime.strptime(time, '%H%P').hour))
                 found = true
               end
