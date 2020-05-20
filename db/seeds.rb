@@ -397,7 +397,7 @@ def getNookMiles(csv:CSV::Table, verbose:boolean = false)
 end
 start_time = Time.now
 verbose = true
-allowed_env = [ ]
+allowed_env = [  ]
 if allowed_env.include?(Rails.env)
     if verbose
         puts "Destroying MyCollectedCollectible"
@@ -479,62 +479,58 @@ if allowed_env.include?(Rails.env)
 end
 
 if allowed_env.include?(Rails.env)
-if verbose
-    puts "Destroying CollectibleAttributeType"
-end
-CollectibleAttributeType.destroy_all
 
-if verbose
-    puts "Destroying Month"
-end
-Month.destroy_all
-if verbose
-    puts "Creating Months"
-end
-january = Month.create(name: 'January', number: 1)
-february = Month.create(name: 'February', number: 2)
-march = Month.create(name: 'March', number: 3)
-april = Month.create(name: 'April', number: 4)
-may = Month.create(name: 'May', number: 5)
-june = Month.create(name: 'June', number: 6)
-july = Month.create(name: 'July', number: 7)
-august = Month.create(name: 'August', number: 8)
-september = Month.create(name: 'September', number: 9)
-october = Month.create(name: 'October', number: 10)
-november = Month.create(name: 'November', number: 11)
-december = Month.create(name: 'December', number: 12)
+    if verbose
+        puts "Destroying Month"
+    end
+    Month.destroy_all
+    if verbose
+        puts "Creating Months"
+    end
+    january = Month.create(name: 'January', number: 1)
+    february = Month.create(name: 'February', number: 2)
+    march = Month.create(name: 'March', number: 3)
+    april = Month.create(name: 'April', number: 4)
+    may = Month.create(name: 'May', number: 5)
+    june = Month.create(name: 'June', number: 6)
+    july = Month.create(name: 'July', number: 7)
+    august = Month.create(name: 'August', number: 8)
+    september = Month.create(name: 'September', number: 9)
+    october = Month.create(name: 'October', number: 10)
+    november = Month.create(name: 'November', number: 11)
+    december = Month.create(name: 'December', number: 12)
 
-if verbose
-    puts "Destroying Hour"
-end
-Hour.destroy_all
-if verbose
-    puts "Creating Hours"
-end
-Hour.create(name: '12a')
-Hour.create(name: '1a')
-Hour.create(name: '2a')
-Hour.create(name: '3a')
-Hour.create(name: '4a')
-Hour.create(name: '5a')
-Hour.create(name: '6a')
-Hour.create(name: '7a')
-Hour.create(name: '8a')
-Hour.create(name: '9a')
-Hour.create(name: '10a')
-Hour.create(name: '11a')
-Hour.create(name: '12p')
-Hour.create(name: '1p')
-Hour.create(name: '2p')
-Hour.create(name: '3p')
-Hour.create(name: '4p')
-Hour.create(name: '5p')
-Hour.create(name: '6p')
-Hour.create(name: '7p')
-Hour.create(name: '8p')
-Hour.create(name: '9p')
-Hour.create(name: '10p')
-Hour.create(name: '11p')
+    if verbose
+        puts "Destroying Hour"
+    end
+    Hour.destroy_all
+    if verbose
+        puts "Creating Hours"
+    end
+    Hour.create(name: '12a')
+    Hour.create(name: '1a')
+    Hour.create(name: '2a')
+    Hour.create(name: '3a')
+    Hour.create(name: '4a')
+    Hour.create(name: '5a')
+    Hour.create(name: '6a')
+    Hour.create(name: '7a')
+    Hour.create(name: '8a')
+    Hour.create(name: '9a')
+    Hour.create(name: '10a')
+    Hour.create(name: '11a')
+    Hour.create(name: '12p')
+    Hour.create(name: '1p')
+    Hour.create(name: '2p')
+    Hour.create(name: '3p')
+    Hour.create(name: '4p')
+    Hour.create(name: '5p')
+    Hour.create(name: '6p')
+    Hour.create(name: '7p')
+    Hour.create(name: '8p')
+    Hour.create(name: '9p')
+    Hour.create(name: '10p')
+    Hour.create(name: '11p')
 
 
     if verbose
