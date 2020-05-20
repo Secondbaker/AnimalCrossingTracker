@@ -7,22 +7,16 @@ class TimeOfDay < ApplicationRecord
 
   def active_at_time(time: Time)
     result = false
-    
+    puts 'Time:  ' + time.to_s
     self.hours.each do |my_hour|
       if my_hour.name.include? 'a'
         hour_num = my_hour.name.split('a')[0].to_i % 12
       else
         hour_num = my_hour.name.split('p')[0].to_i % 12 + 12
       end
-      puts time.hour
-      puts hour_num
       if hour_num == time.hour
-        puts 'It\'s true.'
         result = true
       end
-    end
-    if !result
-      puts 'Never found'
     end
     return result
   end
