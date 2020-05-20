@@ -29,8 +29,10 @@ class IslandCollectionsController < ApplicationController
       if params[:filter].include?('current_month') || months_to_check.size > 0
         @collectibles = @collectibles.select{ |collectible| 
           found = false
-          
-          found = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
+
+          if params[:filter].include?('current_month')
+            found = collectible.active_in(month: DateTime::MONTHNAMES[DateTime.current.month])
+          end
 
           months_to_check.each do |month_name|
             unless found
@@ -43,16 +45,21 @@ class IslandCollectionsController < ApplicationController
           found
         }
       end
+      
 
       if params[:filter].include?('current_time') || times_to_check.size > 0
         @collectibles = @collectibles.select{ |collectible| 
           found = false
-          
-          found = collectible.active_at_time(time: Time.current)
 
+          if [:filter].include?('current_time') 
+            found = collectible.active_at_time(time: Time.current)
+          end
+
+          puts 'Found?'
           times_to_check.each do |time|
             unless found
-              if collectible.active_at_time(time: Time.now.change(hour: time))
+              puts 'Time now: ' + Time.now.change(hour: DateTime.strptime(time, '%H%P').hour).to_s
+              if collectible.active_at_time(time: Time.now.change(hour: DateTime.strptime(time, '%H%P').hour))
                 found = true
               end
             end
@@ -83,7 +90,7 @@ class IslandCollectionsController < ApplicationController
         @collectibles = @collectibles.sort_by{ |collectible| collectible.complete ? 0 : 1 }
       else
         @collectibles = @collectibles.sort_by{|collectible| 
-          collectible.collectible_attributes.find_by(collectible_attribute_type: CollectibleAttributeType.find_by(name: params[:sort_by]))
+          collectible.collectible_attributes.find_by(label:  params[:sort_by])
          }
       end
       if params[:order] =='desc'
