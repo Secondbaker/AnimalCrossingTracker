@@ -118,6 +118,7 @@ div.sort input[type=checkbox]:checked + label {
 	position: relative;
 	padding-left: 1.95em;
 	cursor: pointer;
+	text-transform: capitalize;
 }
 
 div.sort input[type=checkbox]:not(:checked) + label:before,
