@@ -9,59 +9,10 @@
 
 <body>
 
-	<header>
-		<%= image_tag "logo.png" %>
-	</header>
-
-	<h1>Time since I started playing Animal Crossing: New Horizons and stopped working on this tracker:</h1>
-	<div id="countup">
-		<div id="countup-days"></div>
-		<p class="divider">:</p>
-		<div id="countup-hours"></div>
-		<p class="divider">:</p>
-		<div id="countup-minutes"></div>
-		<p class="divider">:</p>
-		<div id="countup-seconds"></div>
-	</div>
-
-	<footer>
-		<p id="copyright">&copy;2020 <a href="https://annabaker.design/" target="_blank">Anna Baker Design</a>.</p>
-	</footer>
-
-	<script>
-		var countUpDate = new Date("Mar 20, 2020 00:00:00").getTime();
-		
-		var x = setInterval(function() {
-		
-			var now = new Date().getTime();
-		
-			var distance = now - countUpDate;
-		
-			var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-			var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-			var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-			var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-			if(days < 10) { days = "0" + days; }
-			if(hours < 10) { hours = "0" + hours; }
-			if(minutes < 10) { minutes = "0" + minutes; }
-			if(seconds < 10) { seconds = "0" + seconds; }
-
-			document.getElementById("countup-days").innerHTML = "<span>" + days + 
-				"</span>" + "<p>Days</p>";
-			document.getElementById("countup-hours").innerHTML = "<span>" + hours + 
-				"</span>" + "<p>Hours</p>";
-			document.getElementById("countup-minutes").innerHTML = "<span>" + minutes + 
-				"</span>" + "<p>Minutes</p>";
-			document.getElementById("countup-seconds").innerHTML = "<span>" + seconds + 
-				"</span>" + "<p>Seconds</p>";
-		
-			if (distance < 0) {
-				clearInterval(x);
-				document.getElementById("countup").innerHTML = "EXPIRED";
-			}
-		}, 1000);
-	</script>
+<div class="speech-bubble">
+	<div class="speaker">Timmy</div>
+	<p>Hello islander! If this is your first time here, we'll need to <span>check you in</span>. If your an island veteran click the <span>Login</span> in the navigation.</p>
+</div>
 		
 </body>
 </html>

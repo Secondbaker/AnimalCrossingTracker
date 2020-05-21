@@ -16,26 +16,21 @@
 <body>
 <% unless current_page?(new_user_path)%>
 <header>
-	<% if session[:userinfo] == nil %>
-		<%= button_to 'Login', 'auth/auth0', method: :post %>
-	<% end %>	
-	<% unless params[:controller] == 'welcome' %>
-		<nav>
-			<ul class="main-menu">
-				<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
-				<%= link_to(fish_path) do %><li class="menu">Fish</li><% end %>
-				<%= link_to(bugs_path) do %><li class="menu">Bugs</li><% end %>
-				<%= link_to(fossils_path) do %><li class="menu">Fossils</li><% end %>
-				<li class="login"><a>
-					<% if session[:userinfo] == nil %>
-						<%= button_to 'Login', 'auth/auth0', method: :post %>
-					<% else %>
-						<%= button_to 'Logout', '/logout', method: :get %>
-					<% end %>
-				</a></li>
-			</ul>
-		</nav>
-	<% end %>
+	<nav>
+		<ul class="main-menu">
+			<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
+			<%= link_to(fish_path) do %><li class="menu">Fish</li><% end %>
+			<%= link_to(bugs_path) do %><li class="menu">Bugs</li><% end %>
+			<%= link_to(fossils_path) do %><li class="menu">Fossils</li><% end %>
+			<li class="login"><a>
+				<% if session[:userinfo] == nil %>
+					<%= button_to 'Login', 'auth/auth0', method: :post %>
+				<% else %>
+					<%= button_to 'Logout', '/logout', method: :get %>
+				<% end %>
+			</a></li>
+		</ul>
+	</nav>
 </header>
 <% end %>
 <%= yield %>
