@@ -66,8 +66,7 @@ div.modal>div input[type=checkbox]:before {
 
 div.modal>div input[type=checkbox]:checked:after {
 	visibility: visible;
-	content: asset-data-url('stamp.svg');
-	opacity: 70%;
+	content: asset-data-url('stamp-complete.svg');
 	position: absolute;
 	width: 100px;
 	top: 72px;
