@@ -27,12 +27,13 @@ section.island-collections {
 }
 
 section.heading {
-	margin: 50px 300px;
-	display: grid;
-	grid-template-columns: 2fr 3fr;
+	margin: 50px 200px;
 }
 
-div.title { align-self: center; }
+div.title {
+	text-align: center;
+	margin-bottom: 50px;
+}
 
 div.title h1 {
 	display: inline-block;
@@ -53,13 +54,14 @@ div.title p.collection-count {
 div.title p.collection-count span { color: #FFF9E5; }
 
 div.sort {
-	text-align: right;
+	text-align: center;
 	align-self: center;
 }
 
 div.sort div {
 	display: inline-block;
 	position: relative;
+	margin-bottom: 20px;
 }
 
 div.sort div:after {
@@ -74,6 +76,14 @@ div.sort div:after {
 	opacity: 0.5;
 }
 
+div.sort div.filter-checkbox:after,
+div.sort div.filter-multi-select:after { content: ''; }
+
+div.sort div.filter-muti-select,
+div.sort div.filter-checkbox {
+	margin: 0 50px;
+}
+
 div.sort select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -86,18 +96,22 @@ div.sort select {
 	padding: 5px 30px 5px 20px;
 	border: none;
 	border-bottom: 3px solid #7B6C53;
+	height: 1.75rem;
+	cursor: pointer;
+}
+
+div.sort .filter-multi-select select {
+	margin: 0;
+	padding: 5px 20px;
 }
 
 div.sort select:focus { outline: 0; }
 
-div.sort select option {
-	background-color: #FFFFFF;
-}
-
 div.sort a {
-	background-image: asset-data-url('square-bg-brown.svg');
+	background-image: asset-data-url('square-bg-orange.svg');
 	padding: 10px 30px;
 	color: #FFF9E5;
+	font-size: 0.75rem;
 }
 
 section.collection-items {

@@ -18,7 +18,7 @@
 		<div class="order">
 			<%= select_tag "order", options_for_select([['A-Z (0-9)', 'asc'], ['Z-A (9-0)', 'desc']]) %>
 		</div>
-		
+		<br />
 		<% @island_collection.collectibles.first.collectible_attributes.each do |collectible_attribute| %>
 			<% if collectible_attribute.is_filterable %>
 				<% collectible_attribute.collectible_attribute_value.filters.each do |filter|%>
@@ -31,11 +31,13 @@
 						<div class="filter-checkbox">
 							<%= label_tag filter[1] %>
 							<%= check_box_tag filter[0], filter[0]%>
+							<span class="checkmark"></span>
 						</div>
 					<% end %>
 				<% end %>
 			<% end %>
 		<% end %>
+		<br />
 		<%= link_to 'Sort', island_collection_sort_and_filter_path( sort_by: select_options.first, order: 'asc', filter: 'none' , island_collection_id: @island_collection.id), html_options = { id: 'sort_link' } %>
 	</div>
 </section>
