@@ -46,22 +46,32 @@ div.modal>div img {
 	width: 64px;
 }
 
-div.modal>div input[type="checkbox"],
-div.modal>div input[type="checkbox"]:checked {
+div.modal>div input[type=checkbox],
+div.modal>div input[type=checkbox]:checked {
 	visibility: hidden;
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-div.modal>div input[type="checkbox"]:checked:before {
+div.modal>div input[type=checkbox]:before {
 	visibility: visible;
 	content: asset-data-url('stamp.svg');
-	opacity: 50%;
+	opacity: 15%;
 	position: absolute;
-	width: 100px;
+	width: 90px;
 	top: 80px;
 	right: 80px;
+}
+
+div.modal>div input[type=checkbox]:checked:after {
+	visibility: visible;
+	content: asset-data-url('stamp.svg');
+	opacity: 70%;
+	position: absolute;
+	width: 100px;
+	top: 72px;
+	right: 73px;
 	transform: rotate(-15deg);
 }
 
