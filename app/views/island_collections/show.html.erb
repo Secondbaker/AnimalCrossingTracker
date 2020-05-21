@@ -30,7 +30,8 @@
 					<% else %>
 						<div class="filter-checkbox">
 							<%= check_box_tag filter[0], filter[0]%>
-							<%= label_tag filter[1] %>
+							<%= label_tag filter[1], filter[1],  for: filter[0] %>
+							<p><%= filter.inspect %></p>
 						</div>
 					<% end %>
 				<% end %>
