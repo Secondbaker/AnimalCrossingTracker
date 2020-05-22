@@ -162,3 +162,50 @@ footer, footer p, footer a { font-size: 0.6rem; }
 footer a, footer a:hover, footer a:focus { text-decoration: underline; }
 
 footer a:hover, footer a:focus { color: #EF8341; }
+
+/* RESPONSIVE BREAK POINTS
+2560	1440	960		720		375
+1920	1365	835		600		360
+1600	1280	800		500		320
+1535	1025	770		415	
+*/
+
+@media (max-width:2560px) {}
+
+@media (max-width:1920px) {}
+
+@media (max-width:1600px) {}
+
+@media (max-width:1535px) {}
+
+@media (max-width:1440px) {}
+
+@media (max-width:1365px) {}
+
+@media (max-width:1280px) {}
+
+@media (max-width:1025px) {}
+
+@media (max-width:960px) {
+	
+}
+
+@media (max-width:835px) {}
+
+@media (max-width:800px) {}
+
+@media (max-width:770px) {}
+
+@media (max-width:720px) {}
+
+@media (max-width:600px) {}
+
+@media (max-width:500px) {}
+
+@media (max-width:415px) {}
+
+@media (max-width:375px) {}
+
+@media (max-width:360px) {}
+
+@media (max-width:320px) {}
