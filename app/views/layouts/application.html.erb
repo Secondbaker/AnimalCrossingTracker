@@ -15,13 +15,14 @@
 
 <body>
 <% unless current_page?(new_user_path)%>
+
 <header>
 	<nav>
 		<ul class="main-menu">
 			<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
-			<%= link_to(fish_path) do %><li class="menu">Fish</li><% end %>
-			<%= link_to(bugs_path) do %><li class="menu">Bugs</li><% end %>
-			<%= link_to(fossils_path) do %><li class="menu">Fossils</li><% end %>
+			<li class="menu"><%= link_to(fish_path) do %>Fish<% end %></li>
+			<li class="menu"><%= link_to(bugs_path) do %>Bugs<% end %></li>
+			<li class="menu"><%= link_to(fossils_path) do %>Fossils<% end %></li>
 			<li class="login"><a>
 				<% if session[:userinfo] == nil %>
 					<%= button_to 'Login', 'auth/auth0', method: :post %>
@@ -29,6 +30,23 @@
 					<%= button_to 'Logout', '/logout', method: :get %>
 				<% end %>
 			</a></li>
+		</ul>
+
+		<ul class="mobile-menu">
+			<li class="logo"><%= link_to(island_collections_path) do %><%= image_tag "logo.png" %><% end %></li>
+			<li class="ham-menu-icon"></li>
+			<ul class="ham-menu">
+				<li class="menu"><%= link_to(fish_path) do %>Fish<% end %></li>
+				<li class="menu"><%= link_to(bugs_path) do %>Bugs<% end %></li>
+				<li class="menu"><%= link_to(fossils_path) do %>Fossils<% end %></li>
+				<li class="login"><a>
+					<% if session[:userinfo] == nil %>
+						<%= button_to 'Login', 'auth/auth0', method: :post %>
+					<% else %>
+						<%= button_to 'Logout', '/logout', method: :get %>
+					<% end %>
+				</a></li>
+			</ul>
 		</ul>
 	</nav>
 </header>
@@ -44,22 +62,11 @@
 
 <script>
 
-/*function navDropdown() {
-	document.getElementById("collections-submenu").classList.toggle("show");
-}
-	
-window.onclick = function(event) {
-	if (!event.target.matches(".dropdown")) {
-		var dropdowns = document.getElementsByClassName("submenu");
-		var i;
-		for (i = 0; i < dropdowns.length; i++) {
-			var openDropdown = dropdowns[i];
-			if (openDropdown.classList.contains('show')) {
-				openDropdown.classList.remove('show');
-			}
-		}
-	}
-}*/
+$('.ham-menu-icon, .ham-menu').click(function() {
+  $('.ham-menu').toggleClass('is-open');
+  $('.ham-menu-icon').toggleClass('is-open');
+});
+
 function checkFilters() {
 	var filterString = "none";
 
