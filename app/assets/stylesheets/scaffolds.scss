@@ -322,17 +322,46 @@ footer a:hover, footer a:focus { color: #EF8341; }
 
 @media (max-width:800px) {}
 
-@media (max-width:770px) {}
+@media (max-width:770px) {
+
+	footer { margin: 50px 100px; }
+
+}
 
 @media (max-width:720px) {}
 
 @media (max-width:600px) {}
 
-@media (max-width:500px) {}
+@media (max-width:500px) {
 
-@media (max-width:415px) {}
+	header nav ul.mobile-menu ul.ham-menu li {
+		display: block;
+		margin-bottom: 20px;
+	}
+	
+	header nav ul.mobile-menu ul.ham-menu li:first-child { margin-left: 0; }
 
-@media (max-width:375px) {}
+	header nav ul.mobile-menu ul.ham-menu li:last-child { margin-bottom: 0; }
+
+	footer { margin: 50px; }
+
+}
+
+@media (max-width:415px) {
+
+	header nav ul.mobile-menu li.logo { margin: 0; }
+
+}
+
+@media (max-width:375px) {
+
+	header nav ul.mobile-menu { padding: 0 30px; }
+
+	header nav ul.mobile-menu li.ham-menu-icon { right: 30px; }
+
+	header nav ul.mobile-menu ul.ham-menu { right: 0; }
+
+}
 
 @media (max-width:360px) {}
 
