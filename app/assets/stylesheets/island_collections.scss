@@ -64,6 +64,8 @@ div.sort div {
 	margin-bottom: 20px;
 }
 
+div.sort br.responsive-break { display: none; }
+
 div.sort div:after {
 	content: asset-data-url('arrow.svg');
 	display: inline-block;
@@ -204,3 +206,109 @@ section.collection-items div a {
 	padding: 10px 0 60px;
 	cursor: pointer;
 }
+
+/* RESPONSIVE BREAK POINTS
+2560	1440	960		720		375
+1920	1365	835		600		360
+1600	1280	800		500		320
+1535	1025	770		415	
+*/
+
+@media (max-width:2560px) {}
+
+@media (max-width:1920px) {}
+
+@media (max-width:1600px) {}
+
+@media (max-width:1535px) {
+
+	section.heading { margin: 50px 100px; }
+
+	section.collection-items { padding: 50px 100px 0; }
+
+}
+
+@media (max-width:1440px) {}
+
+@media (max-width:1365px) {}
+
+@media (max-width:1280px) {
+
+	section.island-collections { padding: 0 100px; }
+
+	section.collection-items { grid-template-columns: repeat(6, 1fr); }
+
+	div.sort br.responsive-break { display: inline; }
+
+}
+
+@media (max-width:1025px) {
+
+	section.collection-items { grid-template-columns: repeat(4, 1fr); }
+
+}
+
+@media (max-width:960px) {
+
+	section.island-collections { padding: 0 50px; }
+
+}
+
+@media (max-width:835px) {
+
+	section.heading { margin: 50px 50px; }
+
+	section.collection-items {
+		padding: 50px 50px 0;
+	}
+
+}
+
+@media (max-width:800px) {
+
+	section.island-collections { grid-template-columns: repeat(3, 1fr); }
+
+}
+
+@media (max-width:770px) {}
+
+@media (max-width:720px) {
+
+	section.island-collections { grid-template-columns: repeat(2, 1fr); }
+
+	section.collection-items { grid-template-columns: repeat(3, 1fr); }
+
+}
+
+@media (max-width:600px) {
+
+	div.sort div.filter-checkbox,
+	div.sort div.filter-multi-select {
+		display: block;
+		margin-bottom: 20px;
+	}
+
+	div.sort br.responsive-break { display: none; }
+}
+
+@media (max-width:500px) {
+
+	.island-collection-item { padding: 30px; }
+
+	section.collection-items { grid-template-columns: repeat(2, 1fr); }
+
+}
+
+@media (max-width:415px) {}
+
+@media (max-width:375px) {
+
+	section.island-collections { grid-template-columns: 1fr; }
+
+	section.collection-items { grid-template-columns: 1fr; }
+
+}
+
+@media (max-width:360px) {}
+
+@media (max-width:320px) {}

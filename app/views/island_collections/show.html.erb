@@ -27,6 +27,7 @@
 							<%= label_tag filter[0] %>
 							<%= select_tag filter[0], options_for_select(filter[1].invert), multiple: true, html_options: { multiple: true } %>
 						</div>
+						<br class="responsive-break">
 					<% else %>
 						<div class="filter-checkbox">
 							<%= check_box_tag filter[0], filter[0]%>
