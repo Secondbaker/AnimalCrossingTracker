@@ -127,7 +127,6 @@ ActiveRecord::Schema.define(version: 2020_05_20_143048) do
   create_table "island_collections_users", id: false, force: :cascade do |t|
     t.bigint "island_collection_id", null: false
     t.bigint "user_id", null: false
-    t.integer "test_int"
   end
 
   create_table "months", force: :cascade do |t|

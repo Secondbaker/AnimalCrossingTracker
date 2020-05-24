@@ -69,13 +69,13 @@ class IslandCollectionsController < ApplicationController
 
       if params[:filter] =~ /(?:^|\W)not_complete(?:$|\W)/ && params[:filter] !=~ /(?:^|\W)complete(?:$|\W)/
         @collectibles = @collectibles.select { |collectible|
-          !collectible.complete
+          !@user.my_collected_collectibles.find_by(collectible_id: collectible.id).completions['first'] == 'true'
         }
       end
 
       if params[:filter] =~ /(?:^|\W)complete(?:$|\W)/ && params[:filter] !=~ /(?:^|\W)not_complete(?:$|\W)/
         @collectibles = @collectibles.select { |collectible|
-          collectible.complete
+        @user.my_collected_collectibles.find_by(collectible_id: collectible.id).completions['first'] == 'true'
         }
       end
     end
@@ -85,7 +85,7 @@ class IslandCollectionsController < ApplicationController
       if params[:sort_by] == "Name"
         @collectibles = @collectibles.sort_by{ |collectible| collectible.name }
       elsif params[:sort_by] == "Collected"
-        @collectibles = @collectibles.sort_by{ |collectible| collectible.complete ? 0 : 1 }
+        @collectibles = @collectibles.sort_by{ |collectible| @user.my_collected_collectibles.find_by(collectible_id: collectible.id).completions['first'] == 'true' ? 0 : 1 }
       else
         @collectibles = @collectibles.sort_by{|collectible| 
           collectible.collectible_attributes.find_by(label:  params[:sort_by])
