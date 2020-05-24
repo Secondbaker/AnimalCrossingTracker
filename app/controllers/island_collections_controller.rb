@@ -21,11 +21,9 @@ class IslandCollectionsController < ApplicationController
 
     if params[:filter]
       
-      times_to_check = params[:filter].scan(/(?:^|\W)\d+[ap]m(?:$|\W)/)
+      times_to_check = params[:filter].scan(Regexp.union(TimeOfDay.filters[:active].values))
       months_to_check = params[:filter].scan(Regexp.union(DateTime::MONTHNAMES[1..12].map(&:downcase)))
 
-      puts months_to_check
-      puts times_to_check
       if params[:filter].include?('current_month') || months_to_check.size > 0
         @collectibles = @collectibles.select{ |collectible| 
           found = false
