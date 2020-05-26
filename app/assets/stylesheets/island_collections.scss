@@ -297,9 +297,15 @@ section.collection-items div a {
 
 	section.collection-items { grid-template-columns: repeat(2, 1fr); }
 
+	section.heading { margin: 20px 20px; }
+
 }
 
-@media (max-width:415px) {}
+@media (max-width:415px) {
+
+	p.collection-count { margin-top: 20px; }
+
+}
 
 @media (max-width:375px) {
 

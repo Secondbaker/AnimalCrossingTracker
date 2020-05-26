@@ -10,6 +10,7 @@ div.modal {
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(37,29,15,0.7);
+	overflow: scroll;
 }
 
 div.modal>div {
@@ -111,7 +112,7 @@ div.time-of-year td.highlight {
 
 div.time-of-day div.active-hours {
 	display: grid;
-	grid-template-columns: repeat(24,1fr);
+	grid-template-columns: repeat(24, 4.17%);
 	border-bottom: 2px solid #7B6C53;
 	padding-top: 30px;
 }
@@ -197,3 +198,109 @@ div.time-of-day div.active-hours div.hour-block div.highlight {
 	width: 100%;
 	background-color: #F1E26F;
 }
+
+/* RESPONSIVE BREAK POINTS
+2560	1440	960		720		375
+1920	1365	835		600		360
+1600	1280	800		500		320
+1535	1025	770		415	
+*/
+
+@media (max-width:2560px) {}
+
+@media (max-width:1920px) {}
+
+@media (max-width:1600px) {}
+
+@media (max-width:1535px) {}
+
+@media (max-width:1440px) {}
+
+@media (max-width:1365px) {}
+
+@media (max-width:1280px) {}
+
+@media (max-width:1025px) {
+
+	div.modal > div { padding: 120px 150px; }
+
+}
+
+@media (max-width:960px) {}
+
+@media (max-width:835px) {
+
+	div.collectible-data { grid-template-columns: 1fr 2fr; }
+
+}
+
+@media (max-width:800px) {}
+
+@media (max-width:770px) {
+
+	div.modal > div { padding: 120px 100px; }
+
+	div.collectible-data {
+		grid-template-columns: 1fr;
+		row-gap: 0;
+	}
+
+	div.collectible-data>p { margin-bottom: 5px; }
+
+	div.collectible-data>div { margin-bottom: 50px; }
+
+}
+
+@media (max-width:720px) {
+
+	div.modal > div input[type=checkbox]:before { top: 250px; }
+	div.modal > div input[type=checkbox]:checked:after { top: 242px; }
+
+}
+
+@media (max-width:600px) {}
+
+@media (max-width:500px) {
+
+	div.modal {
+		width: 100%;
+		height: 100%;
+	}
+
+	div.modal > div {
+		padding: 100px 50px 0;
+		background: none;
+		background-color: #FFF9E5;
+	}
+
+}
+
+@media (max-width:415px) {
+
+	div.modal > div { padding: 50px 20px 0; }
+
+	div.time-of-year td { font-size: 0.75rem; }
+
+	div.modal > div input[type=checkbox]:before {
+		top: 170px;
+		right: 40px;
+		width: 70px;
+	}
+
+	div.modal > div input[type=checkbox]:checked:after {
+		width: 80px;
+		top: 162px;
+		right: 33px;
+	}
+
+}
+
+@media (max-width:375px) {}
+
+@media (max-width:360px) {
+
+	div.time-of-year td { font-size: 0.6rem; }
+
+}
+
+@media (max-width:320px) {}
